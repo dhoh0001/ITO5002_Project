@@ -34,10 +34,6 @@ app.use('/uimetadata',uiMetadataRoutes);
 var farmRoutes = require('./routes/farmRoutes');
 app.use('/farm',farmRoutes);
 
-//setting routes;
-var settingRoutes = require('./routes/settingRoutes');
-app.use('/setting',settingRoutes);
-
 //user routes;
 var userRoutes = require('./routes/userRoutes');
 app.use('/user',userRoutes);
