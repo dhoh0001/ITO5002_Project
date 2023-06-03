@@ -37,7 +37,6 @@ function createDatabase() {
 
 function createTables(newdb) {
     console.log("creating tables");
-    return newdb;
     newdb.exec(`
         create table user (
             user_id integer primary key autoincrement,
