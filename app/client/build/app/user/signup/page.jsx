@@ -7,7 +7,6 @@ const Signup = () => {
     const app = initFirebase();
     
     const formSubmit = (event) => {
-        console.log("1")
         event.preventDefault();
         var data = new FormData(event.target);
         const auth = getAuth();
