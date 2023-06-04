@@ -8,8 +8,9 @@ module.exports = ( function() {
     farmRoutes.get('/', function(req,res){
 
         if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(req.query.id)) {
+            if(!Number.isInteger(parseInt(req.query.id))) {
                 res.status(500).send("The ID must be an integer");
+                return;
             }
             let sql = `select * from farm where farm_id = ?`;
             farm_db.db.get(sql, [req.query.id], (err, row) => {
@@ -45,14 +46,17 @@ module.exports = ( function() {
     });
     
     farmRoutes.put('/', function(req,res){
-        if(!Number.isInteger(req.query.farmId)) {
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
         }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
-        if(!Number.isInteger(req.query.userId)) {
+        if(!Number.isInteger(parseInt(req.query.userId))) {
             res.status(500).send("The user ID must be an integer");
+            return;
         }
 
         let sql = `insert into farm(farm_id, name, user_id) values (?, ?, ?)`;
@@ -68,14 +72,17 @@ module.exports = ( function() {
     });
 
     farmRoutes.post('/', function(req,res){
-        if(!Number.isInteger(req.query.farmId)) {
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
         }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
-        if(!Number.isInteger(req.query.userId)) {
+        if(!Number.isInteger(parseInt(req.query.userId))) {
             res.status(500).send("The user ID must be an integer");
+            return;
         }
 
         let sql = `update farm set farm_id=?, name=?, user_id=? where farm_id=?`;
@@ -91,8 +98,10 @@ module.exports = ( function() {
     });
 
     farmRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(req.query.farmId)) {
+        console.log(req.query.farmId);
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
         }
         let sql = `delete from farm where farm_id = ?`;
 

@@ -7,8 +7,9 @@ module.exports = ( function() {
     
     alertRoutes.get('/', function(req,res){
         if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(req.query.id)) {
+            if(!Number.isInteger(parseInt(req.query.id))) {
                 res.status(500).send("The ID must be an integer");
+                return;
             }
             let sql = `select * from alert where alert_id = ?`;
             alert_db.db.get(sql, [req.query.id], (err, row) => {
@@ -48,12 +49,15 @@ module.exports = ( function() {
     alertRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
         if(isNaN(Number.parseFloat(req.query.alertLevel))) {
             res.status(500).send("The alert level needs to be a float");
+            return;
         }
-        if(Number.isInteger(req.query.timeframe)) {
+        if(!Number.isInteger(parseInt(req.query.timeframe))) {
             res.status(500).send("The timeframe must be a number");
+            return;
         }
         
         let sql = `insert into alert(name, alert_level, timeframe) values (?, ?, ?)`;
@@ -70,15 +74,19 @@ module.exports = ( function() {
     alertRoutes.post('/', function(req,res){
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
         if(isNaN(Number.parseFloat(req.query.alertLevel))) {
             res.status(500).send("The alert level needs to be a float");
+            return;
         }
-        if(Number.isInteger(req.query.timeframe)) {
+        if(!Number.isInteger(parseInt(req.query.timeframe))) {
             res.status(500).send("The timeframe must be a number");
+            return;
         }
-        if(!Number.isInteger(req.query.id)) {
+        if(!Number.isInteger(parseInt(req.query.id))) {
             res.status(500).send("The ID must be an integer");
+            return;
         }
 
         let sql = `update alert set name=?, alert_level=?, timeframe=? where alert_id = ?`;
@@ -93,8 +101,9 @@ module.exports = ( function() {
     });
 
     alertRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(req.query.id)) {
+        if(!Number.isInteger(parseInt(req.query.id))) {
             res.status(500).send("The ID must be an integer");
+            return;
         }
 
         let sql = `delete from alert where alert_id = ?`;

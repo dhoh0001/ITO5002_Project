@@ -7,8 +7,9 @@ module.exports = ( function() {
     
     uiMetadataRoutes.get('/', function(req,res){
         if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(req.query.metadataId)) {
+            if(!Number.isInteger(parseInt(req.query.metadataId))) {
                 res.status(500).send("The ID must be an integer");
+                return;
             }
             let sql = `select * from userInterfaceData where farm_id = ?`;
             metadata_db.db.get(sql, [req.query.metadataId], (err, row) => {
@@ -42,8 +43,9 @@ module.exports = ( function() {
     });
     
     uiMetadataRoutes.put('/', function(req,res){
-        if(!Number.isInteger(req.query.farmId)) {
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
         }
         let sql = `insert into userInterfaceData(farm_id, metadata) values (?, ?)`;
 
@@ -57,8 +59,9 @@ module.exports = ( function() {
     });
 
     uiMetadataRoutes.post('/', function(req,res){
-        if(!Number.isInteger(req.query.farmId)) {
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
         }
         let sql = `update userInterfaceData set farm_id=?, metadata=? where farm_id = ?`;
 
@@ -73,8 +76,9 @@ module.exports = ( function() {
     });
 
     uiMetadataRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(req.query.farmId)) {
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
         }
         let sql = `delete from userInterfaceData where farm_id = ?`;
 

@@ -7,8 +7,9 @@ module.exports = ( function() {
     
     userRoutes.get('/', function(req,res){
         if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(req.query.userId)) {
+            if(!Number.isInteger(parseInt(req.query.userId))) {
                 res.status(500).send("The user ID must be an integer");
+                return;
             }
             let sql = `select * from user where user_id = ?`;
             user_db.db.get(sql, [req.query.userId], (err, row) => {
@@ -49,12 +50,15 @@ module.exports = ( function() {
     userRoutes.put('/', function(req,res){
             if(req.query.firstName.length > 100) {
                 res.status(500).send("The length of the firstname is too long");
+                return;
             }
             if(req.query.lastName.length > 100) {
                 res.status(500).send("The length of the lastname is too long");
+                return;
             }
             if(req.query.email.length > 100) {
                 res.status(500).send("The length of the email is too long");
+                return;
             }
         let sql = `insert into user(user_id, first_name, last_name, email) values (?, ?, ?, ?)`;
 
@@ -69,17 +73,21 @@ module.exports = ( function() {
     });
 
     userRoutes.post('/', function(req,res){
-        if(!Number.isInteger(req.query.userId)) {
+        if(!Number.isInteger(parseInt(req.query.userId))) {
             res.status(500).send("The user ID must be an integer");
+            return;
         }
         if(req.query.firstName.length > 100) {
             res.status(500).send("The length of the firstname is too long");
+            return;
         }
         if(req.query.lastName.length > 100) {
             res.status(500).send("The length of the lastname is too long");
+            return;
         }
         if(req.query.email.length > 100) {
             res.status(500).send("The length of the email is too long");
+            return;
         }
         let sql = `update user set first_name=?, last_name=?, email=? where user_id= ?`;
 
@@ -94,8 +102,9 @@ module.exports = ( function() {
     });
 
     userRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(req.query.userId)) {
+        if(!Number.isInteger(parseInt(req.query.userId))) {
             res.status(500).send("The user ID must be an integer");
+            return;
         }
         let sql = `delete from user where user_id = ?`;
 

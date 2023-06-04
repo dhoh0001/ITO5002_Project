@@ -7,8 +7,9 @@ module.exports = ( function() {
     
     sensorRoutes.get('/', function(req,res){
         if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(req.query.id)) {
+            if(!Number.isInteger(parseInt(req.query.id))) {
                 res.status(500).send("The ID must be an integer");
+                return;
             }
             let sql = `select * from sensor where sensor_id = ?`;
             sensor_db.db.get(sql, [req.query.id], (err, row) => {
@@ -47,12 +48,15 @@ module.exports = ( function() {
     sensorRoutes.put('/', function(req,res){
         if(req.query.hardwareId.length > 100) {
             res.status(500).send("The hardware ID is too long");
+            return;
         }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
         if(req.query.sensorAction.length > 100) {
             res.status(500).send("The sensor action is too long");
+            return;
         }
         let sql = `insert into sensor(name, hardware_id, sensor_action) values (?, ?, ?)`;
 
@@ -66,17 +70,21 @@ module.exports = ( function() {
     });
 
     sensorRoutes.post('/', function(req,res){
-        if(!Number.isInteger(req.query.sensorId)) {
+        if(!Number.isInteger(parseInt(req.query.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
+            return;
         }
         if(req.query.hardwareId.length > 100) {
             res.status(500).send("The hardware ID is too long");
+            return;
         }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
         if(req.query.sensorAction.length > 100) {
             res.status(500).send("The sensor action is too long");
+            return;
         }
         let sql = `update sensor set name=?, hardware_id=?, sensor_action=? where sensor_id = ?`;
 
@@ -90,8 +98,9 @@ module.exports = ( function() {
     });
 
     sensorRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(req.query.sensorId)) {
+        if(!Number.isInteger(parseInt(req.query.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
+            return;
         }
         let sql = `delete from sensor where sensor_id = ?`;
 

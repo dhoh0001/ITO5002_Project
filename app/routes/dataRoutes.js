@@ -6,14 +6,17 @@ module.exports = ( function() {
     var data_db = new database();
     
     dataRoutes.get('/', function(req,res){
-        if(!Number.isInteger(req.query.logId)) {
+        if(!Number.isInteger(parseInt(req.query.logId))) {
             res.status(500).send("The log ID must be an integer");
+            return;
         }
-        if(!Number.isInteger(req.query.dateStart)) {
+        if(!Number.isInteger(parseInt(req.query.dateStart))) {
             res.status(500).send("The start date must be an integer");
+            return;
         }
-        if(!Number.isInteger(req.query.dateEnd)) {
+        if(!Number.isInteger(parseInt(req.query.dateEnd))) {
             res.status(500).send("The end date must be an integer");
+            return;
         }
 
         let sql = `select * from logdata where log_id = ? and timestamp >= ? and timestamp <= ?`;
@@ -37,14 +40,17 @@ module.exports = ( function() {
     });
 
     dataRoutes.put('/', function(req,res){
-        if(!Number.isInteger(req.query.logId)) {
+        if(!Number.isInteger(parseInt(req.query.logId))) {
             res.status(500).send("The log ID must be an integer");
+            return;
         }
-        if(!Number.isInteger(req.query.timestamp)) {
+        if(!Number.isInteger(parseInt(req.query.timestamp))) {
             res.status(500).send("The timestamp must be an integer");
+            return;
         }
         if(isNaN(Number.parseFloat(req.query.value))) {
             res.status(500).send("The value needs to be a float");
+            return;
         }
 
         let sql = `insert into logdata(log_id, timestamp, value) values (?, ?, ?)`;

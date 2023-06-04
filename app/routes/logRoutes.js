@@ -7,8 +7,9 @@ module.exports = ( function() {
 
     logRoutes.get('/', function(req,res){
         if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(req.query.id)) {
+            if(!Number.isInteger(parseInt(req.query.id))) {
                 res.status(500).send("The log ID must be an integer");
+                return;
             }
             let sql = `select * from log where log_id = ?`;
             log_db.db.get(sql, [req.query.logId], (err, row) => {
@@ -44,14 +45,17 @@ module.exports = ( function() {
     });
     
     logRoutes.put('/', function(req,res){
-        if(!Number.isInteger(req.query.logId)) {
+        if(!Number.isInteger(parseInt(req.query.logId))) {
             res.status(500).send("The log ID must be an integer");
+            return;
         }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
-        if(!Number.isInteger(req.query.sensorId)) {
+        if(!Number.isInteger(parseInt(req.query.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
+            return;
         }
 
         let sql = `insert into log(log_id, name, sensor_id) values (?, ?, ?)`;
@@ -67,14 +71,17 @@ module.exports = ( function() {
     });
 
     logRoutes.post('/', function(req,res){
-        if(!Number.isInteger(req.query.logId)) {
+        if(!Number.isInteger(parseInt(req.query.logId))) {
             res.status(500).send("The log ID must be an integer");
+            return;
         }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
         }
-        if(!Number.isInteger(req.query.sensorId)) {
+        if(!Number.isInteger(parseInt(req.query.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
+            return;
         }
 
         let sql = `update log set log_id=?, name=?, sensor_id=? where log_id = ?`;
@@ -89,8 +96,9 @@ module.exports = ( function() {
     });
 
     logRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(req.query.logId)) {
+        if(!Number.isInteger(parseInt(req.query.logId))) {
             res.status(500).send("The log ID must be an integer");
+            return;
         }
 
         let sql = `delete from log where log_id = ?`;
