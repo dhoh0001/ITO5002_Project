@@ -3,22 +3,25 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { initFirebase } from '@firebase/firebaseApp';
+
 
 const Nav = () => {
+    const app = initFirebase();
     const isUserLoggedIn = true;
     const signOut = false;
     
     return (
         <nav className='flex-between w-full pb-3 pt-3 primary-colour'>
             <Link href="/" className="flex gap-2 flex-center ml-3">
-                <Image 
+                {/* <Image 
                 // Need to create the logo for VertiGuard
                    src="/assets/images/logo.svg"
                    alt="VertiGuard Logo"
                    width={20}
                    height={20}
                    className="object-contain"
-                />
+                /> */}
             </Link>
 
             <div className="sm:flex hidden">
