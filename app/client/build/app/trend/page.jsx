@@ -1,5 +1,7 @@
 import Name from "@components/dashboard/Name"
-import Tile from "@components/trend/Tile"
+import BarTile from "@components/trend/BarTile"
+import ScatterTile from "@components/trend/ScatterTile"
+import LineTile from "@components/trend/LineTile"
 
 const Trend = () => {
     return (
@@ -8,9 +10,9 @@ const Trend = () => {
                 <Name />
             </div>
             <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 w-2/3">
-                <Tile />
-                <Tile />
-                <Tile />
+                <BarTile />
+                <ScatterTile />
+                <LineTile />
             </div>          
             <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 w-2/3">
 

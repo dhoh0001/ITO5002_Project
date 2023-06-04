@@ -33,8 +33,20 @@ const Trend = () => {
             labels: ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'],
             datasets: [
                 {
-                    label: 'Plant Levels',
-                    data: [15234, 124382, 19245, 16243, 28356, 14235, 31000],
+                    label: 'Oxygen Levels vs pH Levels',
+                    data: [{
+                        x: -10,
+                        y: 0
+                      }, {
+                        x: 0,
+                        y: 10
+                      }, {
+                        x: 10,
+                        y: 5
+                      }, {
+                        x: 0.5,
+                        y: 5.5
+                      }],
                     borderColor: 'rgb(53, 162, 235',
                     backgroundColor: 'rgb(53, 162, 235, 0.4'
                 }
@@ -48,7 +60,7 @@ const Trend = () => {
                 },
                 title: {
                     display: true,
-                    text: "Plant Levels"
+                    text: "Oxygen Levels vs pH Levels"
                 }
             },
             maintainAspectRatio: true,
@@ -58,7 +70,7 @@ const Trend = () => {
 
     return (
         <div className='mt-4 ml-6 p-4 border-4 secondary-colour-border'>
-            <Bar data={chartData} options={chartOptions} />
+            <Scatter data={chartData} options={chartOptions} />
         </div>
     )
 }
