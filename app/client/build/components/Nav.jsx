@@ -29,9 +29,10 @@ const Nav = () => {
                             View/Link Farm
                         </Link> 
 
-                        <button type="button" onClick={signOut} className="outline_btn">
-                            Sign Out
-                        </button>
+                        <Link href="user/signin"
+                        className="outline_btn">
+                            Sign In
+                        </Link> 
                     </div>
                 ): (
                     <>
