@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 //firebase auth
-const middleware = require('./src/middleware/index');
+const middleware = require('./middleware/index');
 app.use(middleware.decodeToken);
 
 //set to use body parser, for POST requests
