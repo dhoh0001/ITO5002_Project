@@ -5,9 +5,14 @@ const bodyParser = require("body-parser");
 const sqlite3 = require('sqlite3');
 const path = require('path');
 
+
 //initialize express
 const PORT = process.env.PORT || 5000;
 const app = express();
+
+//firebase auth
+const middleware = require('./src/middleware/index');
+app.use(middleware.decodeToken);
 
 //set to use body parser, for POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
