@@ -33,7 +33,7 @@ const Trend = () => {
             labels: ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'],
             datasets: [
                 {
-                    label: 'Oxygen Levels vs pH Levels',
+                    label: 'Oxygen Levels vs Soil Moisture Levels',
                     data: [{
                         x: -10,
                         y: 0
@@ -60,7 +60,7 @@ const Trend = () => {
                 },
                 title: {
                     display: true,
-                    text: "Oxygen Levels vs pH Levels"
+                    text: "Oxygen Levels vs Soil Moisture Levels"
                 }
             },
             maintainAspectRatio: true,
