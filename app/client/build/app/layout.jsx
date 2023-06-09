@@ -1,5 +1,6 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav';
+import { AuthContextProvider } from '@/context/AuthContext'
 
 export const metadata = {
   title: "VertiGuard",
@@ -11,8 +12,10 @@ const RootLayout = ({ children }) => {
     <html lang="en">
       <body className="antialiased bg-white text-gray-900 tracking-tight">
         <main className='app flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip'>
+        <AuthContextProvider>
           <Nav />
           {children}
+        </AuthContextProvider>
         </main>
       </body>
     </html>
