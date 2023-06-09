@@ -9,8 +9,8 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <body>
-        <main className='app'>
+      <body className="antialiased bg-white text-gray-900 tracking-tight">
+        <main className='app flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip'>
           <Nav />
           {children}
         </main>

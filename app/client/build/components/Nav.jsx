@@ -12,7 +12,7 @@ const Nav = () => {
     const signOut = false;
     
     return (
-        <nav className='flex-between w-full pb-3 pt-3 primary-colour'>
+        <nav className='flex-between w-full pb-3 pt-3'>
             <Link href="/" className="flex gap-2 flex-center ml-3">
                 {/* <Image 
                 // Need to create the logo for VertiGuard
