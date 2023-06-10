@@ -14,6 +14,10 @@ const app = express();
 const middleware = require('./middleware/index');
 app.use(middleware.decodeToken);
 
+//alert monitor
+const alertMonitor = require('./monitors/alertMonitor');
+setInterval(alertMonitor.run, 10000);
+
 //set to use body parser, for POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -20,6 +20,7 @@ module.exports = ( function() {
                     obj.logId = row.log_id;
                     obj.name = row.name;
                     obj.sensorId = row.sensorId;
+                    obj.farmId = row.farm_id;
                     res.send(JSON.stringify(obj));
                 }
             });
@@ -36,6 +37,7 @@ module.exports = ( function() {
                         obj.logId = row.log_id;
                         obj.name = row.name;
                         obj.sensorId = row.sensorId;
+                        obj.farmId = row.farm_id;
                         logs.push(obj);
                     });
                     res.send(JSON.stringify(logs));
@@ -58,9 +60,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `insert into log(log_id, name, sensor_id) values (?, ?, ?)`;
+        let sql = `insert into log(log_id, name, sensor_id, farm_id) values (?, ?, ?, ?)`;
 
-        log_db.db.run(sql, [req.query.logId, req.query.name, req.query.sensorId], (err, rows) => {
+        log_db.db.run(sql, [req.query.logId, req.query.name, req.query.sensorId, req.query.farmId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -84,9 +86,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `update log set log_id=?, name=?, sensor_id=? where log_id = ?`;
+        let sql = `update log set log_id=?, name=?, sensor_id=?, farm_id = ? where log_id = ?`;
 
-        log_db.db.run(sql, [req.query.logId, req.query.name, req.query.sensorId, req.query.logId], (err, rows) => {
+        log_db.db.run(sql, [req.query.logId, req.query.name, req.query.sensorId, req.query.farmId, req.query.logId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
