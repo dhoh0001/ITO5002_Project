@@ -55,20 +55,19 @@ function createTables(newdb) {
             farm_id int,
             metadata text
         );
-        create table farmAlert (
-            farm_id int,
-            alert_id int
-        );
         create table alert (
             alert_id integer primary key autoincrement,
             name varchar(100),
             alert_level double,
-            timeframe int
+            timeframe int,
+            farm_id integer,
+            log_id integer
         );
         create table log (
             log_id integer primary key autoincrement,
             name varchar(100),
-            sensor_id int
+            sensor_id int,
+            farm_id integer
         );
         create table sensor (
             sensor_id integer primary key autoincrement,
@@ -78,7 +77,7 @@ function createTables(newdb) {
         );
         create table logdata (
             log_id int,
-            timestamp varchar(100),
+            timestamp double,
             value double
         );
     `);

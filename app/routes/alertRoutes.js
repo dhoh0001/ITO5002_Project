@@ -21,6 +21,8 @@ module.exports = ( function() {
                     obj.name = row.name;
                     obj.alertLevel = row.alert_level;
                     obj.timeframe = row.timeframe;
+                    obj.farmId = row.farm_id;
+                    obj.logId = row.log_id;
                     res.send(JSON.stringify(obj));
                 }
             });
@@ -38,6 +40,8 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.alertLevel = row.alert_level;
                         obj.timeframe = row.timeframe;
+                        obj.farmId = row.farm_id;
+                        obj.logId = row.log_id;
                         alerts.push(obj);
                     });
                     res.send(JSON.stringify(alerts));
@@ -60,9 +64,9 @@ module.exports = ( function() {
             return;
         }
         
-        let sql = `insert into alert(name, alert_level, timeframe) values (?, ?, ?)`;
+        let sql = `insert into alert(name, alert_level, timeframe, farmId, logId) values (?, ?, ?, ?, ?)`;
 
-        alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe], (err, rows) => {
+        alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe, req.query.farmId, req.query.logId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -89,9 +93,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `update alert set name=?, alert_level=?, timeframe=? where alert_id = ?`;
+        let sql = `update alert set name=?, alert_level=?, timeframe=?, farm_id = ? , log_id = ? where alert_id = ?`;
 
-        alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe, req.query.id], (err, rows) => {
+        alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe, req.query.farmId, req.query.logId, req.query.id], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
