@@ -2,30 +2,26 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { initFirebase } from '@firebase/firebaseApp';
+import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
+import { getAuth } from "firebase/auth"
 
+const auth = getAuth();
 
 const Nav = () => {
-    const app = initFirebase();
-    const isUserLoggedIn = true;
-    const signOut = false;
-    
+    const { user } = useAuthContext();
+ 
     return (
         <nav className='flex-between w-full pb-3 pt-3'>
             <Link href="/" className="flex gap-2 flex-center ml-3">
-                {/* <Image 
-                // Need to create the logo for VertiGuard
-                   src="/assets/images/logo.svg"
-                   alt="VertiGuard Logo"
-                   width={20}
-                   height={20}
-                   className="object-contain"
-                /> */}
+                {user ?
+                <div>Welcome {user.email}</div>
+                :
+                <div>VertiGuard</div>
+                }
             </Link>
 
             <div className="sm:flex hidden">
-                {isUserLoggedIn ? (
+                    {user ? 
                     <div className="flex gap-3 md:gap-5">
                         <Link href="dashboard"
                         className="black_btn">
@@ -33,14 +29,20 @@ const Nav = () => {
                         </Link> 
 
                         <Link href="user/signin"
+                        className="outline_btn"
+                        onClick={() => auth.signOut()}>
+                            Sign Out
+                        </Link> 
+                    </div>
+                    :
+                    <div className="flex gap-3 md:gap-5">
+                        <Link href="user/signin"
                         className="outline_btn">
                             Sign In
                         </Link> 
-                    </div>
-                ): (
-                    <>
-                    </>
-                )}
+                    </div>    
+                    }
+                    
             </div>
         </nav>
     )
