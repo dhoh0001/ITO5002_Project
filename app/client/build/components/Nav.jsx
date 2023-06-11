@@ -1,15 +1,10 @@
 "use client"
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
-import { getAuth } from "firebase/auth"
-
-const auth = getAuth();
 
 const Nav = () => {
     const { user } = useAuthContext();
-    console.log(user)
  
     return (
         <nav className='flex-between w-full pb-3 pt-3'>

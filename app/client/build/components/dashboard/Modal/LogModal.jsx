@@ -1,8 +1,34 @@
 "use client"
 import React, { useState } from "react";
+import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
+import axios from "axios";
 
 const Modal = () => {
   const [showLogModal, setShowLogModal] = useState(false);
+  const { user } = useAuthContext();
+
+  const formSubmit = (event) => {
+    event.preventDefault();
+    setShowLogModal(false);
+    let data = new FormData(event.target);
+    let formObject = Object.fromEntries(data.entries());
+    axios.put(`ubuntu@ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/log?Name=${formObject.logName}&sensorId=${formObject.sensorId}`)
+      .catch((error) => {
+          if (error.response) {
+              console.log("Server returned with status code");
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+          } else if (error.request) {
+              console.log("Request made, no response received")
+              console.log(error.request);
+          } else {
+              console.log("It's cooked.")
+              console.log('Error', error.message);
+          }
+      });
+    }
+
   return (
     <>
         <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" onClick={() => setShowLogModal(true)}>
@@ -12,27 +38,14 @@ const Modal = () => {
 
       {showLogModal ? (
         <div>
-            <form className="" action="#" method="POST" onSubmit="">
+            <form className="" action="#" method="POST" onSubmit={formSubmit}>
                 <div className="border-2 border-gray-200 border-dashed rounded-lg text-white mx-2">
-                    <label className="block text-sm font-bold mx-2 text-white pt-4">Log Name</label>
-                    <input className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <label className="block text-sm font-bold mx-2 text-white pt-4">Log Name <span className="text-red-500" onClick={() => setShowLogModal(false)}>X</span></label>
+                    <input id="logName" name="logName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                    <input className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <div className="pt-4">
-                        <button
-                            className="black_btn mx-2 mb-2"
-                            type="button"
-                            onClick={() => setShowLogModal(false)}
-                        >
-                            Submit
-                        </button>
-                        <button
-                            className="black_btn mx-2 mb-2"
-                            type="button"
-                            onClick={() => setShowLogModal(false)}
-                        >
-                            Close
-                        </button>
+                        <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                     </div>
                 </div>
             </form>

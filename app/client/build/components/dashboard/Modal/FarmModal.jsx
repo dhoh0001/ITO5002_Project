@@ -1,8 +1,34 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
+import axios from "axios";
 
 const Modal = () => {
   const [showModal, setShowModal] = useState(false);
+  const { user } = useAuthContext();
+
+  const formSubmit = (event) => {
+      event.preventDefault();
+      setShowModal(false);
+      let data = new FormData(event.target);
+      let formObject = Object.fromEntries(data.entries());
+      axios.put(`ubuntu@ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm?name=${formObject.farmName}&userId=${user.uid}`)
+        .catch((error) => {
+            if (error.response) {
+                console.log("Server returned with status code");
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log("Request made, no response received")
+                console.log(error.request);
+            } else {
+                console.log("It's cooked.")
+                console.log('Error', error.message);
+            }
+        });
+  }
+  
   return (
     <>
     <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" onClick={() => setShowModal(true)}>
@@ -12,25 +38,12 @@ const Modal = () => {
 
       {showModal ? (
         <div>
-            <form className="" action="#" method="POST" onSubmit="">
+            <form className="" action="#" method="PUT" onSubmit={formSubmit}>
                 <div className="border-2 border-gray-200 border-dashed rounded-lg text-white mx-2">
-                    <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Name</label>
-                    <input className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Name <span className="text-red-500" onClick={() => setShowModal(false)}>X</span></label>
+                    <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <div className="pt-4">
-                        <button
-                            className="black_btn mx-2 mb-2"
-                            type="button"
-                            onClick={() => setShowModal(false)}
-                        >
-                            Submit
-                        </button>
-                        <button
-                            className="black_btn mx-2 mb-2"
-                            type="button"
-                            onClick={() => setShowModal(false)}
-                        >
-                            Close
-                        </button>
+                        <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                     </div>
                 </div>
             </form>
