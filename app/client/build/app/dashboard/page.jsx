@@ -1,4 +1,5 @@
 import Panel from "@components/dashboard/Panel"
+import LightPanel from "@components/dashboard/LightPanel"
 import Sensor from "@components/dashboard/Sensor"
 import Name from "@components/dashboard/Name"
 import Sidebar from "@components/dashboard/Sidebar"
@@ -15,7 +16,7 @@ const Farm = () => {
                     </div>
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                         <Panel />
-                        <Panel />
+                        <LightPanel />
                         <Panel />
                     </div>          
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">

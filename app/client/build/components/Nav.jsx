@@ -9,6 +9,7 @@ const auth = getAuth();
 
 const Nav = () => {
     const { user } = useAuthContext();
+    console.log(user)
  
     return (
         <nav className='flex-between w-full pb-3 pt-3'>
