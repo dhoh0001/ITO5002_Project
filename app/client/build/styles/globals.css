@@ -17,6 +17,10 @@
   @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
 }
 
+.red_btn {
+	@apply rounded-full border border-black bg-red-700 py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
+}
+
 .dash_btn {
   @apply  border border-black secondary-colour h-12 w-11/12 text-white mt-4 ml-6 p-4 text-center text-sm flex items-center justify-center transition-all hover:bg-white hover:text-black
 }
