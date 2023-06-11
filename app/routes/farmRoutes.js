@@ -7,21 +7,25 @@ module.exports = ( function() {
 
     farmRoutes.get('/', function(req,res){
 
-        if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(parseInt(req.query.id))) {
+        if(typeof req.query.farmId !== "undefined" && req.query.farmId) {
+            if(!Number.isInteger(parseInt(req.query.farmId))) {
                 res.status(500).send("The ID must be an integer");
                 return;
             }
             let sql = `select * from farm where farm_id = ?`;
-            farm_db.db.get(sql, [req.query.id], (err, row) => {
+            farm_db.db.get(sql, [req.query.farmId], (err, row) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    let obj = {};
-                    obj.farmId = row.farm_id;
-                    obj.name = row.name;
-                    obj.userId = row.user_id;
-                    res.send(JSON.stringify(obj));
+                    if(row) {
+                        let obj = {};
+                        obj.farmId = row.farm_id;
+                        obj.name = row.name;
+                        obj.userId = row.user_id;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
                 }
             });
         } else {
@@ -59,9 +63,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `insert into farm(farm_id, name, user_id) values (?, ?, ?)`;
+        let sql = `insert into farm(name, user_id) values (?, ?)`;
 
-        farm_db.db.run(sql, [req.query.farmId, req.query.name, req.query.userId], (err, rows) => {
+        farm_db.db.run(sql, [req.query.name, req.query.userId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

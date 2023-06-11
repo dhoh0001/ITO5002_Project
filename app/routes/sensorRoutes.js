@@ -6,22 +6,26 @@ module.exports = ( function() {
     var sensor_db = new database();
     
     sensorRoutes.get('/', function(req,res){
-        if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(parseInt(req.query.id))) {
+        if(typeof req.query.sensorId !== "undefined" && req.query.sensorId) {
+            if(!Number.isInteger(parseInt(req.query.sensorId))) {
                 res.status(500).send("The ID must be an integer");
                 return;
             }
             let sql = `select * from sensor where sensor_id = ?`;
-            sensor_db.db.get(sql, [req.query.id], (err, row) => {
+            sensor_db.db.get(sql, [req.query.sensorId], (err, row) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    let obj = {};
-                    obj.sensorId = row.sensor_id;
-                    obj.name = row.name;
-                    obj.hardwareId= row.hardware_id;
-                    obj.sensorAction = row.sensor_action;
-                    res.send(JSON.stringify(obj));
+                    if(row) {
+                        let obj = {};
+                        obj.sensorId = row.sensor_id;
+                        obj.name = row.name;
+                        obj.hardwareId= row.hardware_id;
+                        obj.sensorAction = row.sensor_action;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
                 }
             });
         } else {

@@ -6,8 +6,8 @@ module.exports = ( function() {
     var log_db = new database();
 
     logRoutes.get('/', function(req,res){
-        if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(parseInt(req.query.id))) {
+        if(typeof req.query.logId !== "undefined" && req.query.logId) {
+            if(!Number.isInteger(parseInt(req.query.logId))) {
                 res.status(500).send("The log ID must be an integer");
                 return;
             }
@@ -16,12 +16,16 @@ module.exports = ( function() {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    let obj = {};
-                    obj.logId = row.log_id;
-                    obj.name = row.name;
-                    obj.sensorId = row.sensorId;
-                    obj.farmId = row.farm_id;
-                    res.send(JSON.stringify(obj));
+                    if(row) {
+                        let obj = {};
+                        obj.logId = row.log_id;
+                        obj.name = row.name;
+                        obj.sensorId = row.sensorId;
+                        obj.farmId = row.farm_id;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
                 }
             });
         } else {
@@ -60,9 +64,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `insert into log(log_id, name, sensor_id, farm_id) values (?, ?, ?, ?)`;
+        let sql = `insert into log(name, sensor_id, farm_id) values (?, ?, ?)`;
 
-        log_db.db.run(sql, [req.query.logId, req.query.name, req.query.sensorId, req.query.farmId], (err, rows) => {
+        log_db.db.run(sql, [req.query.name, req.query.sensorId, req.query.farmId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

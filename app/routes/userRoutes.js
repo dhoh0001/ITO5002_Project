@@ -6,7 +6,7 @@ module.exports = ( function() {
     var user_db = new database();
     
     userRoutes.get('/', function(req,res){
-        if(typeof req.query.id !== "undefined" && req.query.id) {
+        if(typeof req.query.userId !== "undefined" && req.query.userId) {
             if(!Number.isInteger(parseInt(req.query.userId))) {
                 res.status(500).send("The user ID must be an integer");
                 return;
@@ -16,13 +16,17 @@ module.exports = ( function() {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    let obj = {};
-                    obj.userId = row.user_id;
-                    obj.firstName = row.firstName;
-                    obj.lastName = row.lastName;
-                    obj.email = row.email;
-                    obj.uid = row.uid;
-                    res.send(JSON.stringify(obj));
+                    if(row) {
+                        let obj = {};
+                        obj.userId = row.user_id;
+                        obj.firstName = row.firstName;
+                        obj.lastName = row.lastName;
+                        obj.email = row.email;
+                        obj.uid = row.uid;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
                 }
             });
         } else {
@@ -33,7 +37,6 @@ module.exports = ( function() {
                     res.status(500).send("err: error retrieving from db: " + err)
                 } else {
                     rows.forEach((row) => {
-                        console.log(row.name)
                         let obj = {};
                         obj.userId = row.user_id;
                         obj.firstName = row.firstName;
@@ -66,9 +69,9 @@ module.exports = ( function() {
                 res.status(500).send("The length of the uid is too long");
                 return;
             }
-        let sql = `insert into user(user_id, first_name, last_name, email, uid) values (?, ?, ?, ?, ?)`;
+        let sql = `insert into user(first_name, last_name, email, uid) values (?, ?, ?, ?)`;
 
-        user_db.db.run(sql, [req.query.userId, req.query.firstName, req.query.lastName, req.query.email, req.query.uid], (err, rows) => {
+        user_db.db.run(sql, [req.query.firstName, req.query.lastName, req.query.email, req.query.uid], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

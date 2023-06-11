@@ -6,24 +6,28 @@ module.exports = ( function() {
     var alert_db = new database();
     
     alertRoutes.get('/', function(req,res){
-        if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(parseInt(req.query.id))) {
+        if(typeof req.query.alertId !== "undefined" && req.query.alertId) {
+            if(!Number.isInteger(parseInt(req.query.alertId))) {
                 res.status(500).send("The ID must be an integer");
                 return;
             }
             let sql = `select * from alert where alert_id = ?`;
-            alert_db.db.get(sql, [req.query.id], (err, row) => {
+            alert_db.db.get(sql, [req.query.alertId], (err, row) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    let obj = {};
-                    obj.alertId = row.alert_id;
-                    obj.name = row.name;
-                    obj.alertLevel = row.alert_level;
-                    obj.timeframe = row.timeframe;
-                    obj.farmId = row.farm_id;
-                    obj.logId = row.log_id;
-                    res.send(JSON.stringify(obj));
+                    if(row) {
+                        let obj = {};
+                        obj.alertId = row.alert_id;
+                        obj.name = row.name;
+                        obj.alertLevel = row.alert_level;
+                        obj.timeframe = row.timeframe;
+                        obj.farmId = row.farm_id;
+                        obj.logId = row.log_id;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
                 }
             });
         } else {
@@ -34,7 +38,6 @@ module.exports = ( function() {
                     res.status(500).send("err: error retrieving from db: " + err)
                 } else {
                     rows.forEach((row) => {
-                        console.log(row.name)
                         let obj = {};
                         obj.alertId = row.alert_id;
                         obj.name = row.name;
@@ -63,8 +66,16 @@ module.exports = ( function() {
             res.status(500).send("The timeframe must be a number");
             return;
         }
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
+            res.status(500).send("The farm id must be a number");
+            return;
+        }
+        if(!Number.isInteger(parseInt(req.query.logId))) {
+            res.status(500).send("The log id must be a number");
+            return;
+        }
         
-        let sql = `insert into alert(name, alert_level, timeframe, farmId, logId) values (?, ?, ?, ?, ?)`;
+        let sql = `insert into alert(name, alert_level, timeframe, farm_id, log_id) values (?, ?, ?, ?, ?)`;
 
         alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe, req.query.farmId, req.query.logId], (err, rows) => {
             if(err) {
@@ -88,14 +99,22 @@ module.exports = ( function() {
             res.status(500).send("The timeframe must be a number");
             return;
         }
-        if(!Number.isInteger(parseInt(req.query.id))) {
-            res.status(500).send("The ID must be an integer");
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
+            res.status(500).send("The farm ID must be an integer");
+            return;
+        }
+        if(!Number.isInteger(parseInt(req.query.logId))) {
+            res.status(500).send("The log ID must be an integer");
+            return;
+        }
+        if(!Number.isInteger(parseInt(req.query.alertId))) {
+            res.status(500).send("The alert ID must be an integer");
             return;
         }
 
         let sql = `update alert set name=?, alert_level=?, timeframe=?, farm_id = ? , log_id = ? where alert_id = ?`;
 
-        alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe, req.query.farmId, req.query.logId, req.query.id], (err, rows) => {
+        alert_db.db.run(sql, [req.query.name, req.query.alertLevel, req.query.timeframe, req.query.farmId, req.query.logId, req.query.alertId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -105,14 +124,14 @@ module.exports = ( function() {
     });
 
     alertRoutes.delete('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.id))) {
+        if(!Number.isInteger(parseInt(req.query.alertId))) {
             res.status(500).send("The ID must be an integer");
             return;
         }
 
         let sql = `delete from alert where alert_id = ?`;
 
-        alert_db.db.run(sql, [req.query.id], (err, rows) => {
+        alert_db.db.run(sql, [req.query.alertId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error deleting from db: " + err)
             } else {
