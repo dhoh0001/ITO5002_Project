@@ -10,13 +10,13 @@
 curl -X GET -d id=1 -G localhost:5000/alert
 
 #Scenario: alert put alert return status
-curl -X PUT -d name=test -d alertLevel=1.0 -d timeframe=2 -G localhost:5000/alert
+curl -X PUT -d name=test -d alertLevel=1.0 -d timeframe=2 -d farmId=1 -d logId=1 -G localhost:5000/alert
 
 #Scenario: alert put alert validate alert was inserted
 curl -X GET -d id=4 -G localhost:5000/alert
 
 #Scenario: alert post alert validate status
-curl -X POST -d id=1 -d name=test -d alertLevel=1.0 -d timeframe=2 -G localhost:5000/alert
+curl -X POST -d alertId=1 -d name=test -d alertLevel=1.0 -d timeframe=2 -d farmId=1 -d logId=1 -G localhost:5000/alert
 
 #Scenario: alert post alert validate appropriate alert was changed
 curl -X GET -d id=1 -G localhost:5000/alert
