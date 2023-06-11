@@ -21,6 +21,7 @@ module.exports = ( function() {
                     obj.firstName = row.firstName;
                     obj.lastName = row.lastName;
                     obj.email = row.email;
+                    obj.uid = row.uid;
                     res.send(JSON.stringify(obj));
                 }
             });
@@ -38,6 +39,7 @@ module.exports = ( function() {
                         obj.firstName = row.firstName;
                         obj.lastName = row.lastName;
                         obj.email = row.email;
+                        obj.uid = row.uid;
                         users.push(obj);
                     });
                     res.send(JSON.stringify(users));
@@ -60,9 +62,13 @@ module.exports = ( function() {
                 res.status(500).send("The length of the email is too long");
                 return;
             }
-        let sql = `insert into user(user_id, first_name, last_name, email) values (?, ?, ?, ?)`;
+            if(req.query.uid.length > 100) {
+                res.status(500).send("The length of the uid is too long");
+                return;
+            }
+        let sql = `insert into user(user_id, first_name, last_name, email, uid) values (?, ?, ?, ?, ?)`;
 
-        user_db.db.run(sql, [req.query.userId, req.query.firstName, req.query.lastName, req.query.email], (err, rows) => {
+        user_db.db.run(sql, [req.query.userId, req.query.firstName, req.query.lastName, req.query.email, req.query.uid], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -89,9 +95,13 @@ module.exports = ( function() {
             res.status(500).send("The length of the email is too long");
             return;
         }
-        let sql = `update user set first_name=?, last_name=?, email=? where user_id= ?`;
+        if(req.query.uid.length > 100) {
+            res.status(500).send("The length of the uid is too long");
+            return;
+        }
+        let sql = `update user set first_name=?, last_name=?, email=?, uid=? where user_id= ?`;
 
-        user_db.db.run(sql, [req.query.firstName, req.query.lastName, req.query.email, req.query.userId], (err, rows) => {
+        user_db.db.run(sql, [req.query.firstName, req.query.lastName, req.query.email, req.query.uid, req.query.userId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

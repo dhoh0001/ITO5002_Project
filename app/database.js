@@ -43,8 +43,7 @@ function createTables(newdb) {
             first_name varchar(100),
             last_name varchar(100),
             email varchar(100),
-            password varchar(100),
-            salt varchar(100)
+            uid varchar(100)
         );
         create table farm (
             farm_id integer primary key autoincrement,
