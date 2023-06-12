@@ -77,22 +77,22 @@ module.exports = ( function() {
     });
 
     logRoutes.post('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.logId))) {
+        if(!Number.isInteger(parseInt(req.body.logId))) {
             res.status(500).send("The log ID must be an integer");
             return;
         }
-        if(req.query.name.length > 100) {
+        if(req.body.name.length > 100) {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        if(!Number.isInteger(parseInt(req.query.sensorId))) {
+        if(!Number.isInteger(parseInt(req.body.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
             return;
         }
 
         let sql = `update log set log_id=?, name=?, sensor_id=?, farm_id = ? where log_id = ?`;
 
-        log_db.db.run(sql, [req.query.logId, req.query.name, req.query.sensorId, req.query.farmId, req.query.logId], (err, rows) => {
+        log_db.db.run(sql, [req.body.logId, req.body.name, req.body.sensorId, req.body.farmId, req.body.logId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

@@ -76,22 +76,22 @@ module.exports = ( function() {
     });
 
     farmRoutes.post('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.farmId))) {
+        if(!Number.isInteger(parseInt(req.body.farmId))) {
             res.status(500).send("The farm ID must be an integer");
             return;
         }
-        if(req.query.name.length > 100) {
+        if(req.body.name.length > 100) {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        if(!Number.isInteger(parseInt(req.query.userId))) {
+        if(!Number.isInteger(parseInt(req.body.userId))) {
             res.status(500).send("The user ID must be an integer");
             return;
         }
 
         let sql = `update farm set farm_id=?, name=?, user_id=? where farm_id=?`;
 
-        farm_db.db.run(sql, [req.query.farmId, req.query.name, req.query.userId, req.query.farmId], (err, rows) => {
+        farm_db.db.run(sql, [req.body.farmId, req.body.name, req.body.userId, req.body.farmId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

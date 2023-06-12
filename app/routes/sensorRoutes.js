@@ -74,25 +74,25 @@ module.exports = ( function() {
     });
 
     sensorRoutes.post('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.sensorId))) {
+        if(!Number.isInteger(parseInt(req.body.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
             return;
         }
-        if(req.query.hardwareId.length > 100) {
+        if(req.body.hardwareId.length > 100) {
             res.status(500).send("The hardware ID is too long");
             return;
         }
-        if(req.query.name.length > 100) {
+        if(req.body.name.length > 100) {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        if(req.query.sensorAction.length > 100) {
+        if(req.body.sensorAction.length > 100) {
             res.status(500).send("The sensor action is too long");
             return;
         }
         let sql = `update sensor set name=?, hardware_id=?, sensor_action=? where sensor_id = ?`;
 
-        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction, req.query.sensorId], (err, rows) => {
+        sensor_db.db.run(sql, [req.body.name, req.body.hardwareId, req.body.sensorAction, req.body.sensorId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

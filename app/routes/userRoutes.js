@@ -104,29 +104,29 @@ module.exports = ( function() {
     });
 
     userRoutes.post('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.userId))) {
+        if(!Number.isInteger(parseInt(req.body.userId))) {
             res.status(500).send("The user ID must be an integer");
             return;
         }
-        if(req.query.firstName.length > 100) {
+        if(req.body.firstName.length > 100) {
             res.status(500).send("The length of the firstname is too long");
             return;
         }
-        if(req.query.lastName.length > 100) {
+        if(req.body.lastName.length > 100) {
             res.status(500).send("The length of the lastname is too long");
             return;
         }
-        if(req.query.email.length > 100) {
+        if(req.body.email.length > 100) {
             res.status(500).send("The length of the email is too long");
             return;
         }
-        if(req.query.uid.length > 100) {
+        if(req.body.uid.length > 100) {
             res.status(500).send("The length of the uid is too long");
             return;
         }
         let sql = `update user set first_name=?, last_name=?, email=?, uid=? where user_id= ?`;
 
-        user_db.db.run(sql, [req.query.firstName, req.query.lastName, req.query.email, req.query.uid, req.query.userId], (err, rows) => {
+        user_db.db.run(sql, [req.body.firstName, req.body.lastName, req.body.email, req.body.uid, req.body.userId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

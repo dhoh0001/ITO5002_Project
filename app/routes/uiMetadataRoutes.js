@@ -59,13 +59,13 @@ module.exports = ( function() {
     });
 
     uiMetadataRoutes.post('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.farmId))) {
+        if(!Number.isInteger(parseInt(req.body.farmId))) {
             res.status(500).send("The farm ID must be an integer");
             return;
         }
         let sql = `update userInterfaceData set farm_id=?, metadata=? where farm_id = ?`;
 
-        metadata_db.db.run(sql, [req.query.farmId, req.query.metadata, req.query.farmId], (err, rows) => {
+        metadata_db.db.run(sql, [req.body.farmId, req.body.metadata, req.body.farmId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
