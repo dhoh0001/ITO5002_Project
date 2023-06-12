@@ -2,6 +2,7 @@
 
 import { initFirebase } from '@firebase/firebaseApp';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import axios from "axios";
 
 const Signup = () => {
     const app = initFirebase();
@@ -12,11 +13,33 @@ const Signup = () => {
         const auth = getAuth();
         let formObject = Object.fromEntries(data.entries()); 
         
-        createUserWithEmailAndPassword(auth, formObject.email, formObject.password)
+        createUserWithEmailAndPassword(auth, formObject.email, formObject.password, formObject.firstName, formObject.lastName)
             .then((userCredential) => {
-                // Signed in 
+                // Signed in
                 const user = userCredential.user;
-                // ...
+                const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/user?uid=${user.uid}&firstName=${formObject.firstName}&lastName=${formObject.lastName}&email=${user.email}`
+                
+                const headers = {
+                    authorization: `Bearer ${user.accessToken}`,
+                    test: 'test'
+                };
+
+                const config = {
+                    url,
+                    method: 'put',
+                    headers,
+                    withCredentials: true, // Include this option to send cookies and authentication headers
+                };
+
+                axios(config)
+                .then(response => {
+                    console.log('Response:', response.data);
+                    // Handle the response data as needed
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle the error
+                });
             })
             .catch((error) => {
                 const errorCode = error.code;

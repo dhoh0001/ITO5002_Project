@@ -6,6 +6,7 @@ import Sidebar from "@components/dashboard/Sidebar"
 import Link from 'next/link';
 
 const Farm = () => {
+
     return ( 
         <div> 
             <Sidebar />      

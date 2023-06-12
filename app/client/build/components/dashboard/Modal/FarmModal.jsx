@@ -12,7 +12,18 @@ const Modal = () => {
       setShowModal(false);
       let data = new FormData(event.target);
       let formObject = Object.fromEntries(data.entries());
-      axios.put(`ubuntu@ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm?name=${formObject.farmName}&userId=${user.uid}`)
+      axios.put(
+        `ubuntu@ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm?name=${formObject.farmName}&userId=${user.uid}`,
+        // {
+        //     data: {
+        //         headers: {
+        //             'Authorization': ``
+        //         }
+        //     }
+        // }
+        )
+
+
         .catch((error) => {
             if (error.response) {
                 console.log("Server returned with status code");
