@@ -27,7 +27,6 @@ const Signup = () => {
 
                 const config = {
                       headers:{
-                              header1: "value1",
                               authorization: `Bearer ${user.accessToken}`,
                             }
                 };
@@ -41,25 +40,8 @@ const Signup = () => {
                     email: `${user.email}`
                 }
 
-                axios.put(url2,data, config);
+                axios.put(url2, data,config);
                 axios.post(url,data,config);
-
-                //const config = {
-                //    url,
-                //    method: 'put',
-                //    headers,
-                //    withCredentials: true, // Include this option to send cookies and authentication headers
-                //};
-
-                //axios(config)
-                //.then(response => {
-                //    console.log('Response:', response.data);
-                //    // Handle the response data as needed
-                //})
-                //.catch(error => {
-                //    console.error('Error:', error);
-                //    // Handle the error
-                //});
             })
             .catch((error) => {
                 const errorCode = error.code;

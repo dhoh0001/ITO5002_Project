@@ -8,36 +8,25 @@ const Modal = () => {
   const { user } = useAuthContext();
 
   const formSubmit = (event) => {
-      event.preventDefault();
-      setShowModal(false);
-      let data = new FormData(event.target);
-      let formObject = Object.fromEntries(data.entries());
-      axios.put(
-        `ubuntu@ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm?name=${formObject.farmName}&userId=${user.uid}`,
-        // {
-        //     data: {
-        //         headers: {
-        //             'Authorization': ``
-        //         }
-        //     }
-        // }
-        )
+    event.preventDefault();
+    setShowModal(false);
+    let formData = new FormData(event.target);
+    let formObject = Object.fromEntries(formData.entries());;
 
+    const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1&name=${formObject.farmName}`
 
-        .catch((error) => {
-            if (error.response) {
-                console.log("Server returned with status code");
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            } else if (error.request) {
-                console.log("Request made, no response received")
-                console.log(error.request);
-            } else {
-                console.log("It's cooked.")
-                console.log('Error', error.message);
-            }
-        });
+    const data = {
+        userId: 1,
+        Name: `${formObject.farmName}`,
+    }
+
+    const config = {
+        headers:{
+            authorization: `Bearer ${user.accessToken}`,
+        }
+    };
+
+    axios.put(url, data, config);  
   }
   
   return (

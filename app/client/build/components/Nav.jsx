@@ -11,21 +11,21 @@ const Nav = () => {
   const [accessToken, setAccessToken] = useState("loading");
   const auth = getAuth();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        user.getIdToken().then((token) => {
-          setAccessToken(token);
-        });
-      } else {
-        setAccessToken(null);
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       user.getIdToken().then((token) => {
+  //         setAccessToken(token);
+  //       });
+  //     } else {
+  //       setAccessToken(null);
+  //     }
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   if (accessToken !== "loading") {
@@ -44,23 +44,6 @@ const Nav = () => {
   //   }
   // }, [accessToken]);
 
-  function testAPI() {
-    if (accessToken !== "loading") {
-      axios
-        .get('http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/user', {
-          headers: {
-            authorization: `${accessToken}`      
-          }
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  }
-
 
   return (
     <nav className='flex-between w-full pb-3 pt-3'>
@@ -73,13 +56,6 @@ const Nav = () => {
           <div className="flex gap-3 md:gap-5">
             <Link href="dashboard" className="black_btn">
               Dashboard
-            </Link>
-
-            <Link href="/" 
-            className="black_btn"
-            onClick={() => testAPI()}
-            >
-              Test
             </Link>
 
             <Link
