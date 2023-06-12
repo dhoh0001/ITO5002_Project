@@ -51,16 +51,16 @@ module.exports = ( function() {
     });
     
     logRoutes.put('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.logId))) {
-            res.status(500).send("The log ID must be an integer");
-            return;
-        }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
             return;
         }
         if(!Number.isInteger(parseInt(req.query.sensorId))) {
             res.status(500).send("The sensor ID must be an integer");
+            return;
+        }
+        if(!Number.isInteger(parseInt(req.query.farmId))) {
+            res.status(500).send("The farm ID must be an integer");
             return;
         }
 
