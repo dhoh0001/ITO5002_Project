@@ -52,6 +52,28 @@ module.exports = ( function() {
  
     });
     
+    userRoutes.get('/byuid', function(req,res){
+            let sql = `select * from user where uid = ?`;
+            user_db.db.get(sql, [req.query.uid], (err, row) => {
+                if(err) {
+                    res.status(404).send("[]");
+                } else {
+                    if(row) {
+                        let obj = {};
+                        obj.userId = row.user_id;
+                        obj.firstName = row.firstName;
+                        obj.lastName = row.lastName;
+                        obj.email = row.email;
+                        obj.uid = row.uid;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
+                }
+            });
+        }   
+    });
+
     userRoutes.put('/', function(req,res){
             if(req.query.firstName.length > 100) {
                 res.status(500).send("The length of the firstname is too long");
