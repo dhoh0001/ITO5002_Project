@@ -4,11 +4,13 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const sqlite3 = require('sqlite3');
 const path = require('path');
+const cors = require('cors');
 
 
 //initialize express
 const PORT = process.env.PORT || 5000;
 const app = express();
+app.use(cors());
 
 //firebase auth
 const middleware = require('./middleware/index');
