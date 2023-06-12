@@ -50,10 +50,6 @@ module.exports = ( function() {
     });
     
     farmRoutes.put('/', function(req,res){
-        if(!Number.isInteger(parseInt(req.query.farmId))) {
-            res.status(500).send("The farm ID must be an integer");
-            return;
-        }
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
             return;
