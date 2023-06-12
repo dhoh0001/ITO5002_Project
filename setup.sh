@@ -35,6 +35,8 @@ npm install firebase-admin --save
 npm install axios --save
 ##nodemailer
 npm install nodemailer --save
+##cors
+npm install cors --save
 
 ##set up routes for aws
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
