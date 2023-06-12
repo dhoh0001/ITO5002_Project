@@ -6,13 +6,13 @@ module.exports = ( function() {
     var metadata_db = new database();
     
     uiMetadataRoutes.get('/', function(req,res){
-        if(typeof req.query.id !== "undefined" && req.query.id) {
-            if(!Number.isInteger(parseInt(req.query.metadataId))) {
+        if(typeof req.query.farmId !== "undefined" && req.query.farmId) {
+            if(!Number.isInteger(parseInt(req.query.farmId))) {
                 res.status(500).send("The ID must be an integer");
                 return;
             }
             let sql = `select * from userInterfaceData where farm_id = ?`;
-            metadata_db.db.get(sql, [req.query.metadataId], (err, row) => {
+            metadata_db.db.get(sql, [req.query.farmId], (err, row) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
