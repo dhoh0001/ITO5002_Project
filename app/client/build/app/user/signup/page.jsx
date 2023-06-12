@@ -28,6 +28,7 @@ const Signup = () => {
                 const config = {
                       headers:{
                               header1: "value1",
+                              authorization: `Bearer ${user.accessToken}`,
                             }
                 };
 
@@ -40,7 +41,7 @@ const Signup = () => {
                     email: `${user.email}`
                 }
 
-                axios.put(url2,config);
+                axios.put(url2,data, config);
                 axios.post(url,data,config);
 
                 //const config = {
