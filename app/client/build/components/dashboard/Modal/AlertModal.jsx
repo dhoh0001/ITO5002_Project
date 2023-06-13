@@ -10,26 +10,31 @@ const Modal = () => {
   const formSubmit = (event) => {
     event.preventDefault();
     setShowAlertModal(false);
-    let data = new FormData(event.target);
-    let formObject = Object.fromEntries(data.entries());
-    console.log(formObject);
-    // Need to replace Farm ID and Log ID when backend is working.
-    axios.put(`ubuntu@ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/alert?Name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeFrame=${formObject.alertTimeframe}&farmId=1&logId=1`)
-      .catch((error) => {
-          if (error.response) {
-              console.log("Server returned with status code");
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-          } else if (error.request) {
-              console.log("Request made, no response received")
-              console.log(error.request);
-          } else {
-              console.log("It's cooked.")
-              console.log('Error', error.message);
-          }
-      });
+    let formData = new FormData(event.target);
+    let formObject = Object.fromEntries(formData.entries());
+    
+    const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/alert?userId=1&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.alertTimeframe}&farmId=${formObject.farmId}&logId=${formObject.logId}`
+
+    console.log(url);
+
+    const data = {
+      userId: 1,
+      alertId: `${formObject.alertId}`,
+      Name: `${formObject.alertName}`,
+      alertLevel: `${formObject.alertLevel}`,
+      timeframe: `${formObject.alertTimeframe}`,
+      farmId: `${formObject.farmId}`,
+      logId: `${formObject.logId}`,
     }
+
+    const config = {
+      headers:{
+          authorization: `Bearer ${user.accessToken}`,
+      }
+    }
+
+    axios.put(url, data, config); 
+  }
 
 
   return (
@@ -45,10 +50,16 @@ const Modal = () => {
                 <div className="border-2 border-gray-200 border-dashed rounded-lg text-white mx-2">
                     <label className="block text-sm font-bold mx-2 text-white pt-4" >Alert Name <span className="text-red-500" onClick={() => setShowAlertModal(false)}>X</span></label>
                     <input id="alertName" name="alertName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Id</label>
+                    <input id="alertId" name="alertId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Level</label>
                     <input id="alertLevel" name="alertLevel" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Timeframe</label>
                     <input id="alertTimeframe" name="alertTimeframe" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
+                    <input id="farmId" name="farmId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
+                    <input id="logId" name="logId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <div className="pt-4">
                         <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                     </div>

@@ -23,7 +23,7 @@ const Modal = () => {
     const config = {
         headers:{
             authorization: `Bearer ${user.accessToken}`,
-        }
+    }
     };
 
     axios.put(url, data, config);  
