@@ -71,8 +71,7 @@ module.exports = ( function() {
                     }
                 }
             });
-        }   
-    });
+        });
 
     userRoutes.put('/', function(req,res){
             if(req.query.firstName.length > 100) {

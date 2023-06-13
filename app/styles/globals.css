@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.head_text {
+  @apply text-5xl
+  font-extrabold leading-[1.15] text-black sm:text-6xl;
+}
+
+.green_gradient {
+  @apply bg-gradient-to-r from-green-400 to-green-800 bg-clip-text text-transparent;
+}
+
+.black_btn {
+  @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
+}
+
+.red_btn {
+	@apply rounded-full border border-black bg-red-700 py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm flex items-center justify-center;
+}
+
+.dash_btn {
+  @apply  border border-black secondary-colour h-12 w-11/12 text-white mt-4 ml-6 p-4 text-center text-sm flex items-center justify-center transition-all hover:bg-white hover:text-black
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.logo_text {
+  @apply max-sm:hidden font-semibold text-lg text-black tracking-wide;
+}
+
+.outline_btn {
+  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm flex items-center justify-center mr-3;
+}
+
+.primary-colour {
+  background-color: #ABD8B6;
+}
+
+.secondary-colour {
+  background-color: #062D17;
+}
+
+.secondary-colour-border {
+  border-color: #062D17;
+}
+
+/* Spinner */
+.loader {
+	border-top-color: #3498db;
+	-webkit-animation: spinner 1.5s linear infinite;
+	animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

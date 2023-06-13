@@ -7,31 +7,31 @@
  curl -X GET localhost:5000/alert
 
 #Scenario: alert get individual alert
-curl -X GET -d id=1 -G localhost:5000/alert
+curl -X GET -d alertId=1 -G localhost:5000/alert
 
 #Scenario: alert put alert return status
 curl -X PUT -d name=test -d alertLevel=1.0 -d timeframe=2 -d farmId=1 -d logId=1 -G localhost:5000/alert
 
 #Scenario: alert put alert validate alert was inserted
-curl -X GET -d id=4 -G localhost:5000/alert
+curl -X GET -d alertId=4 -G localhost:5000/alert
 
 #Scenario: alert post alert validate status
 curl -X POST -d alertId=1 -d name=test -d alertLevel=1.0 -d timeframe=2 -d farmId=1 -d logId=1 -G localhost:5000/alert
 
 #Scenario: alert post alert validate appropriate alert was changed
-curl -X GET -d id=1 -G localhost:5000/alert
+curl -X GET -d alertId=1 -G localhost:5000/alert
 
 #Scenario: alert delete alert validate response
-curl -X DELETE -d id=1 -G localhost:5000/alert
+curl -X DELETE -d alertId=4 -G localhost:5000/alert
 
 #Scenario: alert delete validate alert deleted
-curl -X GET -d id=1 -G localhost:5000/alert
+curl -X GET -d alertId=1 -G localhost:5000/alert
 
 #Scenario: farm get all farms
 curl -X GET -G localhost:5000/farm
 
 #Scenario: farm get individualfarm 
-curl -X GET -d id=1 -G localhost:5000/farm
+curl -X GET -d farmId=1 -G localhost:5000/farm
 
 #Scenario: farm put farm return status
 curl -X PUT -d farmId=4 -d name=test -d userId=4 -G localhost:5000/farm
