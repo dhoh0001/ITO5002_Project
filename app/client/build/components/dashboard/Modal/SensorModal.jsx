@@ -14,7 +14,7 @@ const Modal = () => {
     let formObject = Object.fromEntries(formData.entries());
     console.log(formObject);
 
-    const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/sensor?userId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
+    const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?userId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
 
     const data = {
       userId: 1,

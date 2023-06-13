@@ -17,8 +17,8 @@ const Signup = () => {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/user`
-                const url2 = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/user?uid=${user.uid}&firstName=${formObject.firstName}&lastName=${formObject.lastName}&email=${user.email}`
+                const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com`
+                const url2 = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user?uid=${user.uid}&firstName=${formObject.firstName}&lastName=${formObject.lastName}&email=${user.email}`
                 
                 const headers = {
                     authorization: `Bearer ${user.accessToken}`,

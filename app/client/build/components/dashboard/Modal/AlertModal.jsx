@@ -13,7 +13,7 @@ const Modal = () => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
     
-    const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/alert?userId=1&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.alertTimeframe}&farmId=${formObject.farmId}&logId=${formObject.logId}`
+    const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?userId=1&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.alertTimeframe}&farmId=${formObject.farmId}&logId=${formObject.logId}`
 
     console.log(url);
 

@@ -15,7 +15,7 @@ const Name = () => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
 
-        const url = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1&name=${formObject.farmName}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1&name=${formObject.farmName}`
 
         const data = {
             userId: 1,
@@ -36,7 +36,7 @@ const Name = () => {
     useEffect(() => {
         // Get Request to get Farm Name    
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-24-134-183.ap-southeast-2.compute.amazonaws.com/farm`;
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm`;
           const params = {
             params: {
               farmId: 1,
