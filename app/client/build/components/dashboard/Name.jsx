@@ -39,6 +39,7 @@ const Name = () => {
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm`;
           const params = {
             params: {
+              userId: 1,
               farmId: 1,
             },
           };
@@ -53,6 +54,7 @@ const Name = () => {
             .then((response) => {
               // Handle successful response and update state if necessary
               setFarmName(response.data.name);
+              console.log(farmName);
             })
             .catch((error) => {
               console.error("Error retrieving data:", error);
@@ -72,15 +74,15 @@ const Name = () => {
             authorization: `Bearer ${user.accessToken}`,
           },
           data: {
-            userId: 1,
-            farmId: 1,
+              sensorId: 1,
+              userId: 1,
           },
         };
 
-        axios.delete(url, data, config);
+        axios.delete(url, config);
       }
       console.log("delete");
-    }
+  }
     
     return (
         <>

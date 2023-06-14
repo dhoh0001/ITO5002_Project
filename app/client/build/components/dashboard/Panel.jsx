@@ -69,23 +69,22 @@ const Panel = () => {
     const deleteLog = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowNameModal(false);
+          setShowPanelModal(false);
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1`
+          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?logId=1`
           
           const config = {
             headers: {
               authorization: `Bearer ${user.accessToken}`,
             },
             data: {
-            userId: 1,
+              userId: 1,
               logId: 1,
             },
           };
   
-          axios.delete(url, data, config);
+          axios.delete(url, config);
         }
-        console.log("delete");
     }
 
     // useEffect(() => {

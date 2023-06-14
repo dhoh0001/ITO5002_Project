@@ -17,11 +17,11 @@ const Farm = () => {
                     </div>
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                         <Panel />
-                        <LightPanel />
+                        <Sensor />
                         <Panel />
                     </div>          
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                        <Sensor />
+                        <Sensor />     
                         <div>
                             <Link href="trend" className="dash_btn">
                                 View Trends
