@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 import axios from "axios";
 
+
 const LightPanel = () => {
     
     const [showLightPanelModal, setShowLightPanelModal] = useState(false);
+    const [sensorData, setSensorData] = useState({});
 
     // This should take sensor values.
     // Need to play around with this when API passes data
@@ -13,6 +15,9 @@ const LightPanel = () => {
     isGood = false;
     let status = isGood == true ? "🟢" : "🔴";
 
+    useEffect(() => {
+    //   console.log(sensorData);
+    }, [sensorData]);
 
     return (
         <>
@@ -22,7 +27,7 @@ const LightPanel = () => {
                     <div className="ml-3">
                     <p className="text-center tracking-widest secondary-colour-border">Sensor</p>
                     <p className="text-center text-sm font-medium secondary-colour-border text-blue-700" onClick={() => setShowLightPanelModal(true)}>Edit</p>
-                    <h2 className="text-center text-lg font-medium secondary-colour-border">Status: {status}</h2>
+                    <h2 className="text-center text-lg font-medium secondary-colour-border">test: {status}</h2>
                     </div>
                 </div>
             </div>

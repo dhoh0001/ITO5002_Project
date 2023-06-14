@@ -17,7 +17,8 @@ const Modal = () => {
 
     const data = {
         userId: 1,
-        Name: `${formObject.farmName}`,
+        farmId: 1,
+        name: `${formObject.farmName}`,
     }
 
     const config = {
