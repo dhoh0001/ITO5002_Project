@@ -54,7 +54,7 @@ const Name = () => {
             .then((response) => {
               // Handle successful response and update state if necessary
               setFarmName(response.data.name);
-              console.log(farmName);
+              console.log("farmName", farmName);
             })
             .catch((error) => {
               console.error("Error retrieving data:", error);

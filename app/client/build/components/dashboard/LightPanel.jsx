@@ -27,7 +27,6 @@ const LightPanel = () => {
                     <div className="ml-3">
                     <p className="text-center tracking-widest secondary-colour-border">Sensor</p>
                     <p className="text-center text-sm font-medium secondary-colour-border text-blue-700" onClick={() => setShowLightPanelModal(true)}>Edit</p>
-                    <h2 className="text-center text-lg font-medium secondary-colour-border">test: {status}</h2>
                     </div>
                 </div>
             </div>

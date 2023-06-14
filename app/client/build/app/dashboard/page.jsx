@@ -30,6 +30,7 @@ const Farm = () => {
                                 Configure Alerts
                             </Link> 
                         </div>
+                        <LightPanel />
                     </div>
                 </div>
             </div>
