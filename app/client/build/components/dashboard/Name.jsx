@@ -35,7 +35,7 @@ const Name = () => {
     // Get Request to get Farm Name 
     useEffect(() => {
         // Get Request to get Farm Name    
-        if (user && user.accessToken) { // Check if user and accessToken exist
+        if (user?.accessToken) { // Check if user and accessToken exist
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm`;
           const params = {
             params: {
@@ -53,19 +53,40 @@ const Name = () => {
             .then((response) => {
               // Handle successful response and update state if necessary
               setFarmName(response.data.name);
-              console.log(response);
             })
             .catch((error) => {
               console.error("Error retrieving data:", error);
             });
         }
     }, [user]); 
+
+    const deleteFarm = (event) => {
+      if (user?.accessToken) {
+        event.preventDefault();
+        setShowNameModal(false);
+
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1`
+        
+        const config = {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
+          data: {
+            userId: 1,
+            farmId: 1,
+          },
+        };
+
+        axios.delete(url, data, config);
+      }
+      console.log("delete");
+    }
     
     return (
         <>
             <div className="mt-4 ml-6 p-4 w-11/12 h-fit border-4 secondary-colour-border"> 
                 <div>
-                    <h2 className="text-center text-lg font-medium secondary-colour-border">Farm One</h2>
+                    <h2 className="text-center text-lg font-medium secondary-colour-border">{farmName ? farmName : "Loading..."}</h2>
                     <p className="text-center text-sm font-medium secondary-colour-border text-blue-700" onClick={() => setShowNameModal(true)}>Edit</p>
                 </div>                
             </div>
@@ -80,7 +101,7 @@ const Name = () => {
                            <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                         </div>
                         <div>
-                           <button className="red_btn mx-2 mb-2" type="delete">Delete</button>
+                           <button className="red_btn mx-2 mb-2" type="delete" onClick={deleteFarm}>Delete</button>
                         </div>
                     </form>
                     </div>
