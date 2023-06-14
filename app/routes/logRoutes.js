@@ -22,6 +22,7 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.sensorId = row.sensorId;
                         obj.farmId = row.farm_id;
+                        obj.logSetting = row.log_setting;
                         res.send(JSON.stringify(obj));
                     } else {
                         res.status(404).send("id not found");
@@ -64,9 +65,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `insert into log(name, sensor_id, farm_id) values (?, ?, ?)`;
+        let sql = `insert into log(name, sensor_id, farm_id, log_setting) values (?, ?, ?, ?)`;
 
-        log_db.db.run(sql, [req.query.name, req.query.sensorId, req.query.farmId], (err, rows) => {
+        log_db.db.run(sql, [req.query.name, req.query.sensorId, req.query.farmId, req.query.logSetting], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -90,9 +91,9 @@ module.exports = ( function() {
             return;
         }
 
-        let sql = `update log set log_id=?, name=?, sensor_id=?, farm_id = ? where log_id = ?`;
+        let sql = `update log set log_id=?, name=?, sensor_id=?, farm_id = ?, log_setting = ? where log_id = ?`;
 
-        log_db.db.run(sql, [req.body.logId, req.body.name, req.body.sensorId, req.body.farmId, req.body.logId], (err, rows) => {
+        log_db.db.run(sql, [req.body.logId, req.body.name, req.body.sensorId, req.body.farmId, req.body.logSetting, req.body.logId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
