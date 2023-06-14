@@ -39,14 +39,14 @@ function createTables(newdb) {
     console.log("creating tables");
     newdb.exec(`
         create table user (
-            user_id integer primary key autoincrement,
+            user_id integer primary key,
             first_name varchar(100),
             last_name varchar(100),
             email varchar(100),
             uid varchar(100)
         );
         create table farm (
-            farm_id integer primary key autoincrement,
+            farm_id integer primary key,
             name varchar(100),
             user_id int
         );
@@ -55,7 +55,7 @@ function createTables(newdb) {
             metadata text
         );
         create table alert (
-            alert_id integer primary key autoincrement,
+            alert_id integer primary key,
             name varchar(100),
             alert_level double,
             timeframe int,
@@ -63,14 +63,14 @@ function createTables(newdb) {
             log_id integer
         );
         create table log (
-            log_id integer primary key autoincrement,
+            log_id integer primary key,
             name varchar(100),
             sensor_id int,
             farm_id integer,
             log_settings text
         );
         create table sensor (
-            sensor_id integer primary key autoincrement,
+            sensor_id integer primary key,
             name varchar(100),
             hardware_id varchar(100),
             sensor_action varchar(100)
