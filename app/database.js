@@ -66,7 +66,8 @@ function createTables(newdb) {
             log_id integer primary key autoincrement,
             name varchar(100),
             sensor_id int,
-            farm_id integer
+            farm_id integer,
+            log_settings text
         );
         create table sensor (
             sensor_id integer primary key autoincrement,
