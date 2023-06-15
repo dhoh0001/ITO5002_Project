@@ -13,7 +13,6 @@ const Modal = () => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
 
-    // const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}`
     const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
     const data = { 
@@ -30,6 +29,8 @@ const Modal = () => {
     axios.put(url, data, config);  
 
     }
+
+  
 
   return (
     <>
