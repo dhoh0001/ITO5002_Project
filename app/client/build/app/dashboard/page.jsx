@@ -1,11 +1,52 @@
+'use client'
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Panel from "@components/dashboard/Panel"
 import LightPanel from "@components/dashboard/LightPanel"
 import Sensor from "@components/dashboard/Sensor"
 import Name from "@components/dashboard/Name"
 import Sidebar from "@components/dashboard/Sidebar"
 import Link from 'next/link';
+import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 
 const Farm = () => {
+    const { user } = useAuthContext();
+    const [userId, setUserId] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (user && user.accessToken) { // Check if user and accessToken exist
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user`;
+          const params = {
+            params: {
+              Uid: user.uid,
+            },
+          };
+          const config = {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+          };
+    
+          axios
+            .get(getUrl, { ...params, ...config })
+            .then((response) => {
+              // Handle successful response and update state if necessary
+              setUserId(response.data.userId);
+            })
+            .catch((error) => {
+              console.error("Error retrieving data:", error);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        }
+    }, [user]);
+
+    useEffect(() => {
+        console.log("userId", userId);
+    }, [userId]);
 
     return ( 
         <div> 
@@ -15,13 +56,10 @@ const Farm = () => {
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                         <Name />
                     </div>
+                    <LightPanel />
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                        <Panel />
                         <Sensor />
-                        <Panel />
-                    </div>          
-                    <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                        <Sensor />     
+                        <Sensor />
                         <div>
                             <Link href="trend" className="dash_btn">
                                 View Trends
@@ -30,8 +68,7 @@ const Farm = () => {
                                 Configure Alerts
                             </Link> 
                         </div>
-                    </div>
-                    <LightPanel />
+                    </div>          
                 </div>
             </div>
         </div>

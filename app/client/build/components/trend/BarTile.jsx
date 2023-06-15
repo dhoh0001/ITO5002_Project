@@ -76,7 +76,7 @@ const Trend = () => {
                 {
                     label: 'Overall Plant Health',
                     // Get the data from logSetting
-                    data: [15234, 124382, 19245, 16243, 28356, 14235, 31000],
+                    data: logData,
                     borderColor: 'rgb(53, 162, 235',
                     backgroundColor: 'rgb(53, 162, 235, 0.4'
                 }

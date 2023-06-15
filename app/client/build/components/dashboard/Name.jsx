@@ -83,6 +83,10 @@ const Name = () => {
       }
       console.log("delete");
   }
+
+    //   useEffect(() => {
+    //     console.log("selectedLogs", farmName);
+    // }, [farmName]);
     
     return (
         <>

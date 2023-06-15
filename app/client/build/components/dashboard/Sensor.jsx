@@ -15,7 +15,6 @@ const Sensor = () => {
         setShowSensorModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
-        console.log(formObject);
 
         const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?userId=1&sensorId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
 

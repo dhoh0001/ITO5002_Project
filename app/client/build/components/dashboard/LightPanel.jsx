@@ -79,9 +79,9 @@ const LightPanel = () => {
         axios.put(url, data, config);  
     }
 
-    useEffect(() => {
-        console.log("selectedLogs", selectedLogs);
-    }, [selectedLogs]);
+    // useEffect(() => {
+    //     console.log("selectedLogs", selectedLogs);
+    // }, [selectedLogs]);
 
     // POST Request to edit Log
     const formEditSubmit = (event) => {
