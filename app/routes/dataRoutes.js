@@ -38,6 +38,25 @@ module.exports = ( function() {
             }
         });
     });
+    
+    dataRoutes.get('/dataforuser', function(req,res){
+        let sql = `select ld.log_id, max(ld.timestamp), ld.value a.name, a.alert_level from logdata ld inner join alert a on a.log_id = ld.log_id inner join farm f on a.farm_id = f.farm_id inner join user u on f.user_id = u.user_id where u.user_id = ? group by ld.log_id;`;
+        data_db.db.all(sql, [req.query.userId], (err, rows) => {
+            if(err) {
+                res.status(500).send("err: error retrieving from db: " + err);
+                throw err;
+            } else {
+                var data = [];
+                rows.forEach((row) => {
+                    let obj = {}
+                    obj.name= row.name
+                    obj.alertLevel = row.alertLevel
+                    obj.value = row.value
+                    data.push(obj)
+                })
+                res.send(JSON.stringify(data))
+            }
+        });
 
     dataRoutes.put('/', function(req,res){
         if(!Number.isInteger(parseInt(req.query.logId))) {

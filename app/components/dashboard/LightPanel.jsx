@@ -28,7 +28,7 @@ const LightPanel = () => {
     // Get Request to get Log Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/data/dataforuser?userId=1`;
           const params = {
             params: {
               farmId: 1,
@@ -139,7 +139,6 @@ const LightPanel = () => {
         <>
             <div>
                 {/* Main Panel */}
-                <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
                 <h2 className="text-center text-lg font-medium secondary-colour-border">Logs</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
@@ -191,7 +190,6 @@ const LightPanel = () => {
                         </div>
                     </div>
                 </div>
-            </div>
 
             {showCreateModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
