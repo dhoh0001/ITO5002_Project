@@ -53,7 +53,7 @@ module.exports = ( function() {
 
 
     sensorRoutes.get('/byuid', function(req,res){
-            let sql = `select s.* from sensor s inner join log l on s.log_id = l.log_id inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.user_id = ?;`;
+            let sql = `select s.* from sensor s inner join log l on s.log_id = l.log_id inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
             log_db.db.get(sql, [req.query.uid], (err, row) => {
                 if(err) {
                     res.status(404).send("[]");
