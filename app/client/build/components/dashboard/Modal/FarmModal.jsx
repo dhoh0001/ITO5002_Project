@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 import axios from "axios";
 
-const Modal = () => {
+const Modal = (props) => {
   const [showModal, setShowModal] = useState(false);
   const { user } = useAuthContext();
+  const { userId } = props;
 
   const formSubmit = (event) => {
     event.preventDefault();
@@ -13,11 +14,10 @@ const Modal = () => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());;
 
-    const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1&name=${formObject.farmName}`
+    const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&name=${formObject.farmName}`
 
     const data = {
-        userId: 1,
-        farmId: 1,
+        userId: props.userId,
         name: `${formObject.farmName}`,
     }
 

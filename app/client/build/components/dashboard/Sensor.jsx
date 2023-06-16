@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 import axios from "axios";
 
-const Sensor = () => {
+const Sensor = (props) => {
     const [showSensorModal, setShowSensorModal] = useState(false);
     const [sensorData, setSensorData] = useState({});
     const [loading, setLoading] = useState(true);
     const [status, setStatus] = useState("🔴");
     const { user } = useAuthContext();
+    const { userId } = props;
 
     const formSubmit = (event) => {
         event.preventDefault();
@@ -16,11 +17,11 @@ const Sensor = () => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?userId=1&sensorId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&sensorId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
 
         const data = {
           sensorId: 1,
-          userId: 1,
+          userId: props.userId,
           hardwareId: `${formObject.sensorId}`,
           name: `${formObject.sensorName}`,
           sensorAction: `${formObject.sensorAction}`
@@ -42,7 +43,7 @@ const Sensor = () => {
           const params = {
             params: {
                 sensorId: 1,
-                userId: 1,
+                userId: props.userId,
             },
           };
           const config = {
@@ -56,7 +57,6 @@ const Sensor = () => {
         .then((response) => {
           // Handle successful response and update state if necessary
           setSensorData(response.data);
-          console.log(sensorData);
         })
         .catch((error) => {
           console.error("Error retrieving data:", error);
@@ -80,8 +80,8 @@ const Sensor = () => {
             },
             data: {
                 sensorId: 1,
-                userId: 1,
-                farmId: 1,
+                userId: props.userId,
+                // farmId: 1,
             },
           };
   

@@ -17,10 +17,10 @@ const Farm = () => {
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user`;
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
           const params = {
             params: {
-              Uid: user.uid,
+              uid: user.uid,
             },
           };
           const config = {
@@ -44,22 +44,22 @@ const Farm = () => {
         }
     }, [user]);
 
-    useEffect(() => {
-        console.log("userId", userId);
-    }, [userId]);
+    // useEffect(() => {
+    //     console.log("userId", userId);
+    // }, [userId]);
 
     return ( 
         <div> 
-            <Sidebar />      
+            <Sidebar userId={userId}/>      
             <div className="p-4 sm:ml-64">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                        <Name />
+                        <Name userId={userId}/>
                     </div>
-                    <LightPanel />
+                    <LightPanel userId={userId}/>
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                        <Sensor />
-                        <Sensor />
+                        <Sensor userId={userId}/>
+                        <Sensor userId={userId}/>
                         <div>
                             <Link href="trend" className="dash_btn">
                                 View Trends

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 import axios from "axios";
 
-const LightPanel = () => {
+const LightPanel = (props) => {
     
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -12,6 +12,7 @@ const LightPanel = () => {
     const [selectedLogs, setSelectedLogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useAuthContext();
+    const { userId } = props;
 
     const handleLogSelection = (logId) => {
         setSelectedLogs((prevSelectedLogs) => {
@@ -31,8 +32,7 @@ const LightPanel = () => {
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
           const params = {
             params: {
-              farmId: 1,
-              userId: 1,
+              userId: props.userId,
             },
           };
           const config = {
@@ -54,7 +54,7 @@ const LightPanel = () => {
               setLoading(false);
             });
         }
-    }, [user]);
+    }, [user, props.userId]);
 
     // PUT Request to create Log
     const formCreateSubmit = (event) => {
@@ -63,10 +63,10 @@ const LightPanel = () => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
     
         const data = { 
-            userId: 1,
+            userId: props.userId,
             logId: `${formObject.logId}`,
         };
     
@@ -79,10 +79,6 @@ const LightPanel = () => {
         axios.put(url, data, config);  
     }
 
-    // useEffect(() => {
-    //     console.log("selectedLogs", selectedLogs);
-    // }, [selectedLogs]);
-
     // POST Request to edit Log
     const formEditSubmit = (event) => {
         event.preventDefault();
@@ -92,10 +88,10 @@ const LightPanel = () => {
         const logId = selectedLogs[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
-            userId: 1,
+            userId: props.userId,
             logId: `${logId}`,
             name: `${formObject.logName}`,
             sensorId: `${formObject.sensorId}`,
@@ -126,7 +122,7 @@ const LightPanel = () => {
               authorization: `Bearer ${user.accessToken}`,
             },
             data: {
-              userId: 1,
+              userId: props.userId,
               logId: `${logId}`,
             },
           };
@@ -137,6 +133,7 @@ const LightPanel = () => {
 
     return (
         <>
+            {logData && logData.length > 0 ? (
             <div>
                 {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
@@ -192,6 +189,11 @@ const LightPanel = () => {
                     </div>
                 </div>
             </div>
+            ) : (
+                <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
+                    <p>No logs registered</p>
+                </div>
+            )}
 
             {showCreateModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
