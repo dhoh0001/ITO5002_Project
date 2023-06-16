@@ -14,9 +14,9 @@ insert into alert values (1, "testname1", 1.0, 1, 1, 1);
 insert into alert values (2, "testname2", 2.0, 2, 2, 2);
 insert into alert values (3, "testname3", 3.0, 3, 3, 3);
 
-insert into log values (1, "testname1", 1, 1);
-insert into log values (2, "testname2", 2, 2);
-insert into log values (3, "testname3", 3, 3);
+insert into log values (1, "testname1", 1, 1, "data1");
+insert into log values (2, "testname2", 2, 2, "data2");
+insert into log values (3, "testname3", 3, 3, "data3");
 
 insert into sensor values (1, "testname1", "hardware1", "action1");
 insert into sensor values (2, "testname2", "hardware2", "action2");

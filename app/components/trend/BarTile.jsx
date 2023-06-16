@@ -1,5 +1,6 @@
 "use client"
-
+import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
+import axios from "axios";
 import { 
         Chart as Chartjs,
         CategoryScale,
@@ -22,6 +23,46 @@ Chartjs.register(
 )
 
 const Trend = () => {
+    const { user } = useAuthContext();
+    const [logData, setLogData] = useState({});
+
+    useEffect(() => {
+        if (user && user.accessToken) { // Check if user and accessToken exist
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
+          const params = {
+            params: {
+              logId: 3,  
+              farmId: 1,
+              userId: 1,
+            },
+          };
+          const config = {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+          };
+    
+          axios
+            .get(getUrl, { ...params, ...config })
+            .then((response) => {
+              // Handle successful response and update state if necessary
+              setLogData(response.data);
+            })
+            .catch((error) => {
+              console.error("Error retrieving data:", error);
+            })
+            .finally(() => {
+            //   setLoading(false);
+            });
+        }
+    }, [user]);
+
+    useEffect(() => {
+      console.log(logData);
+    }, [logData]);
+
+
+    // Config for Bar Chart
     const [chartData, setChartData] = useState({
         datasets: []
     })
@@ -34,7 +75,8 @@ const Trend = () => {
             datasets: [
                 {
                     label: 'Overall Plant Health',
-                    data: [15234, 124382, 19245, 16243, 28356, 14235, 31000],
+                    // Get the data from logSetting
+                    data: logData,
                     borderColor: 'rgb(53, 162, 235',
                     backgroundColor: 'rgb(53, 162, 235, 0.4'
                 }

@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 import axios from "axios";
 
-const Modal = () => {
+const Modal = (props) => {
   const [showLogModal, setShowLogModal] = useState(false);
   const { user } = useAuthContext();
+  const { userId } = props;
 
   const formSubmit = (event) => {
     event.preventDefault();
@@ -13,7 +14,7 @@ const Modal = () => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
 
-    const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}`
+    const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
     const data = { 
         userId: 1,
@@ -49,6 +50,8 @@ const Modal = () => {
                     <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                     <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                    <label className="block text-sm font-bold mx-2 text-white pt-4">Log Setting</label>
+                    <input id="logSetting" name="logSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                     <div className="pt-4">
                         <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                     </div>

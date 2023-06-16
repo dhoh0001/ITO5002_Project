@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 import axios from "axios";
 
-const Name = () => {
+const Name = (props) => {
     const [showNameModal, setShowNameModal] = useState(false);
-    const [farmName, setFarmName] = useState('');
+    const [farmName, setFarmName] = useState([]);
     const { user } = useAuthContext();
+    const { userId } = props;
 
     // Post Request to update Farm Name
     const formSubmit = (event) => {
@@ -15,7 +16,7 @@ const Name = () => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=1&farmId=1&name=${formObject.farmName}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1&name=${formObject.farmName}`
 
         const data = {
             userId: 1,
@@ -35,11 +36,11 @@ const Name = () => {
     // Get Request to get Farm Name 
     useEffect(() => {
         // Get Request to get Farm Name    
-        if (user && user.accessToken) { // Check if user and accessToken exist
+        if (user?.accessToken) { // Check if user and accessToken exist
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm`;
           const params = {
             params: {
-              farmId: 1,
+              userId: props.userId,
             },
           };
           const config = {
@@ -52,22 +53,61 @@ const Name = () => {
             .get(getUrl, { ...params, ...config })
             .then((response) => {
               // Handle successful response and update state if necessary
-              setFarmName(response.data.name);
-              console.log(response);
+              setFarmName(response.data);
             })
             .catch((error) => {
               console.error("Error retrieving data:", error);
             });
         }
-    }, [user]); 
+    }, [user, props.userId]); 
+
+    // useEffect(() => {
+    //   console.log("farmName", farmName);
+    // }, [farmName, props.userId]);
+
+    const deleteFarm = (event) => {
+      if (user?.accessToken) {
+        event.preventDefault();
+        setShowNameModal(false);
+
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1`
+        
+        const config = {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
+          data: {
+              userId: props.userId,
+          },
+        };
+
+        axios.delete(url, config);
+      }
+      console.log("delete");
+  }
     
     return (
         <>
-            <div className="mt-4 ml-6 p-4 w-11/12 h-fit border-4 secondary-colour-border"> 
-                <div>
-                    <h2 className="text-center text-lg font-medium secondary-colour-border">Farm One</h2>
-                    <p className="text-center text-sm font-medium secondary-colour-border text-blue-700" onClick={() => setShowNameModal(true)}>Edit</p>
-                </div>                
+            <div className="mt-4 ml-6 p-4 w-11/12 h-fit border-4 secondary-colour-border">
+              <div>
+                {farmName && farmName.length > 0 ? (
+                  <>
+                    <h2 className="text-center text-lg font-medium secondary-colour-border">
+                      {farmName[0].name}
+                    </h2>
+                    <p
+                      className="text-center text-sm font-medium secondary-colour-border text-blue-700"
+                      onClick={() => setShowNameModal(true)}
+                    >
+                      Edit
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-center text-lg font-medium secondary-colour-border">
+                    No farm? Create one on the left!
+                  </p>
+                )}
+              </div>
             </div>
 
             {showNameModal ? (
@@ -80,7 +120,7 @@ const Name = () => {
                            <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                         </div>
                         <div>
-                           <button className="red_btn mx-2 mb-2" type="delete">Delete</button>
+                           <button className="red_btn mx-2 mb-2" type="delete" onClick={deleteFarm}>Delete</button>
                         </div>
                     </form>
                     </div>

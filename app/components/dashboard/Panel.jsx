@@ -5,6 +5,8 @@ import axios from "axios";
 
 const Panel = () => {
     const [showPanelModal, setShowPanelModal] = useState(false);
+    const [logData, setLogData] = useState({});
+    const [loading, setLoading] = useState(true);
     const { user } = useAuthContext();
 
     const formSubmit = (event) => {
@@ -13,14 +15,16 @@ const Panel = () => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}`
+
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
             userId: 1,
             logId: `${formObject.logId}`,
             name: `${formObject.logName}`,
             sensorId: `${formObject.sensorId}`,
-            farmId: `${formObject.farmId}`
+            farmId: `${formObject.farmId}`,
+            logSetting: `${formObject.logSetting}`
         };
 
         const config = {
@@ -32,21 +36,81 @@ const Panel = () => {
         axios.post(url, data, config);  
     }
 
+    // Get Request to get Log Object 
+    useEffect(() => {
+        if (user && user.accessToken) { // Check if user and accessToken exist
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
+          const params = {
+            params: {
+              farmId: 1,
+              userId: 1,
+            },
+          };
+          const config = {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+          };
+    
+          axios
+            .get(getUrl, { ...params, ...config })
+            .then((response) => {
+              // Handle successful response and update state if necessary
+              setLogData(response.data);
+            })
+            .catch((error) => {
+              console.error("Error retrieving data:", error);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        }
+    }, [user]);
+
+
+    const deleteLog = (event) => {
+        if (user?.accessToken) {
+          event.preventDefault();
+          setShowPanelModal(false);
+  
+          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?logId=1`
+          
+          const config = {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+            data: {
+              userId: 1,
+              logId: 1,
+            },
+          };
+  
+          axios.delete(url, config);
+        }
+    }
+
+    // useEffect(() => {
+    //   console.log(logData);
+    // }, [logData]);
+
+    // if (loading) {
+    //   return <div>Loading...</div>; 
+    // }
+
+    const logItem = logData[0];
+
     return (
         <>
             <div>
                 {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 w-11/12 h-fit border-4 secondary-colour-border">
                     <div className="ml-3">
-                        <h2 className="text-center text-lg font-medium secondary-colour-border">Log</h2>
+                        <h2 className="text-center text-lg font-medium secondary-colour-border"> {logItem ? logItem.name : "Loading..."}</h2>
                         <p className="text-center text-sm font-medium secondary-colour-border text-blue-700" onClick={() => setShowPanelModal(true)}>Edit</p>
-                        <p className="text-center tracking-widest secondary-colour-border">Carrots x 20</p>
                     
                     <h2 className="text-center text-lg font-medium secondary-colour-border">Data</h2>
-                        <p className="text-center tracking-widest secondary-colour-border">Moisture Level: 95%</p>
-                        <p className="text-center tracking-widest secondary-colour-border">Soil pH: 6.5pH</p>
-                        <p className="text-center tracking-widest secondary-colour-border">Phosphorus Level: 22ppm</p>
-                        <p className="text-center tracking-widest secondary-colour-border">Overall Plant Health: Great</p>
+                        <p className="text-center tracking-widest secondary-colour-border">Log ID: {logItem ? logItem.logId : "Loading..."}</p>
+                        <p className="text-center tracking-widest secondary-colour-border">Farm ID: {logItem ? logItem.farmId : "Loading..."}</p>
                     </div>
                 </div>
             </div>
@@ -63,8 +127,13 @@ const Panel = () => {
                             <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log Setting</label>
+                            <input id="logSetting" name="logSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
+                            </div>
+                            <div>
+                                <button className="red_btn mx-2 mb-2" type="delete" onClick={deleteLog}>Delete</button>
                             </div>
                         </div>
                     </form>
