@@ -57,6 +57,7 @@ module.exports = ( function() {
                 res.send(JSON.stringify(data))
             }
         });
+    });
 
     dataRoutes.put('/', function(req,res){
         if(!Number.isInteger(parseInt(req.query.logId))) {
