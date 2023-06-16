@@ -52,6 +52,28 @@ module.exports = ( function() {
             });
         }
     });
+
+    alertRoutes.get('/byuid', function(req,res){
+            let sql = `select a.* from alert a inner join farm f on a.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
+            log_db.db.get(sql, [req.query.uid], (err, row) => {
+                if(err) {
+                    res.status(404).send("[]");
+                } else {
+                    if(row) {
+                        let obj = {};
+                        obj.alertId = row.alert_id;
+                        obj.name = row.name;
+                        obj.alertLevel = row.alert_level;
+                        obj.timeframe = row.timeframe;
+                        obj.farmId = row.farm_id;
+                        obj.logId = row.log_id;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
+                }
+            });
+    });
     
     alertRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
@@ -64,7 +86,7 @@ module.exports = ( function() {
         }
         if(!Number.isInteger(parseInt(req.query.timeframe))) {
             res.status(500).send("The timeframe must be a number");
-            return;
+            return
         }
         if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm id must be a number");

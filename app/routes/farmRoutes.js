@@ -48,6 +48,26 @@ module.exports = ( function() {
             });
         }
     });
+
+
+    farmRoutes.get('/byuid', function(req,res){
+            let sql = `select f.* from farm f inner join user u on u.user_id = f.user_id where u.uid = ?;`;
+            log_db.db.get(sql, [req.query.uid], (err, row) => {
+                if(err) {
+                    res.status(404).send("[]");
+                } else {
+                    if(row) {
+                        let obj = {};
+                        obj.farmId = row.farm_id;
+                        obj.name = row.name;
+                        obj.userId = row.user_id;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
+                }
+            });
+    });
     
     farmRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
