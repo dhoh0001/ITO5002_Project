@@ -22,6 +22,7 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.hardwareId= row.hardware_id;
                         obj.sensorAction = row.sensor_action;
+                        obj.logId = row.log_id;
                         res.send(JSON.stringify(obj));
                     } else {
                         res.status(404).send("id not found");
@@ -41,12 +42,35 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.hardwareId= row.hardware_id;
                         obj.sensorAction = row.sensor_action;
+                        obj.logId = row.log_id;
                         sensors.push(obj);
                     });
                     res.send(JSON.stringify(sensors));
                 }
             });
         }
+    });
+
+
+    logRoutes.get('/byuid', function(req,res){
+            let sql = `select s.* from sensor s inner join log l on s.log_id = l.log_id inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.user_id = ?;`;
+            log_db.db.get(sql, [req.query.uid], (err, row) => {
+                if(err) {
+                    res.status(404).send("[]");
+                } else {
+                    if(row) {
+                        let obj = {};
+                        obj.sensorId = row.sensor_id;
+                        obj.name = row.name;
+                        obj.hardwareId= row.hardware_id;
+                        obj.sensorAction = row.sensor_action;
+                        obj.logId = row.log_id;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
+                }
+            });
     });
     
     sensorRoutes.put('/', function(req,res){
@@ -62,9 +86,13 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        let sql = `insert into sensor(name, hardware_id, sensor_action) values (?, ?, ?)`;
+        if(!Number.isInteger(parseInt(req.query.logId))) {
+            res.status(500).send("The ID must be an integer");
+            return;
+        }
+        let sql = `insert into sensor(name, hardware_id, sensor_action, log_id) values (?, ?, ?)`;
 
-        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction], (err, rows) => {
+        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction, req.query.logId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -90,9 +118,13 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        let sql = `update sensor set name=?, hardware_id=?, sensor_action=? where sensor_id = ?`;
+        if(!Number.isInteger(parseInt(req.body.logId))) {
+            res.status(500).send("The sensor ID must be an integer");
+            return;
+        }
+        let sql = `update sensor set name=?, hardware_id=?, sensor_action=?, log_id = ? where sensor_id = ?`;
 
-        sensor_db.db.run(sql, [req.body.name, req.body.hardwareId, req.body.sensorAction, req.body.sensorId], (err, rows) => {
+        sensor_db.db.run(sql, [req.body.name, req.body.hardwareId, req.body.sensorAction, req.body.logId, req.body.sensorId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

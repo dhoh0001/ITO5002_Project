@@ -51,6 +51,27 @@ module.exports = ( function() {
         }
     });
     
+    logRoutes.get('/byuid', function(req,res){
+            let sql = `select l.* from log l inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
+            log_db.db.get(sql, [req.query.uid], (err, row) => {
+                if(err) {
+                    res.status(404).send("[]");
+                } else {
+                    if(row) {
+                        let obj = {};
+                        obj.logId = row.log_id;
+                        obj.name = row.name;
+                        obj.sensorId = row.sensorId;
+                        obj.farmId = row.farm_id;
+                        obj.logSetting = row.log_setting;
+                        res.send(JSON.stringify(obj));
+                    } else {
+                        res.status(404).send("id not found");
+                    }
+                }
+            });
+    });
+
     logRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");

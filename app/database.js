@@ -73,7 +73,8 @@ function createTables(newdb) {
             sensor_id integer primary key,
             name varchar(100),
             hardware_id varchar(100),
-            sensor_action varchar(100)
+            sensor_action varchar(100),
+            log_id integer
         );
         create table logdata (
             log_id int,
