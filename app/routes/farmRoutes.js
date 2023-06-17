@@ -63,7 +63,7 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.userId = row.user_id;
                         farms.push(obj);
-                    }
+                    });
                     res.send(JSON.stringify(farms));
                 }
             });
