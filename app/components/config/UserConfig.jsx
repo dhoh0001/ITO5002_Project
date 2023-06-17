@@ -63,11 +63,15 @@ const UserConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user?userId=${props.userId}&userId=${formObject.userId}&name=${formObject.userName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&userSetting=${formObject.userSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user`
     
         const data = { 
             userId: props.userId,
             userId: `${formObject.userId}`,
+            firstName: `${formObject.firstName}`,
+            lastName: `${formObject.lastName}`,
+            email: `${formObject.email}`,
+            uid: `${formObject.uid}`,
         };
     
         const config = {
@@ -88,15 +92,15 @@ const UserConfigCom = (props) => {
         const userId = selectedUsers[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user?userId=${props.userId}&&userId=${userId}&name=${formObject.userName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&userSetting=${formObject.userSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user`
 
         const data = { 
             userId: props.userId,
-            userId: `${userId}`,
-            name: `${formObject.userName}`,
-            sensorId: `${formObject.sensorId}`,
-            farmId: `${formObject.farmId}`,
-            userSetting: `${formObject.userSetting}`
+            userId: `${formObject.userId}`,
+            firstName: `${formObject.firstName}`,
+            lastName: `${formObject.lastName}`,
+            email: `${formObject.email}`,
+            uid: `${formObject.uid}`,
         };
 
         const config = {
@@ -156,9 +160,10 @@ const UserConfigCom = (props) => {
                                     <tr>
                                         <th className="text-left"></th>
                                         <th className="text-left">User ID</th>
-                                        <th className="text-left">Name</th>
-                                        <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Status</th>
+                                        <th className="text-left">First Name</th>
+                                        <th className="text-left">Last Name</th>
+                                        <th className="text-left">email</th>
+                                        <th className="text-left">UID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -177,8 +182,10 @@ const UserConfigCom = (props) => {
                                         <input type="checkbox" id={user.userId} className="appearance-none checked:bg-green-700" onChange={() => handleUserSelection(user.userId)}/>
                                         </td>
                                         <td>{user.userId}</td>
-                                        <td>{user.name}</td>
-                                        <td>{user.farmId}</td>
+                                        <td>{user.firstName}</td>
+                                        <td>{user.lastName}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.uid}</td>
                                         <td>{user ? "🟢" : "🔴"}</td>
                                     </tr>
                                     ))
@@ -201,14 +208,14 @@ const UserConfigCom = (props) => {
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">User Name</label>
-                            <input id="userName" name="userName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
-                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">User Setting</label>
-                            <input id="userSetting" name="userSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">First Name</label>
+                            <input id="userName" name="firstName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Last Name</label>
+                            <input id="sensorId" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
+                            <input id="farmId" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">UID</label>
+                            <input id="userSetting" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -226,14 +233,14 @@ const UserConfigCom = (props) => {
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">User Name</label>
-                            <input id="userName" name="userName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
-                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">User Setting</label>
-                            <input id="userSetting" name="userSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">First Name</label>
+                            <input id="userName" name="firstName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Last Name</label>
+                            <input id="sensorId" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
+                            <input id="farmId" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">UID</label>
+                            <input id="userSetting" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

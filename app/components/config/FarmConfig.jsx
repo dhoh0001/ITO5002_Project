@@ -63,11 +63,12 @@ const FarmConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=${formObject.farmId}&name=${formObject.farmName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&farmSetting=${formObject.farmSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=${formObject.farmId}&name=${formObject.farmName}`
     
         const data = { 
             userId: props.userId,
             farmId: `${formObject.farmId}`,
+            name: `${formObject.name}`
         };
     
         const config = {
@@ -88,15 +89,12 @@ const FarmConfigCom = (props) => {
         const farmId = selectedFarms[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&&farmId=${farmId}&name=${formObject.farmName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&farmSetting=${formObject.farmSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/farm`
 
         const data = { 
             userId: props.userId,
-            farmId: `${farmId}`,
             name: `${formObject.farmName}`,
-            sensorId: `${formObject.sensorId}`,
             farmId: `${formObject.farmId}`,
-            farmSetting: `${formObject.farmSetting}`
         };
 
         const config = {
@@ -157,8 +155,7 @@ const FarmConfigCom = (props) => {
                                         <th className="text-left"></th>
                                         <th className="text-left">Farm ID</th>
                                         <th className="text-left">Name</th>
-                                        <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Status</th>
+                                        <th className="text-left">User ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -178,7 +175,7 @@ const FarmConfigCom = (props) => {
                                         </td>
                                         <td>{farm.farmId}</td>
                                         <td>{farm.name}</td>
-                                        <td>{farm.farmId}</td>
+                                        <td>{farm.userId}</td>
                                         <td>{farm ? "🟢" : "🔴"}</td>
                                     </tr>
                                     ))
@@ -203,12 +200,8 @@ const FarmConfigCom = (props) => {
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Name</label>
                             <input id="farmName" name="farmName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
-                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Setting</label>
-                            <input id="farmSetting" name="farmSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
+                            <input id="farmId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -228,12 +221,8 @@ const FarmConfigCom = (props) => {
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Name</label>
                             <input id="farmName" name="farmName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
-                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Setting</label>
-                            <input id="farmSetting" name="farmSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
+                            <input id="farmId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

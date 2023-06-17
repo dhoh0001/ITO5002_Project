@@ -63,7 +63,7 @@ const AlertConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?userId=${props.userId}&alertId=${formObject.alertId}&name=${formObject.alertName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&alertSetting=${formObject.alertSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.timeframe}&logId=${formObject.logId}&farmId=${formObject.farmId}`
     
         const data = { 
             userId: props.userId,
@@ -88,15 +88,16 @@ const AlertConfigCom = (props) => {
         const alertId = selectedAlerts[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?userId=${props.userId}&&alertId=${alertId}&name=${formObject.alertName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&alertSetting=${formObject.alertSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert`
 
         const data = { 
             userId: props.userId,
             alertId: `${alertId}`,
             name: `${formObject.alertName}`,
-            sensorId: `${formObject.sensorId}`,
+            alertLevel: `${formObject.alertLevel}`,
+            timeframe: `${formObject.timeframe}`,
             farmId: `${formObject.farmId}`,
-            alertSetting: `${formObject.alertSetting}`
+            logId: `${formObject.logId}`,
         };
 
         const config = {

@@ -63,11 +63,12 @@ const UserInterfaceDataConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData?userId=${props.userId}&userInterfaceDataId=${formObject.userInterfaceDataId}&name=${formObject.userInterfaceDataName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&userInterfaceDataSetting=${formObject.userInterfaceDataSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`
     
         const data = { 
             userId: props.userId,
-            userInterfaceDataId: `${formObject.userInterfaceDataId}`,
+            farmId: `${formObject.farmId}`,
+            metadata: `${formObject.metadata}`,
         };
     
         const config = {
@@ -88,15 +89,12 @@ const UserInterfaceDataConfigCom = (props) => {
         const userInterfaceDataId = selectedUserInterfaceDatas[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData?userId=${props.userId}&&userInterfaceDataId=${userInterfaceDataId}&name=${formObject.userInterfaceDataName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&userInterfaceDataSetting=${formObject.userInterfaceDataSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`
 
         const data = { 
             userId: props.userId,
-            userInterfaceDataId: `${userInterfaceDataId}`,
-            name: `${formObject.userInterfaceDataName}`,
-            sensorId: `${formObject.sensorId}`,
             farmId: `${formObject.farmId}`,
-            userInterfaceDataSetting: `${formObject.userInterfaceDataSetting}`
+            metadata: `${formObject.metadata}`,
         };
 
         const config = {
@@ -115,15 +113,15 @@ const UserInterfaceDataConfigCom = (props) => {
           setShowPanelModal(false);
           const userInterfaceDataId = selectedUserInterfaceDatas[0];
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData?userInterfaceDataId=${userInterfaceDataId}`
+          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`
           
           const config = {
             headers: {
               authorization: `Bearer ${user.accessToken}`,
             },
             data: {
-              userId: props.userId,
-              userInterfaceDataId: `${userInterfaceDataId}`,
+                userId: props.userId,
+                farmId: `${formObject.farmId}`,
             },
           };
   
@@ -155,10 +153,8 @@ const UserInterfaceDataConfigCom = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">UserInterfaceData ID</th>
-                                        <th className="text-left">Name</th>
                                         <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Status</th>
+                                        <th className="text-left">Metadata</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,9 +172,8 @@ const UserInterfaceDataConfigCom = (props) => {
                                         <td>
                                         <input type="checkbox" id={userInterfaceData.userInterfaceDataId} className="appearance-none checked:bg-green-700" onChange={() => handleUserInterfaceDataSelection(userInterfaceData.userInterfaceDataId)}/>
                                         </td>
-                                        <td>{userInterfaceData.userInterfaceDataId}</td>
-                                        <td>{userInterfaceData.name}</td>
                                         <td>{userInterfaceData.farmId}</td>
+                                        <td>{userInterfaceData.metadata}</td>
                                         <td>{userInterfaceData ? "🟢" : "🔴"}</td>
                                     </tr>
                                     ))
@@ -199,16 +194,10 @@ const UserInterfaceDataConfigCom = (props) => {
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="PUT" onSubmit={formCreateSubmit}>
                         <div className="text-white mx-2">
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UserInterfaceData ID</label>
-                            <input id="userInterfaceDataId" name="userInterfaceDataId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UserInterfaceData Name</label>
-                            <input id="userInterfaceDataName" name="userInterfaceDataName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UserInterfaceData Setting</label>
-                            <input id="userInterfaceDataSetting" name="userInterfaceDataSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Metadata</label>
+                            <input id="userInterfaceDataSetting" name="metadata"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -224,16 +213,10 @@ const UserInterfaceDataConfigCom = (props) => {
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UserInterfaceData ID</label>
-                            <input id="userInterfaceDataId" name="userInterfaceDataId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UserInterfaceData Name</label>
-                            <input id="userInterfaceDataName" name="userInterfaceDataName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UserInterfaceData Setting</label>
-                            <input id="userInterfaceDataSetting" name="userInterfaceDataSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Metadata</label>
+                            <input id="userInterfaceDataSetting" name="metadata"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
