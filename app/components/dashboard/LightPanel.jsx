@@ -29,7 +29,7 @@ const LightPanel = (props) => {
     // Get Request to get Log Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
+          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log`;
           const params = {
             params: {
               userId: props.userId,
@@ -63,7 +63,7 @@ const LightPanel = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
     
         const data = { 
             userId: props.userId,
@@ -88,7 +88,7 @@ const LightPanel = (props) => {
         const logId = selectedLogs[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
             userId: props.userId,
@@ -115,7 +115,7 @@ const LightPanel = (props) => {
           setShowPanelModal(false);
           const logId = selectedLogs[0];
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?logId=${logId}`
+          const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log?logId=${logId}`
           
           const config = {
             headers: {

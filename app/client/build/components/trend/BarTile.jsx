@@ -22,13 +22,14 @@ Chartjs.register(
     Legend
 )
 
-const Trend = () => {
+const Trend = (props) => {
     const { user } = useAuthContext();
     const [logData, setLogData] = useState({});
+    const { logIds, userId } = props;
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
+          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log`;
           const params = {
             params: {
               logId: 3,  
@@ -57,9 +58,6 @@ const Trend = () => {
         }
     }, [user]);
 
-    useEffect(() => {
-      console.log(logData);
-    }, [logData]);
 
 
     // Config for Bar Chart

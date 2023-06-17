@@ -2,6 +2,7 @@ import FarmModal from "./Modal/FarmModal";
 import AlertModal from "./Modal/AlertModal";
 import SensorModal from "./Modal/SensorModal";
 import LogModal from "./Modal/LogModal";
+import LogDataModal from "./Modal/LogDataModal";
 
 function Sidebar(props) {
 
@@ -23,6 +24,9 @@ function Sidebar(props) {
                         </li>
                         <li>
                             <LogModal userId={userId}/>
+                        </li>
+                        <li>
+                            <LogDataModal userId={userId}/>
                         </li>
                     </ul>
                 </div>

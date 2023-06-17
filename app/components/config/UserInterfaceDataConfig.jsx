@@ -29,7 +29,7 @@ const UserInterfaceDataConfigCom = (props) => {
     // Get Request to get UserInterfaceData Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata`;
+          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.comuiMetadata`;
           const params = {
             params: {
               userId: props.uid,
@@ -63,7 +63,7 @@ const UserInterfaceDataConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata?farmId=${formObject.farmId}&metadata=${formObject.metadata}&uid=${formObject.uid}`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/uiMetadata?farmId=${formObject.farmId}&metadata=${formObject.metadata}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -103,7 +103,7 @@ const UserInterfaceDataConfigCom = (props) => {
         const userInterfaceDataId = selectedUserInterfaceDatas[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/uiMetadata`
 
         const data = { 
             userId: props.userId,
@@ -127,7 +127,7 @@ const UserInterfaceDataConfigCom = (props) => {
           setShowDeleteModal(false);
           const userInterfaceDataId = selectedUserInterfaceDatas[0];
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata`
+          const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/uiMetadata`
           
           const config = {
             headers: {
