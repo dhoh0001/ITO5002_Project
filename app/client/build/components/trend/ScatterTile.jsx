@@ -27,6 +27,20 @@ const Trend = (props) => {
     const [logData, setLogData] = useState({});
     const { logIds, userId } = props;
 
+    useEffect(() => {
+        if (user && user.accessToken) { // Check if user and accessToken exist
+          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log`;
+          const params = {
+            params: {
+              farmId: 1,
+              userId: 1,
+            },
+          };
+          const config = {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+          };
     
 
     // useEffect(() => {

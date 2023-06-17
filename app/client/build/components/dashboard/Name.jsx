@@ -70,7 +70,7 @@ const Name = (props) => {
         event.preventDefault();
         setShowNameModal(false);
 
-        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.comfarm?userId=${props.userId}&farmId=1`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1`
         
         const config = {
           headers: {
