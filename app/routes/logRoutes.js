@@ -20,7 +20,7 @@ module.exports = ( function() {
                         let obj = {};
                         obj.logId = row.log_id;
                         obj.name = row.name;
-                        obj.sensorId = row.sensorId;
+                        obj.sensorId = row.sensor_id;
                         obj.farmId = row.farm_id;
                         obj.logSetting = row.log_setting;
                         res.send(JSON.stringify(obj));
@@ -41,8 +41,9 @@ module.exports = ( function() {
                         let obj = {};
                         obj.logId = row.log_id;
                         obj.name = row.name;
-                        obj.sensorId = row.sensorId;
+                        obj.sensorId = row.sensor_id;
                         obj.farmId = row.farm_id;
+                        obj.logSetting = row.log_setting;
                         logs.push(obj);
                     });
                     res.send(JSON.stringify(logs));
@@ -61,7 +62,7 @@ module.exports = ( function() {
                         let obj = {};
                         obj.logId = row.log_id;
                         obj.name = row.name;
-                        obj.sensorId = row.sensorId;
+                        obj.sensorId = row.sensor_id;
                         obj.farmId = row.farm_id;
                         obj.logSetting = row.log_setting;
                         res.send(JSON.stringify(obj));
