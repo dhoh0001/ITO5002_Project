@@ -64,9 +64,9 @@ const Farm = () => {
                             <Link href="trend" className="dash_btn">
                                 View Trends
                             </Link>
-                            <Link href="alert" className="dash_btn">
+                            {/* <Link href="alert" className="dash_btn">
                                 Configure Alerts
-                            </Link> 
+                            </Link>  */}
                         </div>
                     </div>          
                 </div>

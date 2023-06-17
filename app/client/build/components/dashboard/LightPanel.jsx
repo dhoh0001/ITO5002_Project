@@ -29,10 +29,10 @@ const LightPanel = (props) => {
     // Get Request to get Log Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log/byuid`
           const params = {
             params: {
-              userId: props.userId,
+              uid: user.uid,
             },
           };
           const config = {
@@ -54,16 +54,16 @@ const LightPanel = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.userId]);
+    }, [user, props.uid]);
 
     // PUT Request to create Log
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowLogModal(false);
+        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
     
         const data = { 
             userId: props.userId,
@@ -76,13 +76,28 @@ const LightPanel = (props) => {
           }
         }
     
-        axios.put(url, data, config);  
+        axios.put(url, data, config); 
     }
+
+    const prefillEditModal = (selectedLog) => {
+        const logArray = Object.values(logData);
+        const logObject = logArray.find((log) => selectedLog.includes(log.logId));
+      
+        if (logObject) {
+          setTimeout(() => {
+            document.getElementById("logId").value = logObject.logId;
+            document.getElementById("logName").value = logObject.name;
+            document.getElementById("sensorId").value = logObject.sensorId;
+            document.getElementById("farmId").value = logObject.farmId;
+            document.getElementById("logSetting").value = logObject.logSetting;
+          }, 0);
+        }
+      };
 
     // POST Request to edit Log
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowPanelModal(false);
+        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const logId = selectedLogs[0];
@@ -108,11 +123,15 @@ const LightPanel = (props) => {
         axios.post(url, data, config);  
     }
 
+    useEffect(() => {
+        console.log("logData", logData);
+    }, [logData]);
+
     // DELETE request to delete Log
     const deleteLog = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowPanelModal(false);
+          setShowDeleteModal(false);
           const logId = selectedLogs[0];
   
           const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?logId=${logId}`
@@ -143,9 +162,13 @@ const LightPanel = (props) => {
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
                                 Create
                             </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowEditModal(true)}>
-                                Edit
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                            setShowEditModal(true);
+                            await prefillEditModal(selectedLogs);
+                            }}>
+                            Edit
                             </button>
+
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
                                 Delete
                             </button>
@@ -171,7 +194,7 @@ const LightPanel = (props) => {
                                     <td colSpan="5">No logs found.</td>
                                     </tr>
                                 ) : (
-                                    logData.map((log) => (
+                                    logData.map((log) => (    
                                     <tr key={log.logId}>
                                         <td>
                                         <input type="checkbox" id={log.logId} className="appearance-none checked:bg-green-700" onChange={() => handleLogSelection(log.logId)}/>
@@ -222,7 +245,7 @@ const LightPanel = (props) => {
 
             {showEditModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
-                    <form className="" action="#" method="POST" onSubmit={formEditSubmit}>
+                    <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
                             <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
@@ -238,7 +261,7 @@ const LightPanel = (props) => {
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
-                                <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowEditModal(false)}>Close</button>
+                                <button className="black_btn mx-2 mb-2" onClick={() => setShowEditModal(false)}>Close</button>
                             </div>
                         </div>
                     </form>
