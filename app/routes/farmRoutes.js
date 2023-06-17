@@ -51,20 +51,20 @@ module.exports = ( function() {
 
 
     farmRoutes.get('/byuid', function(req,res){
+            let farms = [];
             let sql = `select f.* from farm f inner join user u on u.user_id = f.user_id where u.uid = ?;`;
-            log_db.db.get(sql, [req.query.uid], (err, row) => {
+            log_db.db.all(sql, [req.query.uid], (err, rows) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    if(row) {
+                    rows.forEach((row) => {
                         let obj = {};
                         obj.farmId = row.farm_id;
                         obj.name = row.name;
                         obj.userId = row.user_id;
-                        res.send(JSON.stringify(obj));
-                    } else {
-                        res.status(404).send("id not found");
+                        farms.push(obj);
                     }
+                    res.send(JSON.stringify(farms));
                 }
             });
     });

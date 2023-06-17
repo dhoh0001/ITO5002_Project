@@ -54,21 +54,20 @@ module.exports = ( function() {
     
     userRoutes.get('/byuid', function(req,res){
             let sql = `select * from user where uid = ?`;
-            user_db.db.get(sql, [req.query.uid], (err, row) => {
+            user_db.db.all(sql, [req.query.uid], (err, rows) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
-                    if(row) {
+                    rows.forEach((row) => {
                         let obj = {};
                         obj.userId = row.user_id;
                         obj.firstName = row.first_name;
                         obj.lastName = row.last_name;
                         obj.email = row.email;
                         obj.uid = row.uid;
-                        res.send(JSON.stringify(obj));
-                    } else {
-                        res.status(404).send("id not found");
-                    }
+                        users.push(obj);
+                    });
+                    res.send(JSON.stringify(users));
                 }
             });
         });
