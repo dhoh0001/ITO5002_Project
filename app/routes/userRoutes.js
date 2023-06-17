@@ -19,8 +19,8 @@ module.exports = ( function() {
                     if(row) {
                         let obj = {};
                         obj.userId = row.user_id;
-                        obj.firstName = row.firstName;
-                        obj.lastName = row.lastName;
+                        obj.firstName = row.first_name;
+                        obj.lastName = row.last_name;
                         obj.email = row.email;
                         obj.uid = row.uid;
                         res.send(JSON.stringify(obj));
@@ -39,8 +39,8 @@ module.exports = ( function() {
                     rows.forEach((row) => {
                         let obj = {};
                         obj.userId = row.user_id;
-                        obj.firstName = row.firstName;
-                        obj.lastName = row.lastName;
+                        obj.firstName = row.first_name;
+                        obj.lastName = row.last_name;
                         obj.email = row.email;
                         obj.uid = row.uid;
                         users.push(obj);
@@ -61,8 +61,8 @@ module.exports = ( function() {
                     if(row) {
                         let obj = {};
                         obj.userId = row.user_id;
-                        obj.firstName = row.firstName;
-                        obj.lastName = row.lastName;
+                        obj.firstName = row.first_name;
+                        obj.lastName = row.last_name;
                         obj.email = row.email;
                         obj.uid = row.uid;
                         res.send(JSON.stringify(obj));
