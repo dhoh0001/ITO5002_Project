@@ -53,6 +53,7 @@ module.exports = ( function() {
     });
     
     userRoutes.get('/byuid', function(req,res){
+            let users = [];
             let sql = `select * from user where uid = ?`;
             user_db.db.all(sql, [req.query.uid], (err, rows) => {
                 if(err) {

@@ -29,7 +29,7 @@ const AlertConfigCom = (props) => {
     // Get Request to get Alert Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert`;
+          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/alert`;
           const params = {
             params: {
               userId: props.userId,
@@ -64,7 +64,7 @@ const AlertConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.timeframe}&alertId=${formObject.alertId}&farmId=${formObject.farmId}&uid=${user.uid}&logId=${formObject.logId}`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/alert?&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.timeframe}&alertId=${formObject.alertId}&farmId=${formObject.farmId}&uid=${user.uid}&logId=${formObject.logId}`
     
         const data = { 
             userId: props.userId,
@@ -105,7 +105,7 @@ const AlertConfigCom = (props) => {
         const alertId = selectedAlerts[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/alert`
 
         const data = { 
             userId: props.userId,
@@ -133,7 +133,7 @@ const AlertConfigCom = (props) => {
           setShowDeleteModal(false);
           const alertId = selectedAlerts[0];
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?alertId=${alertId}`
+          const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/alert?alertId=${alertId}`
           
           const config = {
             headers: {

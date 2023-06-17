@@ -29,7 +29,7 @@ const SensorConfigCom = (props) => {
     // Get Request to get Sensor Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor`;
+          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor`;
           const params = {
             params: {
               userId: props.uid,
@@ -63,7 +63,7 @@ const SensorConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}&uid=${formObject.uid}`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -108,7 +108,7 @@ const SensorConfigCom = (props) => {
         const sensorId = selectedSensors[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor`
+        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor`
 
         const data = { 
             userId: props.userId,
@@ -135,7 +135,7 @@ const SensorConfigCom = (props) => {
           setShowDeleteModal(false);
           const sensorId = selectedSensors[0];
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?sensorId=${sensorId}`
+          const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor?sensorId=${sensorId}`
           
           const config = {
             headers: {
