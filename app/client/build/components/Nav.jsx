@@ -30,7 +30,7 @@ const Nav = () => {
   // useEffect(() => {
   //   if (accessToken !== "loading") {
   //     axios
-  //       .get('http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/user', {
+  //       .get('http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user', {
   //         headers: {
   //           authorization: `${accessToken}`
   //         }

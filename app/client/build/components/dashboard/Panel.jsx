@@ -16,7 +16,7 @@ const Panel = () => {
         let formObject = Object.fromEntries(formData.entries())
 
 
-        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?userId=1&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
             userId: 1,
@@ -39,7 +39,7 @@ const Panel = () => {
     // Get Request to get Log Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
           const params = {
             params: {
               farmId: 1,
@@ -73,7 +73,7 @@ const Panel = () => {
           event.preventDefault();
           setShowPanelModal(false);
   
-          const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log?logId=1`
+          const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?logId=1`
           
           const config = {
             headers: {

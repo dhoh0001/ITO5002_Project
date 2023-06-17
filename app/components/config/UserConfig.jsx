@@ -29,7 +29,7 @@ const UserConfigCom = (props) => {
     // Get Request to get User Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/user`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user`;
           const params = {
             params: {
               userId: props.uid,
@@ -63,7 +63,7 @@ const UserConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/user?firstName=${formObject.firstName}&lastName=${formObject.lastName}&email=${formObject.email}&uid=${formObject.uid}`
+        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user?firstName=${formObject.firstName}&lastName=${formObject.lastName}&email=${formObject.email}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -107,7 +107,7 @@ const UserConfigCom = (props) => {
         const userId = selectedUsers[0];
 
 
-        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/user`
+        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user`
 
         const data = { 
             userId: props.userId,
@@ -134,7 +134,7 @@ const UserConfigCom = (props) => {
           setShowDeleteModal(false);
           const userId = selectedUsers[0];
   
-          const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/user?userId=${userId}`
+          const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user?userId=${userId}`
           
           const config = {
             headers: {

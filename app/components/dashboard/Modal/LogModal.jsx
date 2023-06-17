@@ -14,7 +14,7 @@ const Modal = (props) => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
 
-    const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+    const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
     const data = { 
         userId: 1,

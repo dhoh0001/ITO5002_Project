@@ -27,7 +27,7 @@ const Trend = () => {
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
           const params = {
             params: {
               farmId: 1,
