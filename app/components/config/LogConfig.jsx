@@ -32,7 +32,7 @@ const LogConfigCom = (props) => {
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`;
           const params = {
             params: {
-              userId: props.userId,
+              userId: props.uid,
             },
           };
           const config = {
@@ -54,16 +54,16 @@ const LogConfigCom = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.userId]);
+    }, [user, props.uid]);
 
     // PUT Request to create Log
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowLogModal(false);
+        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
     
         const data = { 
             userId: props.userId,
@@ -83,10 +83,25 @@ const LogConfigCom = (props) => {
         axios.put(url, data, config);  
     }
 
+    const prefillEditModal = (selectedLog) => {
+        const logArray = Object.values(logData);
+        const logObject = logArray.find((log) => selectedLog.includes(log.logId));
+
+        if (logObject) {
+            setTimeout(() => {
+                document.getElementById("logId").value = logObject.logId;
+                document.getElementById("logName").value = logObject.name;
+                document.getElementById("sensorId").value = logObject.sensorId;
+                document.getElementById("farmId").value = logObject.farmId;
+                document.getElementById("logSetting").value = logObject.logSetting;
+            }, 0);
+        }
+    };
+
     // POST Request to edit Log
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowPanelModal(false);
+        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const logId = selectedLogs[0];
@@ -116,7 +131,7 @@ const LogConfigCom = (props) => {
     const deleteLog = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowPanelModal(false);
+          setShowDeleteModal(false);
           const logId = selectedLogs[0];
   
           const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/log?logId=${logId}`
@@ -147,7 +162,10 @@ const LogConfigCom = (props) => {
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
                                 Create
                             </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowEditModal(true)}>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedLogs);
+                            }}>
                                 Edit
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
@@ -161,8 +179,8 @@ const LogConfigCom = (props) => {
                                         <th className="text-left"></th>
                                         <th className="text-left">Log ID</th>
                                         <th className="text-left">Name</th>
-                                        <th className="text-left">Farm ID</th>
                                         <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Farm ID</th>
                                         <th className="text-left">Log Setting</th>
                                         <th className="text-left">Status</th>
                                     </tr>
@@ -184,8 +202,8 @@ const LogConfigCom = (props) => {
                                         </td>
                                         <td>{log.logId}</td>
                                         <td>{log.name}</td>
-                                        <td>{log.farmId}</td>
                                         <td>{log.sensorId}</td>
+                                        <td>{log.farmId}</td>
                                         <td>{log.logSetting}</td>
                                         <td>{log ? "🟢" : "🔴"}</td>
                                     </tr>
@@ -230,7 +248,7 @@ const LogConfigCom = (props) => {
 
             {showEditModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
-                    <form className="" action="#" method="POST" onSubmit={formEditSubmit}>
+                    <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
                             <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
@@ -246,7 +264,7 @@ const LogConfigCom = (props) => {
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
-                                <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowEditModal(false)}>Close</button>
+                                <button className="black_btn mx-2 mb-2" onClick={() => setShowEditModal(false)}>Close</button>
                             </div>
                         </div>
                     </form>

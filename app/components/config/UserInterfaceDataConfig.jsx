@@ -29,10 +29,10 @@ const UserInterfaceDataConfigCom = (props) => {
     // Get Request to get UserInterfaceData Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`;
+          const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata`;
           const params = {
             params: {
-              userId: props.userId,
+              userId: props.uid,
             },
           };
           const config = {
@@ -54,16 +54,16 @@ const UserInterfaceDataConfigCom = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.userId]);
+    }, [user, props.uid]);
 
     // PUT Request to create UserInterfaceData
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowUserInterfaceDataModal(false);
+        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata?farmId=${formObject.farmId}&metadata=${formObject.metadata}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -80,16 +80,30 @@ const UserInterfaceDataConfigCom = (props) => {
         axios.put(url, data, config);  
     }
 
+    const prefillEditModal = (selectedUserInterfaceData) => {
+        const userInterfaceDataArray = Object.values(userInterfaceDataData);
+        console.log(userInterfaceDataArray );
+        console.log(selectedUserInterfaceData );
+        const userInterfaceDataObject = userInterfaceDataArray.find((userInterfaceData) => selectedUserInterfaceData.includes(userInterfaceData.farmId));
+
+        if (userInterfaceDataObject) {
+            setTimeout(() => {
+                document.getElementById("farmId").value = userInterfaceDataObject.farmId;
+                document.getElementById("metadata").value = userInterfaceDataObject.metadata;
+            }, 0);
+        }
+    };
+
     // POST Request to edit UserInterfaceData
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowPanelModal(false);
+        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const userInterfaceDataId = selectedUserInterfaceDatas[0];
 
 
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata`
 
         const data = { 
             userId: props.userId,
@@ -110,10 +124,10 @@ const UserInterfaceDataConfigCom = (props) => {
     const deleteUserInterfaceData = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowPanelModal(false);
+          setShowDeleteModal(false);
           const userInterfaceDataId = selectedUserInterfaceDatas[0];
   
-          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/userInterfaceData`
+          const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/uiMetadata`
           
           const config = {
             headers: {
@@ -141,7 +155,10 @@ const UserInterfaceDataConfigCom = (props) => {
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
                                 Create
                             </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowEditModal(true)}>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedUserInterfaceDatas);
+                            }}>
                                 Edit
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
@@ -197,7 +214,7 @@ const UserInterfaceDataConfigCom = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Metadata</label>
-                            <input id="userInterfaceDataSetting" name="metadata"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="metadata" name="metadata"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -211,17 +228,17 @@ const UserInterfaceDataConfigCom = (props) => {
 
             {showEditModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
-                    <form className="" action="#" method="POST" onSubmit={formEditSubmit}>
+                    <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Metadata</label>
-                            <input id="userInterfaceDataSetting" name="metadata"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="metadata" name="metadata"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
-                                <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowEditModal(false)}>Close</button>
+                                <button className="black_btn mx-2 mb-2" onClick={() => setShowEditModal(false)}>Close</button>
                             </div>
                         </div>
                     </form>

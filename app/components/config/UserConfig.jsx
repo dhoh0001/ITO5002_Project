@@ -32,7 +32,7 @@ const UserConfigCom = (props) => {
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user`;
           const params = {
             params: {
-              userId: props.userId,
+              userId: props.uid,
             },
           };
           const config = {
@@ -54,16 +54,16 @@ const UserConfigCom = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.userId]);
+    }, [user, props.uid]);
 
     // PUT Request to create User
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowUserModal(false);
+        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user?firstName=${formObject.firstName}&lastName=${formObject.lastName}&email=${formObject.email}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -83,10 +83,25 @@ const UserConfigCom = (props) => {
         axios.put(url, data, config);  
     }
 
+    const prefillEditModal = (selectedUser) => {
+        const userArray = Object.values(userData);
+        const userObject = userArray.find((user) => selectedUser.includes(user.userId));
+
+        if (userObject) {
+            setTimeout(() => {
+                document.getElementById("userId").value = userObject.userId;
+                document.getElementById("firstName").value = userObject.firstName;
+                document.getElementById("lastName").value = userObject.lastName;
+                document.getElementById("email").value = userObject.email;
+                document.getElementById("uid").value = userObject.uid;
+            }, 0);
+        }
+    };
+
     // POST Request to edit User
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowPanelModal(false);
+        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const userId = selectedUsers[0];
@@ -116,7 +131,7 @@ const UserConfigCom = (props) => {
     const deleteUser = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowPanelModal(false);
+          setShowDeleteModal(false);
           const userId = selectedUsers[0];
   
           const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/user?userId=${userId}`
@@ -147,7 +162,10 @@ const UserConfigCom = (props) => {
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
                                 Create
                             </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowEditModal(true)}>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedUsers);
+                            }}>
                                 Edit
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
@@ -209,13 +227,13 @@ const UserConfigCom = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">First Name</label>
-                            <input id="userName" name="firstName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="firstName" name="firstName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Last Name</label>
-                            <input id="sensorId" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
-                            <input id="farmId" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">UID</label>
-                            <input id="userSetting" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="uid" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -234,13 +252,13 @@ const UserConfigCom = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">First Name</label>
-                            <input id="userName" name="firstName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="firstName" name="firstName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Last Name</label>
-                            <input id="sensorId" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
-                            <input id="farmId" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">UID</label>
-                            <input id="userSetting" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="uid" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

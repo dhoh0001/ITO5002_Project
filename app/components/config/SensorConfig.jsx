@@ -32,7 +32,7 @@ const SensorConfigCom = (props) => {
           const getUrl = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor`;
           const params = {
             params: {
-              userId: props.userId,
+              userId: props.uid,
             },
           };
           const config = {
@@ -54,16 +54,16 @@ const SensorConfigCom = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.userId]);
+    }, [user, props.uid]);
 
     // PUT Request to create Sensor
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowSensorModal(false);
+        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -84,10 +84,25 @@ const SensorConfigCom = (props) => {
         axios.put(url, data, config);  
     }
 
+    const prefillEditModal = (selectedSensor) => {
+        const sensorArray = Object.values(sensorData);
+        const sensorObject = sensorArray.find((sensor) => selectedSensor.includes(sensor.sensorId));
+
+        if (sensorObject) {
+            setTimeout(() => {
+                document.getElementById("sensorId").value = sensorObject.sensorId;
+                document.getElementById("name").value = sensorObject.name;
+                document.getElementById("hardwareId").value = sensorObject.hardwareId;
+                document.getElementById("sensorAction").value = sensorObject.sensorAction;
+                document.getElementById("logId").value = sensorObject.logId;
+            }, 0);
+        }
+    };
+
     // POST Request to edit Sensor
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowPanelModal(false);
+        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const sensorId = selectedSensors[0];
@@ -117,7 +132,7 @@ const SensorConfigCom = (props) => {
     const deleteSensor = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowPanelModal(false);
+          setShowDeleteModal(false);
           const sensorId = selectedSensors[0];
   
           const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/sensor?sensorId=${sensorId}`
@@ -148,7 +163,10 @@ const SensorConfigCom = (props) => {
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
                                 Create
                             </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowEditModal(true)}>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedLogs);
+                            }}>
                                 Edit
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
@@ -211,13 +229,13 @@ const SensorConfigCom = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
                             <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Name</label>
-                            <input id="sensorName" name="sensorName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="name" name="name"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Hardware Id</label>
-                            <input id="sensorId" name="hardwareId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="hardwareId" name="hardwareId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Action</label>
-                            <input id="farmId" name="sensorAction"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="sensorAction" name="sensorAction"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="sensorSetting" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -231,23 +249,23 @@ const SensorConfigCom = (props) => {
 
             {showEditModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
-                    <form className="" action="#" method="POST" onSubmit={formEditSubmit}>
+                    <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
                             <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Name</label>
-                            <input id="sensorName" name="sensorName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="name" name="name"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Hardware Id</label>
-                            <input id="sensorId" name="hardwareId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="hardwareId" name="hardwareId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Action</label>
-                            <input id="farmId" name="sensorAction"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="sensorAction" name="sensorAction"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="sensorSetting" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
-                                <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowEditModal(false)}>Close</button>
+                                <button className="black_btn mx-2 mb-2" onClick={() => setShowEditModal(false)}>Close</button>
                             </div>
                         </div>
                     </form>

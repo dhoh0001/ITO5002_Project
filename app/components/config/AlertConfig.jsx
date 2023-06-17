@@ -5,7 +5,7 @@ import axios from "axios";
 
 const AlertConfigCom = (props) => {
     
-    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showCreateModal, setShowAlertModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [alertData, setAlertData] = useState({});
@@ -33,6 +33,7 @@ const AlertConfigCom = (props) => {
           const params = {
             params: {
               userId: props.userId,
+              uid: user.uid,
             },
           };
           const config = {
@@ -54,7 +55,7 @@ const AlertConfigCom = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.userId]);
+    }, [user, props.uid]);
 
     // PUT Request to create Alert
     const formCreateSubmit = (event) => {
@@ -63,7 +64,7 @@ const AlertConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.timeframe}&logId=${formObject.logId}&farmId=${formObject.farmId}`
+        const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.timeframe}&alertId=${formObject.alertId}&farmId=${formObject.farmId}&uid=${user.uid}&logId=${formObject.logId}`
     
         const data = { 
             userId: props.userId,
@@ -79,10 +80,26 @@ const AlertConfigCom = (props) => {
         axios.put(url, data, config);  
     }
 
+    const prefillEditModal = (selectedAlert) => {
+        const alertArray = Object.values(alertData);
+        const alertObject = alertArray.find((alert) => selectedAlert.includes(alert.alertId));
+
+        if (alertObject) {
+            setTimeout(() => {
+                document.getElementById("alertId").value = alertObject.alertId;
+                document.getElementById("alertName").value = alertObject.alertName;
+                document.getElementById("alertLevel").value = alertObject.alertLevel;
+                document.getElementById("timeframe").value = alertObject.timeframe;
+                document.getElementById("farmId").value = alertObject.farmId;
+                document.getElementById("logId").value = alertObject.logId;
+            }, 0);
+        }
+    };
+
     // POST Request to edit Alert
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowPanelModal(false);
+        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const alertId = selectedAlerts[0];
@@ -113,7 +130,7 @@ const AlertConfigCom = (props) => {
     const deleteAlert = (event) => {
         if (user?.accessToken) {
           event.preventDefault();
-          setShowPanelModal(false);
+          setShowDeleteModal(false);
           const alertId = selectedAlerts[0];
   
           const url = `http://ec2-3-26-101-210.ap-southeast-2.compute.amazonaws.com/alert?alertId=${alertId}`
@@ -141,10 +158,13 @@ const AlertConfigCom = (props) => {
                 <h2 className="text-center text-lg font-medium secondary-colour-border">Alerts</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowAlertModal(true)}>
                                 Create
                             </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowEditModal(true)}>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedAlerts);
+                            }}>
                                 Edit
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
@@ -161,7 +181,7 @@ const AlertConfigCom = (props) => {
                                         <th className="text-left">Alert Level</th>
                                         <th className="text-left">Timeframe</th>
                                         <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Log ID</th>
+                                        <th className="text-left">Alert ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -184,7 +204,7 @@ const AlertConfigCom = (props) => {
                                         <td>{alert.alertLevel}</td>
                                         <td>{alert.timeframe}</td>
                                         <td>{alert.farmId}</td>
-                                        <td>{alert.logId}</td>
+                                        <td>{alert.alertId}</td>
                                     </tr>
                                     ))
                                 )}
@@ -208,17 +228,19 @@ const AlertConfigCom = (props) => {
                             <input id="alertId" name="alertId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Name</label>
                             <input id="alertName" name="alertName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Level</label>
+                            <input id="alertLevel" name="alertLevel"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Timeframe</label>
+                            <input id="timeframe" name="timeframe"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Setting</label>
-                            <input id="alertSetting" name="alertSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
+                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
-                                <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowCreateModal(false)}>Close</button>
+                                <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowAlertModal(false)}>Close</button>
                             </div>
                         </div>
                     </form>
@@ -227,18 +249,20 @@ const AlertConfigCom = (props) => {
 
             {showEditModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
-                    <form className="" action="#" method="POST" onSubmit={formEditSubmit}>
+                    <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert ID</label>
                             <input id="alertId" name="alertId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Name</label>
                             <input id="alertName" name="alertName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Level</label>
+                            <input id="alertLevel" name="alertLevel"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Timeframe</label>
+                            <input id="timeframe" name="timeframe"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Setting</label>
-                            <input id="alertSetting" name="alertSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
+                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -258,7 +282,7 @@ const AlertConfigCom = (props) => {
                            <button className="red_btn mx-2 mb-2" type="submit" onClick={deleteAlert}>Delete</button>
                         </div>
                         <div>
-                           <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowDeleteModal(false)}>Close</button>
+                           <button className="black_btn mx-2 mb-2" onClick={() => setShowDeleteModal(false)}>Close</button>
                         </div>
                     </div>
                 </div>
