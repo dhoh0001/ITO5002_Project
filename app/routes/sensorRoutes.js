@@ -90,7 +90,7 @@ module.exports = ( function() {
             res.status(500).send("The ID must be an integer");
             return;
         }
-        let sql = `insert into sensor(name, hardware_id, sensor_action, log_id) values (?, ?, ?)`;
+        let sql = `insert into sensor(name, hardware_id, sensor_action, log_id) values (?, ?, ?, ?)`;
 
         sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction, req.query.logId], (err, rows) => {
             if(err) {
