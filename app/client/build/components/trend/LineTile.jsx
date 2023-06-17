@@ -21,9 +21,10 @@ Chartjs.register(
     Legend
 )
 
-const Trend = () => {
+const Trend = (props) => {
     const { user } = useAuthContext();
     const [logData, setLogData] = useState({});
+    const { logIds, userId } = props;
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist

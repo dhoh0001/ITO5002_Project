@@ -22,7 +22,7 @@ Chartjs.register(
     Legend
 )
 
-const Trend = () => {
+const Trend = (props) => {
     const { user } = useAuthContext();
     const [logData, setLogData] = useState({});
 
@@ -40,21 +40,8 @@ const Trend = () => {
               authorization: `Bearer ${user.accessToken}`,
             },
           };
+    const { logIds, userId } = props;
     
-          axios
-            .get(getUrl, { ...params, ...config })
-            .then((response) => {
-              // Handle successful response and update state if necessary
-              setLogData(response.data);
-            })
-            .catch((error) => {
-              console.error("Error retrieving data:", error);
-            })
-            .finally(() => {
-            //   setLoading(false);
-            });
-        }
-    }, [user]);
 
     // useEffect(() => {
     //     console.log("this is triggered from Scatter", logData);
