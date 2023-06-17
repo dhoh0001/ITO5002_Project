@@ -36,7 +36,6 @@ module.exports = ( function() {
                     res.status(500).send("err: error retrieving from db: " + err)
                 } else {
                     rows.forEach((row) => {
-                        console.log(row.name)
                         let obj = {};
                         obj.farmId = row.farm_id;
                         obj.name = row.name;
@@ -118,7 +117,6 @@ module.exports = ( function() {
     });
 
     farmRoutes.delete('/', function(req,res){
-        console.log(req.query.farmId);
         if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
             return;

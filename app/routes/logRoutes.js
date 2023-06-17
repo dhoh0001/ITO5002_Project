@@ -37,7 +37,6 @@ module.exports = ( function() {
                     res.status(500).send("err: error retrieving from db: " + err)
                 } else {
                     rows.forEach((row) => {
-                        console.log(row.name)
                         let obj = {};
                         obj.logId = row.log_id;
                         obj.name = row.name;

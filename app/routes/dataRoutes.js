@@ -27,7 +27,6 @@ module.exports = ( function() {
             } else {
                 var data = [];
                 rows.forEach((row) => {
-                    console.log(row)
                     let obj = {}
                     obj.logId = row.log_id
                     obj.timestamp = row.timestamp
