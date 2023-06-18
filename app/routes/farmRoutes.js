@@ -52,7 +52,7 @@ module.exports = ( function() {
     farmRoutes.get('/byuid', function(req,res){
             let farms = [];
             let sql = `select f.* from farm f inner join user u on u.user_id = f.user_id where u.uid = ?;`;
-            log_db.db.all(sql, [req.query.uid], (err, rows) => {
+            farm_db.db.all(sql, [req.query.uid], (err, rows) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {

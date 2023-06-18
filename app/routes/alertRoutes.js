@@ -56,7 +56,7 @@ module.exports = ( function() {
     alertRoutes.get('/byuid', function(req,res){
             let alerts = [];
             let sql = `select a.* from alert a inner join farm f on a.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
-            log_db.db.all(sql, [req.query.uid], (err, rows) => {
+            alert_db.db.all(sql, [req.query.uid], (err, rows) => {
                 if(err) {
                     res.status(404).send("[]");
                 } else {
