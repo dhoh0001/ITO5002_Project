@@ -7,6 +7,8 @@ const Modal = (props) => {
   const [showModal, setShowModal] = useState(false);
   const { user } = useAuthContext();
   const { userId } = props;
+  
+  
 
   const formSubmit = (event) => {
     event.preventDefault();

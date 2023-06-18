@@ -12,7 +12,7 @@ const LightPanel = (props) => {
     const [selectedLogs, setSelectedLogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useAuthContext();
-    const { userId } = props;
+    const { userId, farmId } = props;
 
     const handleLogSelection = (logId) => {
         setSelectedLogs((prevSelectedLogs) => {
@@ -29,7 +29,7 @@ const LightPanel = (props) => {
     // Get Request to get Log Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/data/dataforuser`
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log/byuid`
           const params = {
             params: {
               uid: user.uid,
@@ -56,6 +56,10 @@ const LightPanel = (props) => {
         }
     }, [user, props.uid]);
 
+    // useEffect(() => {
+    //     console.log("logdata", logData)
+    // }, [user, props.uid]);
+
     // PUT Request to create Log
     const formCreateSubmit = (event) => {
         event.preventDefault();
@@ -63,7 +67,7 @@ const LightPanel = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
     
         const data = { 
             userId: props.userId,
@@ -88,7 +92,6 @@ const LightPanel = (props) => {
             document.getElementById("logId").value = logObject.logId;
             document.getElementById("logName").value = logObject.name;
             document.getElementById("sensorId").value = logObject.sensorId;
-            document.getElementById("farmId").value = logObject.farmId;
             document.getElementById("logSetting").value = logObject.logSetting;
           }, 0);
         }
@@ -103,7 +106,7 @@ const LightPanel = (props) => {
         const logId = selectedLogs[0];
 
 
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
             userId: props.userId,
@@ -122,6 +125,7 @@ const LightPanel = (props) => {
 
         axios.post(url, data, config);  
     }
+
 
     // DELETE request to delete Log
     const deleteLog = (event) => {
@@ -174,9 +178,11 @@ const LightPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">Alert Name</th>
-                                        <th className="text-left">Alert Upper threshold</th>
-                                        <th className="text-left">Status</th>
+                                        <th className="text-left">Log Id</th>
+                                        <th className="text-left">Log Name</th>
+                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Farm ID</th>
+                                        <th className="text-left">Log Setting</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -192,11 +198,13 @@ const LightPanel = (props) => {
                                     logData.map((log) => (    
                                     <tr key={log.logId}>
                                         <td>
-                                        <input type="checkbox" id={log.logId} className="appearance-none checked:bg-green-700" onChange={() => handleLogSelection(log.logId)}/>
+                                            <input type="checkbox" id={log.logId} className="appearance-none checked:bg-green-700" onChange={() => handleLogSelection(log.logId)}/>
                                         </td>
+                                        <td>{log.logId}</td>
                                         <td>{log.name}</td>
-                                        <td>{log.alertLevel}</td>
-                                        <td>{log.value<=log.alertLevel ? "🟢" : "🔴"}</td>
+                                        <td>{log.sensorId}</td>
+                                        <td>{log.farmId}</td>
+                                        <td>{log.logSetting}</td>
                                     </tr>
                                     ))
                                 )}
@@ -207,9 +215,47 @@ const LightPanel = (props) => {
                 </div>
             </div>
             ) : (
+                <div>
+                {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                    <p>No logs registered</p>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Logs</h2>
+                    <div>
+                        <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
+                                Create
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                            setShowEditModal(true);
+                            await prefillEditModal(selectedLogs);
+                            }}>
+                            Edit
+                            </button>
+
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
+                                Delete
+                            </button>
+                        </div>
+                        <div className="ml-5">
+                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left"></th>
+                                        <th className="text-left">Log Name</th>
+                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Farm ID</th>
+                                        <th className="text-left">Log Setting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colSpan="5">No logs found.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+            </div>
             )}
 
             {showCreateModal ? (
@@ -222,8 +268,6 @@ const LightPanel = (props) => {
                             <input id="logName" name="logName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
                             <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
-                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Setting</label>
                             <input id="logSetting" name="logSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
@@ -247,8 +291,6 @@ const LightPanel = (props) => {
                             <input id="logName" name="logName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
                             <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
-                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Setting</label>
                             <input id="logSetting" name="logSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">

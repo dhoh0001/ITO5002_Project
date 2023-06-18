@@ -37,10 +37,10 @@ const Name = (props) => {
     useEffect(() => {
         // Get Request to get Farm Name    
         if (user?.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/farm`;
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/farm/byuid`;
           const params = {
             params: {
-              userId: props.userId,
+              uid: user.uid,
             },
           };
           const config = {
@@ -52,6 +52,7 @@ const Name = (props) => {
           axios
             .get(getUrl, { ...params, ...config })
             .then((response) => {
+              console.log("response", response);
               // Handle successful response and update state if necessary
               setFarmName(response.data);
             })
@@ -59,11 +60,11 @@ const Name = (props) => {
               console.error("Error retrieving data:", error);
             });
         }
-    }, [user, props.userId]); 
+    }, [user]); 
 
-    // useEffect(() => {
-    //   console.log("farmName", farmName);
-    // }, [farmName, props.userId]);
+    useEffect(() => {
+      console.log("farmName", farmName);
+    }, [farmName, user]);
 
     const deleteFarm = (event) => {
       if (user?.accessToken) {
@@ -87,7 +88,7 @@ const Name = (props) => {
     
     return (
         <>
-            <div className="mt-4 ml-6 p-4 w-11/12 h-fit border-4 secondary-colour-border">
+            <div className="mt-4 ml-6 p-4  h-fit border-4 secondary-colour-border">
               <div>
                 {farmName && farmName.length > 0 ? (
                   <>
@@ -98,7 +99,7 @@ const Name = (props) => {
                       className="text-center text-sm font-medium secondary-colour-border text-blue-700"
                       onClick={() => setShowNameModal(true)}
                     >
-                      Edit
+                      Rename
                     </p>
                   </>
                 ) : (

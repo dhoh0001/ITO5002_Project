@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Panel from "@components/dashboard/Panel"
-import LightPanel from "@components/dashboard/LightPanel"
+import LightPanel from "@components/dashboard/LogPanel"
 import Sensor from "@components/dashboard/Sensor"
 import Name from "@components/dashboard/Name"
 import Sidebar from "@components/dashboard/Sidebar"

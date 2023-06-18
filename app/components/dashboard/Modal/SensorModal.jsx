@@ -29,7 +29,6 @@ const Modal = () => {
     };
 
     axios.put(url, data, config)
-
   }
 
   return (

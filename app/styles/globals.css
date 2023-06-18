@@ -22,7 +22,7 @@
 }
 
 .dash_btn {
-  @apply  border border-black secondary-colour h-12 w-11/12 text-white mt-4 ml-6 p-4 text-center text-sm flex items-center justify-center transition-all hover:bg-white hover:text-black
+  @apply  border border-black secondary-colour h-12 text-white mt-4 ml-6 p-4 text-center text-sm flex items-center justify-center transition-all hover:bg-white hover:text-black
 }
 
 .flex-between {
