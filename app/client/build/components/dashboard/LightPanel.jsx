@@ -123,10 +123,6 @@ const LightPanel = (props) => {
         axios.post(url, data, config);  
     }
 
-    useEffect(() => {
-        console.log("logData", logData);
-    }, [logData]);
-
     // DELETE request to delete Log
     const deleteLog = (event) => {
         if (user?.accessToken) {

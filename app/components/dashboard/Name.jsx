@@ -83,7 +83,6 @@ const Name = (props) => {
 
         axios.delete(url, config);
       }
-      console.log("delete");
   }
     
     return (

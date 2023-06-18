@@ -15,8 +15,6 @@ const Modal = () => {
     
     const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/alert?userId=1&alertId=${formObject.alertId}&name=${formObject.alertName}&alertLevel=${formObject.alertLevel}&timeframe=${formObject.alertTimeframe}&farmId=${formObject.farmId}&logId=${formObject.logId}`
 
-    console.log(url);
-
     const data = {
       userId: 1,
       alertId: `${formObject.alertId}`,

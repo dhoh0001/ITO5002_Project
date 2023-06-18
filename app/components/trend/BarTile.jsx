@@ -57,10 +57,6 @@ const Trend = () => {
         }
     }, [user]);
 
-    useEffect(() => {
-      console.log(logData);
-    }, [logData]);
-
 
     // Config for Bar Chart
     const [chartData, setChartData] = useState({

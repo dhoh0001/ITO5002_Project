@@ -36,37 +36,37 @@ nextApp.prepare().then(() => {
 
 	//data routes;
 	var dataRoutes = require('./routes/dataRoutes');
-	app.use('/data', middleware.decodeToken);
+//	app.use('/data', middleware.decodeToken);
 	app.use('/data',dataRoutes);
 
 	//Alert routes;
 	var alertRoutes = require('./routes/alertRoutes');
-	app.use('/alert', middleware.decodeToken);
+//	app.use('/alert', middleware.decodeToken);
 	app.use('/alert',alertRoutes);
 
 	//sensor routes;
 	var sensorRoutes = require('./routes/sensorRoutes');
-	app.use('/sensor', middleware.decodeToken);
+//	app.use('/sensor', middleware.decodeToken);
 	app.use('/sensor',sensorRoutes);
 
 	//ui metadata routes;
 	var uiMetadataRoutes = require('./routes/uiMetadataRoutes');
-	app.use('/uimetadata', middleware.decodeToken);
+//	app.use('/uimetadata', middleware.decodeToken);
 	app.use('/uimetadata',uiMetadataRoutes);
 
 	//farm routes;
 	var farmRoutes = require('./routes/farmRoutes');
-	app.use('/farm', middleware.decodeToken);
+//	app.use('/farm', middleware.decodeToken);
 	app.use('/farm',farmRoutes);
 
 	//user routes;
 	var userRoutes = require('./routes/userRoutes');
-	app.use('/user', middleware.decodeToken);
+//	app.use('/user', middleware.decodeToken);
 	app.use('/user',userRoutes);
 
 	//log routes;
 	var logRoutes = require('./routes/logRoutes');
-	app.use('/log', middleware.decodeToken);
+//	app.use('/log', middleware.decodeToken);
 	app.use('/log',logRoutes);
 
 	//unknown route

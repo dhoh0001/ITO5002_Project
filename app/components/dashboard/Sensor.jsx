@@ -87,7 +87,6 @@ const Sensor = (props) => {
   
           axios.delete(url, config);
         }
-        console.log("delete");
     }
 
     const isEmpty = (obj) => {

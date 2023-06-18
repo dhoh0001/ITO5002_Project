@@ -82,8 +82,6 @@ const UserInterfaceDataConfigCom = (props) => {
 
     const prefillEditModal = (selectedUserInterfaceData) => {
         const userInterfaceDataArray = Object.values(userInterfaceDataData);
-        console.log(userInterfaceDataArray );
-        console.log(selectedUserInterfaceData );
         const userInterfaceDataObject = userInterfaceDataArray.find((userInterfaceData) => selectedUserInterfaceData.includes(userInterfaceData.farmId));
 
         if (userInterfaceDataObject) {
