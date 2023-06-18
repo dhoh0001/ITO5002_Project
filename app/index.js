@@ -16,8 +16,8 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 //alert monitor
-	const alertMonitor = require('./monitors/alertMonitor');
-	setInterval(alertMonitor.run, 10000);
+//	const alertMonitor = require('./monitors/alertMonitor');
+//	setInterval(alertMonitor.run, 10000);
 
 nextApp.prepare().then(() => {
 
