@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Calltoaction = () => {
     return (
-      <div className="flex items-center justify-center h-screen primary-colour">
+      <div className="flex items-center justify-center h-[60vh] primary-colour">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-black mb-8">Ready to sign up?</h2>
           <Link href="user/signup"

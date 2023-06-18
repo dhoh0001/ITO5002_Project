@@ -9,7 +9,7 @@ import {
         Legend
     } from 'chart.js/auto'
 import { useEffect, useState } from "react"
-import { Line } from 'react-chartjs-2'
+import { Bubble } from 'react-chartjs-2'
 
 Chartjs.register(
     CategoryScale,
@@ -25,7 +25,7 @@ const Trend = (props) => {
     const [logData, setLogData] = useState({});
     const { logDataArray } = props
 
-    // Config for Line Chart
+    // Config for Scatter Chart
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [
@@ -52,7 +52,6 @@ const Trend = (props) => {
         responsive: true
     });
 
-
     useEffect(() => {
         if (logDataArray && logDataArray.length > 0) {
             const names = logDataArray.map((x) => x.name);
@@ -75,7 +74,7 @@ const Trend = (props) => {
 
     return (
         <div className='mt-4 ml-6 p-4 border-4 secondary-colour-border'>
-            <Line data={chartData} options={chartOptions} />
+            <Bubble data={chartData} options={chartOptions} />
         </div>
     )
 }
