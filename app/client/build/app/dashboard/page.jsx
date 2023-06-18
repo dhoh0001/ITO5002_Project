@@ -15,6 +15,8 @@ const Farm = () => {
     const [userId, setUserId] = useState('');
     const [loading, setLoading] = useState(true);
 
+    console.log("Hello")
+
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
           const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
@@ -33,7 +35,8 @@ const Farm = () => {
             .get(getUrl, { ...params, ...config })
             .then((response) => {
               // Handle successful response and update state if necessary
-              setUserId(response.data.userId);
+              setUserId(response.data[0].userId);
+              // setUserId(response.data.userId);
             })
             .catch((error) => {
               console.error("Error retrieving data:", error);
@@ -44,9 +47,9 @@ const Farm = () => {
         }
     }, [user]);
 
-    // useEffect(() => {
-    //     console.log("userId", userId);
-    // }, [userId]);
+    useEffect(() => {
+        console.log("userId", userId);
+    }, [userId]);
 
     return ( 
         <div> 

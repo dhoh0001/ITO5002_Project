@@ -22,25 +22,9 @@ Chartjs.register(
     Legend
 )
 
-const Trend = (props) => {
+const Trend = () => {
     const { user } = useAuthContext();
     const [logData, setLogData] = useState({});
-
-    useEffect(() => {
-        if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
-          const params = {
-            params: {
-              farmId: 1,
-              userId: 1,
-            },
-          };
-          const config = {
-            headers: {
-              authorization: `Bearer ${user.accessToken}`,
-            },
-          };
-    const { logIds, userId } = props;
     
 
     // useEffect(() => {

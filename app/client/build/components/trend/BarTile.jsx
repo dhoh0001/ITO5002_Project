@@ -22,41 +22,41 @@ Chartjs.register(
     Legend
 )
 
-const Trend = (props) => {
+const Trend = () => {
     const { user } = useAuthContext();
     const [logData, setLogData] = useState({});
-    const { logIds, userId } = props;
 
-    useEffect(() => {
-        if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
-          const params = {
-            params: {
-              logId: 3,  
-              farmId: 1,
-              userId: 1,
-            },
-          };
-          const config = {
-            headers: {
-              authorization: `Bearer ${user.accessToken}`,
-            },
-          };
+
+    // useEffect(() => {
+    //     if (user && user.accessToken) { // Check if user and accessToken exist
+    //       const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
+    //       const params = {
+    //         params: {
+    //           logId: 3,  
+    //           farmId: 1,
+    //           userId: 1,
+    //         },
+    //       };
+    //       const config = {
+    //         headers: {
+    //           authorization: `Bearer ${user.accessToken}`,
+    //         },
+    //       };
     
-          axios
-            .get(getUrl, { ...params, ...config })
-            .then((response) => {
-              // Handle successful response and update state if necessary
-              setLogData(response.data);
-            })
-            .catch((error) => {
-              console.error("Error retrieving data:", error);
-            })
-            .finally(() => {
-            //   setLoading(false);
-            });
-        }
-    }, [user]);
+    //       axios
+    //         .get(getUrl, { ...params, ...config })
+    //         .then((response) => {
+    //           // Handle successful response and update state if necessary
+    //           setLogData(response.data);
+    //         })
+    //         .catch((error) => {
+    //           console.error("Error retrieving data:", error);
+    //         })
+    //         .finally(() => {
+    //         //   setLoading(false);
+    //         });
+    //     }
+    // }, [user]);
 
 
 

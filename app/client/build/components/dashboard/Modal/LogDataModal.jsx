@@ -14,11 +14,13 @@ const Modal = (props) => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
 
-    const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/data?userId=${props.userId}&logId=${formObject.logId}&timestamp=${formObject.timestamp}&value=${formObject.value}`
+    const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/data?userId=${props.userId}&logId=${formObject.logId}&timestamp=${formObject.timestamp}&value=${formObject.value}`
 
     const data = { 
-      // userId: 1,  
-        logId: `${formObject.logId}`,
+      userId: props.userId, 
+      logId: `${formObject.logId}`,
+      timestamp: `${formObject.timestamp}`,
+      value: `${formObject.value}`
     };
 
     const config = {
@@ -28,7 +30,7 @@ const Modal = (props) => {
     }
 
     axios.put(url, data, config);  
-    }
+  }
 
   return (
     <>
