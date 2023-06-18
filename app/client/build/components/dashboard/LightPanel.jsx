@@ -29,7 +29,7 @@ const LightPanel = (props) => {
     // Get Request to get Log Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log/byuid`
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/data/dataforuser`
           const params = {
             params: {
               uid: user.uid,
@@ -174,9 +174,8 @@ const LightPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">Log ID</th>
-                                        <th className="text-left">Name</th>
-                                        <th className="text-left">Farm ID</th>
+                                        <th className="text-left">Alert Name</th>
+                                        <th className="text-left">Alert Upper threshold</th>
                                         <th className="text-left">Status</th>
                                     </tr>
                                 </thead>
@@ -195,10 +194,9 @@ const LightPanel = (props) => {
                                         <td>
                                         <input type="checkbox" id={log.logId} className="appearance-none checked:bg-green-700" onChange={() => handleLogSelection(log.logId)}/>
                                         </td>
-                                        <td>{log.logId}</td>
                                         <td>{log.name}</td>
-                                        <td>{log.farmId}</td>
-                                        <td>{log ? "🟢" : "🔴"}</td>
+                                        <td>{log.alertLevel}</td>
+                                        <td>{log.value<=log.alertLevel ? "🟢" : "🔴"}</td>
                                     </tr>
                                     ))
                                 )}
