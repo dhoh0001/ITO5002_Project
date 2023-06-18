@@ -13,7 +13,7 @@ const Modal = () => {
     let formData = new FormData(event.target);
     let formObject = Object.fromEntries(formData.entries());
 
-    const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor?userId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
+    const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
 
     const data = {
       userId: 1,

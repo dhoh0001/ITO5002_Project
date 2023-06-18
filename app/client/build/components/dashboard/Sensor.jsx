@@ -17,7 +17,7 @@ const Sensor = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
 
-        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&sensorId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&sensorId=1&name=${formObject.sensorName}&hardwareId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
 
         const data = {
           sensorId: 1,
@@ -39,7 +39,7 @@ const Sensor = (props) => {
     // Get Request to get Sensor Name 
     useEffect(() => {  
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor`;
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor`;
           const params = {
             params: {
                 sensorId: 1,
@@ -72,7 +72,7 @@ const Sensor = (props) => {
           event.preventDefault();
           setShowSensorModal(false);
   
-          const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor?sensorId=1`
+          const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?sensorId=1`
           
           const config = {
             headers: {

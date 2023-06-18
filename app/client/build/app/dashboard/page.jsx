@@ -19,7 +19,7 @@ const Farm = () => {
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
           const params = {
             params: {
               uid: user.uid,

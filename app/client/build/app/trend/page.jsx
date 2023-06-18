@@ -20,7 +20,7 @@ const Trend = () => {
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
           const params = {
             params: {
               uid: user.uid,
@@ -50,7 +50,7 @@ const Trend = () => {
     // Get Request to get Log Object 
     useEffect(() => {
       if (user && user.accessToken) { // Check if user and accessToken exist
-        const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log/byuid`
+        const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log/byuid`
         const params = {
           params: {
             uid: user.uid,
@@ -88,7 +88,7 @@ const Trend = () => {
 
   useEffect(() => {
     if (user && user.accessToken) { // Check if user and accessToken exist
-      let getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/data/dataforuser`; 
+      let getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/data/dataforuser`; 
       const params = {
         params: {
           userId: userId,

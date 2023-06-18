@@ -16,7 +16,7 @@ const Name = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
 
-        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1&name=${formObject.farmName}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1&name=${formObject.farmName}`
 
         const data = {
             userId: 1,
@@ -37,7 +37,7 @@ const Name = (props) => {
     useEffect(() => {
         // Get Request to get Farm Name    
         if (user?.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/farm`;
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/farm`;
           const params = {
             params: {
               userId: props.userId,
@@ -70,7 +70,7 @@ const Name = (props) => {
         event.preventDefault();
         setShowNameModal(false);
 
-        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/farm?userId=${props.userId}&farmId=1`
         
         const config = {
           headers: {
