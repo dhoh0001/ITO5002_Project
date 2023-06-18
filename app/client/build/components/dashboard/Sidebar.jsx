@@ -3,6 +3,11 @@ import AlertModal from "./Modal/AlertModal";
 import SensorModal from "./Modal/SensorModal";
 import LogModal from "./Modal/LogModal";
 import LogDataModal from "./Modal/LogDataModal";
+import AlertConfigModal from "./Modal/AlertConfigModal";
+import FarmConfigModal from "./Modal/FarmConfigModal";
+import LogConfigModal from "./Modal/LogConfigModal";
+import SensorConfigModal from "./Modal/SensorConfigModal";
+import UserConfigModal from "./Modal/UserConfigModal";
 
 function Sidebar(props) {
 
@@ -27,6 +32,21 @@ function Sidebar(props) {
                         </li>
                         <li>
                             <LogDataModal userId={userId}/>
+                        </li>
+                        <li>
+                            <AlertConfigModal userId={userId}/>
+                        </li>
+                        <li>
+                            <FarmConfigModal userId={userId}/>
+                        </li>
+                        <li>
+                            <LogConfigModal userId={userId}/>
+                        </li>
+                        <li>
+                            <SensorConfigModal userId={userId}/>
+                        </li>
+                        <li>
+                            <UserConfigModal userId={userId}/>
                         </li>
                     </ul>
                 </div>
