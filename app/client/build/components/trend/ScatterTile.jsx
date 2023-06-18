@@ -1,6 +1,4 @@
-"use client"
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
-import axios from "axios";
 import { 
         Chart as Chartjs,
         CategoryScale,
@@ -11,7 +9,7 @@ import {
         Legend
     } from 'chart.js/auto'
 import { useEffect, useState } from "react"
-import { Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
+import { Scatter } from 'react-chartjs-2'
 
 Chartjs.register(
     CategoryScale,
@@ -25,73 +23,54 @@ Chartjs.register(
 const Trend = (props) => {
     const { user } = useAuthContext();
     const [logData, setLogData] = useState({});
-
-    useEffect(() => {
-        if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
-          const params = {
-            params: {
-              farmId: 1,
-              userId: 1,
-            },
-          };
-          const config = {
-            headers: {
-              authorization: `Bearer ${user.accessToken}`,
-            },
-          };
-    const { logIds, userId } = props;
+    const { logDataArray } = props
     
-
-    // useEffect(() => {
-    //     console.log("this is triggered from Scatter", logData);
-    // }, [logData]);
-
+    // Config for Scatter Chart
     const [chartData, setChartData] = useState({
-        datasets: []
-    })
+        labels: [],
+        datasets: [
+            {
+                label: 'Log Output',
+                data: [],
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgb(53, 162, 235, 0.4)'
+            }
+        ]
+    });
 
-    const [chartOptions, setChartOptions] = useState({})
+    const [chartOptions, setChartOptions] = useState({
+        plugins: {
+            legend: {
+                position: 'top'
+            },
+            title: {
+                display: true,
+                text: "Log Output"
+            }
+        },
+        maintainAspectRatio: true,
+        responsive: true
+    });
 
     useEffect(() => {
-        setChartData({
-            labels: ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'],
-            datasets: [
-                {
-                    label: 'Oxygen Levels vs Soil Moisture Levels',
-                    data: [{
-                        x: -10,
-                        y: 0
-                      }, {
-                        x: 0,
-                        y: 10
-                      }, {
-                        x: 10,
-                        y: 5
-                      }, {
-                        x: 0.5,
-                        y: 5.5
-                      }],
-                    borderColor: 'rgb(53, 162, 235',
-                    backgroundColor: 'rgb(53, 162, 235, 0.4'
-                }
-            ]
-        })
-
-        setChartOptions({
-            plugins: {
-                legend: {
-                    position: 'top'
-                },
-                title: {
-                    display: true,
-                    text: "Oxygen Levels vs Soil Moisture Levels"
-                }
-            },
-            maintainAspectRatio: true,
-            responsive: true
-        })
-    }, [])
+        if (logDataArray && logDataArray.length > 0) {
+            const names = logDataArray.map((x) => x.name);
+            const values = logDataArray.map((x) => x.value);
+            console.log("names", names);
+            console.log("values", values);
+            
+            setChartData((prevChartData) => ({
+                ...prevChartData,
+                labels: names,
+                datasets: [
+                    {
+                        ...prevChartData.datasets[0],
+                        data: values
+                    }
+                ]
+            }));
+        }
+    }, [logDataArray]);
 
     return (
         <div className='mt-4 ml-6 p-4 border-4 secondary-colour-border'>

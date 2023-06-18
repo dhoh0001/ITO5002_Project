@@ -7,18 +7,20 @@ import Sidebar from "@components/dashboard/Sidebar"
 import BarTile from "@components/trend/BarTile"
 import ScatterTile from "@components/trend/ScatterTile"
 import LineTile from "@components/trend/LineTile"
+import BubbleTile from "@components/trend/BubbleTile"
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 
 const Trend = () => {
     const { user } = useAuthContext();
     const [userId, setUserId] = useState('');
     const [loading, setLoading] = useState(true);
-    const [logData, setLogData] = useState(true);
+    const [logData, setLogData] = useState({});
+    const [logDataArray, setlogDataArray] = useState({});
     let logIds;
 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
           const params = {
             params: {
               uid: user.uid,
@@ -34,7 +36,7 @@ const Trend = () => {
             .get(getUrl, { ...params, ...config })
             .then((response) => {
               // Handle successful response and update state if necessary
-              setUserId(response.data.userId);
+              setUserId(response.data[0].userId);
             })
             .catch((error) => {
               console.error("Error retrieving data:", error);
@@ -48,7 +50,7 @@ const Trend = () => {
     // Get Request to get Log Object 
     useEffect(() => {
       if (user && user.accessToken) { // Check if user and accessToken exist
-        const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/log/byuid`
+        const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log/byuid`
         const params = {
           params: {
             uid: user.uid,
@@ -84,6 +86,39 @@ const Trend = () => {
     }
   }, [logData]);
 
+  useEffect(() => {
+    if (user && user.accessToken) { // Check if user and accessToken exist
+      let getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/data/dataforuser`; 
+      const params = {
+        params: {
+          userId: userId,
+        },
+      };
+      const config = {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      };
+
+      axios
+        .get(getUrl, { ...params, ...config })
+        .then((response) => {
+            setlogDataArray(response.data) 
+        })
+        .catch((error) => {
+          console.error("Error retrieving data:", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+}, [userId]);
+
+
+  useEffect(() => {
+    console.log("OG", logDataArray);
+  }, [logDataArray]);
+
     return (
         <div> 
         <Sidebar/>      
@@ -93,9 +128,10 @@ const Trend = () => {
                     <Name />
                 </div>
                 <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 w-full h-fit">
-                  <BarTile logData={logIds} userId={userId}/>
-                    <ScatterTile logData={logIds} userId={userId}/>
-                    <LineTile logData={logIds} userId={userId}/>
+                  <BarTile logDataArray={logDataArray}/>
+                  <ScatterTile logDataArray={logDataArray}/>
+                  <LineTile logDataArray={logDataArray}/>
+                  <BubbleTile logDataArray={logDataArray}/>
                 </div>          
                 <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 w-full h-fit">
                 </div>          

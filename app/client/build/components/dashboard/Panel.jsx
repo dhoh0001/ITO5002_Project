@@ -37,57 +37,57 @@ const Panel = () => {
     }
 
     // Get Request to get Log Object 
-    useEffect(() => {
-        if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
-          const params = {
-            params: {
-              farmId: 1,
-              userId: 1,
-            },
-          };
-          const config = {
-            headers: {
-              authorization: `Bearer ${user.accessToken}`,
-            },
-          };
+    // useEffect(() => {
+    //     if (user && user.accessToken) { // Check if user and accessToken exist
+    //       const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log`;
+    //       const params = {
+    //         params: {
+    //           farmId: 1,
+    //           userId: 1,
+    //         },
+    //       };
+    //       const config = {
+    //         headers: {
+    //           authorization: `Bearer ${user.accessToken}`,
+    //         },
+    //       };
     
-          axios
-            .get(getUrl, { ...params, ...config })
-            .then((response) => {
-              // Handle successful response and update state if necessary
-              setLogData(response.data);
-            })
-            .catch((error) => {
-              console.error("Error retrieving data:", error);
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-        }
-    }, [user]);
+    //       axios
+    //         .get(getUrl, { ...params, ...config })
+    //         .then((response) => {
+    //           // Handle successful response and update state if necessary
+    //           setLogData(response.data);
+    //         })
+    //         .catch((error) => {
+    //           console.error("Error retrieving data:", error);
+    //         })
+    //         .finally(() => {
+    //           setLoading(false);
+    //         });
+    //     }
+    // }, [user]);
 
 
-    const deleteLog = (event) => {
-        if (user?.accessToken) {
-          event.preventDefault();
-          setShowPanelModal(false);
+    // const deleteLog = (event) => {
+    //     if (user?.accessToken) {
+    //       event.preventDefault();
+    //       setShowPanelModal(false);
   
-          const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?logId=1`
+    //       const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?logId=1`
           
-          const config = {
-            headers: {
-              authorization: `Bearer ${user.accessToken}`,
-            },
-            data: {
-              userId: 1,
-              logId: 1,
-            },
-          };
+    //       const config = {
+    //         headers: {
+    //           authorization: `Bearer ${user.accessToken}`,
+    //         },
+    //         data: {
+    //           userId: 1,
+    //           logId: 1,
+    //         },
+    //       };
   
-          axios.delete(url, config);
-        }
-    }
+    //       axios.delete(url, config);
+    //     }
+    // }
 
     // useEffect(() => {
     //   console.log(logData);

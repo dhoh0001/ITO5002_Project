@@ -88,7 +88,7 @@ const LightPanel = (props) => {
         const logId = selectedLogs[0];
 
 
-        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
             userId: props.userId,
