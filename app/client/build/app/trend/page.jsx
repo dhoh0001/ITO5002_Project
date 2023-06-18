@@ -7,6 +7,7 @@ import Sidebar from "@components/dashboard/Sidebar"
 import BarTile from "@components/trend/BarTile"
 import ScatterTile from "@components/trend/ScatterTile"
 import LineTile from "@components/trend/LineTile"
+import BubbleTile from "@components/trend/BubbleTile"
 import { useAuthContext, AuthContextProvider } from '@/context/AuthContext'
 
 const Trend = () => {
@@ -115,7 +116,7 @@ const Trend = () => {
 
 
   useEffect(() => {
-    console.log("logDataArray", logDataArray);
+    console.log("OG", logDataArray);
   }, [logDataArray]);
 
     return (
@@ -130,6 +131,7 @@ const Trend = () => {
                   <BarTile logDataArray={logDataArray}/>
                   <ScatterTile logDataArray={logDataArray}/>
                   <LineTile logDataArray={logDataArray}/>
+                  <BubbleTile logDataArray={logDataArray}/>
                 </div>          
                 <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 w-full h-fit">
                 </div>          
