@@ -68,7 +68,7 @@ const LogConfigCom = (props) => {
         const data = { 
             userId: props.userId,
             logId: `${formObject.logId}`,
-            name: `${formObject.name}`,
+            name: `${formObject.logName}`,
             sensorId: `${formObject.sensorId}`,
             farmId: `${formObject.farmId}`,
             logSetting: `${formObject.logSetting}`,
@@ -80,7 +80,21 @@ const LogConfigCom = (props) => {
           }
         }
     
-        axios.put(url, data, config);  
+        axios.put(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.logId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.sensorId}`+'</td>';
+                newrow += '<td>'+`${data.farmId}`+'</td>';
+                newrow += '<td>'+`${data.farmId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById("logTable").innerHTML += newrow
+            });  
     }
 
     const prefillEditModal = (selectedLog) => {
@@ -124,7 +138,21 @@ const LogConfigCom = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config) 
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.logId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.sensorId}`+'</td>';
+                newrow += '<td>'+`${data.farmId}`+'</td>';
+                newrow += '<td>'+`${data.farmId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById(`${data.logId}`).innerHTML = newrow
+            });  
     }
 
     // DELETE request to delete Log
@@ -146,7 +174,10 @@ const LogConfigCom = (props) => {
             },
           };
   
-          axios.delete(url, config);
+          axios.delete(url, config)
+            .then(() => {
+                document.getElementById(`${config.data.logId}`).innerHTML ='' 
+            });
         }
     }
 
@@ -185,7 +216,7 @@ const LogConfigCom = (props) => {
                                         <th className="text-left">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="logTable">
                                 {loading ? (
                                     <tr>
                                     <td colSpan="5">Loading...</td>
@@ -196,7 +227,7 @@ const LogConfigCom = (props) => {
                                     </tr>
                                 ) : (
                                     logData.map((log) => (
-                                    <tr key={log.logId}>
+                                    <tr id={log.logId} key={log.logId}>
                                         <td>
                                         <input type="checkbox" id={log.logId} className="appearance-none checked:bg-green-700" onChange={() => handleLogSelection(log.logId)}/>
                                         </td>

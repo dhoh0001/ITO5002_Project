@@ -29,7 +29,7 @@ const SensorConfigCom = (props) => {
     // Get Request to get Sensor Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor`;
           const params = {
             params: {
               userId: props.uid,
@@ -63,7 +63,7 @@ const SensorConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}&uid=${formObject.uid}`
+        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}&uid=${formObject.uid}`
     
         const data = { 
             userId: props.userId,
@@ -81,7 +81,21 @@ const SensorConfigCom = (props) => {
           }
         }
     
-        axios.put(url, data, config);  
+        axios.put(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.sensorId}`+' key='+`${data.sensorId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.sensorId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.sensorId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.hardwareId}`+'</td>';
+                newrow += '<td>'+`${data.sensorAction}`+'</td>';
+                newrow += '<td>'+`${data.logId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById("sensorTable").innerHTML += newrow
+            });  
     }
 
     const prefillEditModal = (selectedSensor) => {
@@ -108,12 +122,12 @@ const SensorConfigCom = (props) => {
         const sensorId = selectedSensors[0];
 
 
-        const url = `http://ec2-3-27-73-173.ap-southeast-2.compute.amazonaws.com/sensor`
+        const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor`
 
         const data = { 
             userId: props.userId,
             sensorId: `${sensorId}`,
-            name: `${formObject.sensorName}`,
+            name: `${formObject.name}`,
             hardwareId: `${formObject.hardwareId}`,
             sensorAction: `${formObject.sensorAction}`,
             logId: `${formObject.logId}`,
@@ -125,7 +139,21 @@ const SensorConfigCom = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.sensorId}`+' key='+`${data.sensorId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.sensorId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.sensorId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.hardwareId}`+'</td>';
+                newrow += '<td>'+`${data.sensorAction}`+'</td>';
+                newrow += '<td>'+`${data.logId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById(`${data.sensorId}`).innerHTML = newrow
+            });  
     }
 
     // DELETE request to delete Sensor
@@ -147,7 +175,10 @@ const SensorConfigCom = (props) => {
             },
           };
   
-          axios.delete(url, config);
+          axios.delete(url, config)
+            .then(() => {
+                document.getElementById(`${config.data.sensorId}`).innerHTML ='' 
+            });
         }
     }
 
@@ -165,7 +196,7 @@ const SensorConfigCom = (props) => {
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
                                 setShowEditModal(true);
-                                await prefillEditModal(selectedLogs);
+                                await prefillEditModal(selectedSensors);
                             }}>
                                 Edit
                             </button>
@@ -186,7 +217,7 @@ const SensorConfigCom = (props) => {
                                         <th className="text-left">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="sensorTable">
                                 {loading ? (
                                     <tr>
                                     <td colSpan="5">Loading...</td>
@@ -197,7 +228,7 @@ const SensorConfigCom = (props) => {
                                     </tr>
                                 ) : (
                                     sensorData.map((sensor) => (
-                                    <tr key={sensor.sensorId}>
+                                    <tr id={sensor.sensorId} key={sensor.sensorId}>
                                         <td>
                                         <input type="checkbox" id={sensor.sensorId} className="appearance-none checked:bg-green-700" onChange={() => handleSensorSelection(sensor.sensorId)}/>
                                         </td>

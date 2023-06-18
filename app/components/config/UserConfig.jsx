@@ -80,7 +80,22 @@ const UserConfigCom = (props) => {
           }
         }
     
-        axios.put(url, data, config);  
+        axios.put(url, data, config)  
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.userId}`+' key='+`${data.userId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.userId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.userId}` + '</td>';
+                newrow += '<td>'+`${data.firstName}`+'</td>';
+                newrow += '<td>'+`${data.lastName}`+'</td>';
+                newrow += '<td>'+`${data.email}`+'</td>';
+                newrow += '<td>'+`${data.uid}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById("userTable").innerHTML += newrow
+            });  
+            
     }
 
     const prefillEditModal = (selectedUser) => {
@@ -124,7 +139,21 @@ const UserConfigCom = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.userId}`+' key='+`${data.userId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.userId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.userId}` + '</td>';
+                newrow += '<td>'+`${data.firstName}`+'</td>';
+                newrow += '<td>'+`${data.lastName}`+'</td>';
+                newrow += '<td>'+`${data.email}`+'</td>';
+                newrow += '<td>'+`${data.uid}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById(`${data.userId}`).innerHTML = newrow
+            });  
     }
 
     // DELETE request to delete User
@@ -146,7 +175,10 @@ const UserConfigCom = (props) => {
             },
           };
   
-          axios.delete(url, config);
+          axios.delete(url, config)
+            .then(() => {
+                document.getElementById(`${config.data.userId}`).innerHTML ='' 
+            });
         }
     }
 
@@ -184,7 +216,7 @@ const UserConfigCom = (props) => {
                                         <th className="text-left">UID</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="userTable">
                                 {loading ? (
                                     <tr>
                                     <td colSpan="5">Loading...</td>
@@ -195,7 +227,7 @@ const UserConfigCom = (props) => {
                                     </tr>
                                 ) : (
                                     userData.map((user) => (
-                                    <tr key={user.userId}>
+                                    <tr id={user.userId} key={user.userId}>
                                         <td>
                                         <input type="checkbox" id={user.userId} className="appearance-none checked:bg-green-700" onChange={() => handleUserSelection(user.userId)}/>
                                         </td>

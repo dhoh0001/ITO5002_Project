@@ -69,6 +69,11 @@ const AlertConfigCom = (props) => {
         const data = { 
             userId: props.userId,
             alertId: `${formObject.alertId}`,
+            name: `${formObject.alertName}`,
+            alertLevel: `${formObject.alertLevel}`,
+            timeframe: `${formObject.timeframe}`,
+            farmId: `${formObject.farmId}`,
+            logId: `${formObject.logId}`,
         };
     
         const config = {
@@ -77,7 +82,22 @@ const AlertConfigCom = (props) => {
           }
         }
     
-        axios.put(url, data, config);  
+        axios.put(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.alertId}`+' key='+`${data.alertId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.alertId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.alertId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.alertLevel}`+'</td>';
+                newrow += '<td>'+`${data.timeframe}`+'</td>';
+                newrow += '<td>'+`${data.farmId}`+'</td>';
+                newrow += '<td>'+`${data.alertId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById("alertTable").innerHTML += newrow
+            });  
     }
 
     const prefillEditModal = (selectedAlert) => {
@@ -123,7 +143,22 @@ const AlertConfigCom = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.alertId}`+' key='+`${data.alertId}`+'>';
+                newrow += '<td>';
+                newrow+= '<input type="checkbox" id=' +`${data.alertId}`+ ' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.alertId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.alertLevel}`+'</td>';
+                newrow += '<td>'+`${data.timeframe}`+'</td>';
+                newrow += '<td>'+`${data.farmId}`+'</td>';
+                newrow += '<td>'+`${data.alertId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById(`${data.alertId}`).innerHTML = newrow
+            });
     }
 
     // DELETE request to delete Alert
@@ -145,7 +180,10 @@ const AlertConfigCom = (props) => {
             },
           };
   
-          axios.delete(url, config);
+          axios.delete(url, config)
+            .then(() => {
+                document.getElementById(`${config.data.alertId}`).innerHTML ='' 
+            });
         }
     }
 
@@ -184,7 +222,7 @@ const AlertConfigCom = (props) => {
                                         <th className="text-left">Alert ID</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="alertTable">
                                 {loading ? (
                                     <tr>
                                     <td colSpan="5">Loading...</td>
@@ -195,7 +233,7 @@ const AlertConfigCom = (props) => {
                                     </tr>
                                 ) : (
                                     alertData.map((alert) => (
-                                    <tr key={alert.alertId}>
+                                    <tr id={alert.alertId} key={alert.alertId}>
                                         <td>
                                         <input type="checkbox" id={alert.alertId} className="appearance-none checked:bg-green-700" onChange={() => handleAlertSelection(alert.alertId)}/>
                                         </td>

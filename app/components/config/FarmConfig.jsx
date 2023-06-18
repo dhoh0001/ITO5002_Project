@@ -66,9 +66,9 @@ const FarmConfigCom = (props) => {
         const url = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/farm?userId=${formObject.userId}&farmId=${formObject.farmId}&name=${formObject.farmName}&uid=${user.uid}`
     
         const data = { 
-            userId: props.userId,
             farmId: `${formObject.farmId}`,
-            name: `${formObject.name}`
+            name: `${formObject.farmName}`,
+            userId: `${formObject.userId}`,
         };
     
         const config = {
@@ -77,7 +77,19 @@ const FarmConfigCom = (props) => {
           }
         }
     
-        axios.put(url, data, config);  
+        axios.put(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.farmId}`+' key='+`${data.farmId}`+'>';
+                newrow += '<td>';
+                newrow += '<input type="checkbox" id='+`${data.farmId}`+' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.farmId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.userId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById("farmTable").innerHTML += newrow
+            });
     }
 
     const prefillEditModal = (selectedFarm) => {
@@ -116,7 +128,19 @@ const FarmConfigCom = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config)
+            .then(() => {
+                let newrow = '';
+                newrow += '<tr id='+`${data.farmId}`+' key='+`${data.farmId}`+'>';
+                newrow += '<td>';
+                newrow+= '<input type="checkbox" id=' +`${data.farmId}`+ ' className="appearance-none checked:bg-green-700"/>';
+                newrow += '</td>';
+                newrow += '<td>' + `${data.farmId}` + '</td>';
+                newrow += '<td>'+`${data.name}`+'</td>';
+                newrow += '<td>'+`${data.userId}`+'</td>';
+                newrow += '</tr>';
+                document.getElementById(`${data.farmId}`).innerHTML = newrow
+            });
     }
 
     // DELETE request to delete Farm
@@ -138,7 +162,10 @@ const FarmConfigCom = (props) => {
             },
           };
   
-          axios.delete(url, config);
+          axios.delete(url, config)
+            .then(() => {
+                document.getElementById(`${config.data.farmId}`).innerHTML ='' 
+            });
         }
     }
 
@@ -174,7 +201,7 @@ const FarmConfigCom = (props) => {
                                         <th className="text-left">User ID</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="farmTable">
                                 {loading ? (
                                     <tr>
                                     <td colSpan="5">Loading...</td>
@@ -185,7 +212,7 @@ const FarmConfigCom = (props) => {
                                     </tr>
                                 ) : (
                                     farmData.map((farm) => (
-                                    <tr key={farm.farmId}>
+                                    <tr id={farm.farmId} key={farm.farmId}>
                                         <td>
                                         <input type="checkbox" id={farm.farmId} className="appearance-none checked:bg-green-700" onChange={() => handleFarmSelection(farm.farmId)}/>
                                         </td>
