@@ -29,7 +29,7 @@ const AlertConfigCom = (props) => {
     // Get Request to get Alert Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/alert`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/alert/byuid`;
           const params = {
             params: {
               userId: props.userId,

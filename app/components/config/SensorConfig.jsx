@@ -29,10 +29,11 @@ const SensorConfigCom = (props) => {
     // Get Request to get Sensor Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor`;
+          const getUrl = `http://ec2-3-27-1-118.ap-southeast-2.compute.amazonaws.com/sensor/byuid`;
           const params = {
             params: {
               userId: props.uid,
+              uid: user.uid,
             },
           };
           const config = {
