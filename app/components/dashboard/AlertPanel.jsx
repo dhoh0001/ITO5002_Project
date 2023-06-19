@@ -180,8 +180,8 @@ const LightPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">Alert Name</th>
                                         <th className="text-left">Alert ID</th>
+                                        <th className="text-left">Alert Name</th>
                                         <th className="text-left">Alert Level</th>
                                         <th className="text-left">Alert Timeframe</th>
                                         <th className="text-left">Log ID</th>
@@ -202,8 +202,8 @@ const LightPanel = (props) => {
                                         <td>
                                             <input type="checkbox" id={alert.alertId} className="appearance-none checked:bg-green-700" onChange={() => handlealertSelection(alert.alertId)}/>
                                         </td>
-                                        <td>{alert.name}</td>
                                         <td>{alert.alertId}</td>
+                                        <td>{alert.name}</td>
                                         <td>{alert.alertLevel}</td>
                                         <td>{alert.timeframe}</td>
                                         <td>{alert.logId}</td>
@@ -242,8 +242,8 @@ const LightPanel = (props) => {
                                 <thead>
                                     <tr>
                                     <th className="text-left"></th>
-                                        <th className="text-left">Alert Name</th>
                                         <th className="text-left">Alert ID</th>
+                                        <th className="text-left">Alert Name</th>
                                         <th className="text-left">Alert Level</th>
                                         <th className="text-left">Alert Timeframe</th>
                                         <th className="text-left">Alert ID</th>
