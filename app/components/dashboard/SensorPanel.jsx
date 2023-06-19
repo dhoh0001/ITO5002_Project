@@ -180,10 +180,10 @@ const SensorPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
+                                        <th className="text-left">Sensor ID</th>
                                         <th className="text-left">Name</th>
                                         <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>
-                                        <th className="text-left">Sensor ID</th>
                                         <th className="text-left">Log ID</th>
                                     </tr>
                                 </thead>
@@ -202,10 +202,10 @@ const SensorPanel = (props) => {
                                         <td>
                                             <input type="checkbox" id={sensor.sensorId} className="appearance-none checked:bg-green-700" onChange={() => handleSensorSelection(sensor.sensorId)}/>
                                         </td>
+                                        <td>{sensor.sensorId}</td>
                                         <td>{sensor.name}</td>
                                         <td>{sensor.hardwareId}</td>
                                         <td>{sensor.sensorAction}</td>
-                                        <td>{sensor.sensorId}</td>
                                         <td>{sensor.logId}</td>
                                     </tr>
                                     ))
@@ -242,10 +242,10 @@ const SensorPanel = (props) => {
                                 <thead>
                                     <tr>
                                     <th className="text-left"></th>
+                                        <th className="text-left">Sensor ID</th>
                                         <th className="text-left">Name</th>
                                         <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>
-                                        <th className="text-left">Sensor ID</th>
                                         <th className="text-left">Log ID</th>
                                     </tr>
                                 </thead>
