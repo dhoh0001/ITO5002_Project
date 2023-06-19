@@ -276,7 +276,7 @@ const SensorPanel = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
                             <input id="logId" name="logId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
-                                <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
+                                <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
                                 <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowCreateModal(false)}>Close</button>
@@ -302,7 +302,7 @@ const SensorPanel = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
                             <input id="logId" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
-                                <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
+                                <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
                             <div>
                                 <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowEditModal(false)}>Close</button>
