@@ -188,9 +188,6 @@ const LightPanel = (props) => {
                 <h2 className="text-center text-lg font-medium secondary-colour-border">users</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
-                                Create
-                            </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
                             setShowEditModal(true);
                             await prefillEditModal(selectedusers);
@@ -198,9 +195,6 @@ const LightPanel = (props) => {
                             Edit
                             </button>
 
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
-                                Delete
-                            </button>
                         </div>
                         <div className="ml-5">
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
