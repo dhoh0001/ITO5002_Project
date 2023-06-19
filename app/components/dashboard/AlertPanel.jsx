@@ -228,7 +228,7 @@ const LightPanel = (props) => {
                             </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
                             setShowEditModal(true);
-                            await prefillEditModal(selectedalerts);
+                            await prefillEditModal(selectedAlerts);
                             }}>
                             Edit
                             </button>
