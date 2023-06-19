@@ -220,7 +220,7 @@ const LightPanel = (props) => {
                 <div>
                 {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                <h2 className="text-center text-lg font-medium secondary-colour-border">alerts</h2>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Alerts</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
