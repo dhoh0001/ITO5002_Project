@@ -56,10 +56,6 @@ const LightPanel = (props) => {
         }
     }, [user, props.uid]);
 
-    // useEffect(() => {
-    //     console.log("logdata", logData)
-    // }, [user, props.uid]);
-
     // PUT Request to create Log
     const formCreateSubmit = (event) => {
         event.preventDefault();

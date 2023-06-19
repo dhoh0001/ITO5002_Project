@@ -67,11 +67,18 @@ const Nav = () => {
             </Link>
           </div>
         ) : (
-          <div className="flex gap-3 md:gap-5">
-            <Link href="user/signin" className="outline_btn">
-              Sign In
-            </Link>
-          </div>
+          <>
+            <div className="flex gap-3 md:gap-5">
+              <Link href="user/signin" className="outline_btn">
+                Sign In
+              </Link>
+            </div>
+            <div className="flex gap-3 md:gap-5">
+              <Link href="user/signup" className="outline_btn">
+                Sign Up
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </nav>

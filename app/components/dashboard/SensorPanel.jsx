@@ -46,7 +46,6 @@ const SensorPanel = (props) => {
       .get(getUrl, { ...params, ...config })
         .then((response) => {
           // Handle successful response and update state if necessary
-          // console.log("response.data", response.data)
           setSensorData(response.data);
         })
         .catch((error) => {
@@ -85,15 +84,10 @@ const SensorPanel = (props) => {
         axios.put(url, data, config)
       }
 
-    useEffect(() => {
-        console.log("selectedSensors", selectedSensors)
-    }, [selectedSensors])
 
     const prefillEditModal = (selectedSensors) => {
         const sensorArray = Object.values(sensorData);
-        console.log("sensorArray", sensorArray);
         const sensorObject = sensorArray.find((sensor) => selectedSensors.includes(sensor.sensorId));
-        console.log("sensorObject", sensorObject);
       
         if (sensorObject) {
           setTimeout(() => {
@@ -187,10 +181,10 @@ const SensorPanel = (props) => {
                                     <tr>
                                         <th className="text-left"></th>
                                         <th className="text-left">Name</th>
-                                        <th className="text-left">Hardware Id</th>
+                                        <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>
-                                        <th className="text-left">Sensor Id</th>
-                                        <th className="text-left">Log Id</th>
+                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Log ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -249,10 +243,10 @@ const SensorPanel = (props) => {
                                     <tr>
                                     <th className="text-left"></th>
                                         <th className="text-left">Name</th>
-                                        <th className="text-left">Hardware Id</th>
+                                        <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>
-                                        <th className="text-left">Sensor Id</th>
-                                        <th className="text-left">Log Id</th>
+                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Log ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>

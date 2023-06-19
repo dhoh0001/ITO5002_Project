@@ -56,13 +56,8 @@ const LightPanel = (props) => {
         }
     }, [user, props.uid]);
 
-    useEffect(() => {
-        console.log("userdata", userData)
-    }, [userData]);
-
     const prefillEditModal = (selecteduser) => {
         const userArray = Object.values(userData);
-        console.log("userArray", userArray);
         const userObject = userArray.find((user) => selecteduser.includes(user.userId));
       
         if (userObject) {

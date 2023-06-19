@@ -15,8 +15,6 @@ const Farm = () => {
     const [userId, setUserId] = useState('');
     const [loading, setLoading] = useState(true);
 
-    console.log("Hello")
-
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
           const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/user/byuid?${user.uid}`;
@@ -46,10 +44,6 @@ const Farm = () => {
             });
         }
     }, [user]);
-
-    useEffect(() => {
-        console.log("userId", userId);
-    }, [userId]);
 
     return ( 
         <div> 

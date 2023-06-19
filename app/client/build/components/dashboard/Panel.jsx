@@ -89,10 +89,6 @@ const Panel = () => {
     //     }
     // }
 
-    // useEffect(() => {
-    //   console.log(logData);
-    // }, [logData]);
-
     // if (loading) {
     //   return <div>Loading...</div>; 
     // }

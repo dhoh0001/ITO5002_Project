@@ -56,8 +56,6 @@ const Trend = (props) => {
         if (logDataArray && logDataArray.length > 0) {
             const names = logDataArray.map((x) => x.name);
             const values = logDataArray.map((x) => x.value);
-            console.log("names", names);
-            console.log("values", values);
             
             setChartData((prevChartData) => ({
                 ...prevChartData,
@@ -72,9 +70,6 @@ const Trend = (props) => {
         }
     }, [logDataArray]);
 
-    // useEffect(() => {
-    //     console.log(logDataArray)
-    // }, [logDataArray])
 
     return (
         <div className='mt-4 ml-6 p-4 border-4 secondary-colour-border'>

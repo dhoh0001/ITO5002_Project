@@ -62,9 +62,6 @@ const Name = (props) => {
         }
     }, [user]); 
 
-    useEffect(() => {
-      console.log("farmName", farmName);
-    }, [farmName, user]);
 
     const deleteFarm = (event) => {
       if (user?.accessToken) {
@@ -111,16 +108,17 @@ const Name = (props) => {
             </div>
 
             {showNameModal ? (
-                <div className="absolute z-50 m-auto left-0 right-0 secondary-colour w-3/12 h-fit p-4"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour md:w-fit lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <div>
                     <form className="" action="#" method="POST" onSubmit={formSubmit}>
-                        <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Edit Farm Name <span className="text-red-500" onClick={() => setShowNameModal(false)}>X</span></label>
-                        <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                        <div className="pt-4">
-                           <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
+                        <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Edit Farm Name</label>
+                        <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black w-1/2" />
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 pt-4">
+                          <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
+                          <button className="red_btn mx-2 mb-2" type="delete" onClick={deleteFarm}>Delete</button>
                         </div>
-                        <div>
-                           <button className="red_btn mx-2 mb-2" type="delete" onClick={deleteFarm}>Delete</button>
+                        <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 pt-2">
+                          <button className="black_btn mx-2 mb-2" type="close" onClick={() => setShowNameModal(false)}>Close</button>
                         </div>
                     </form>
                     </div>

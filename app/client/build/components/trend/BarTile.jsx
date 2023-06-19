@@ -56,8 +56,6 @@ const Trend = (props) => {
         if (logDataArray && logDataArray.length > 0) {
             const names = logDataArray.map((x) => x.name);
             const values = logDataArray.map((x) => x.value);
-            console.log("names", names);
-            console.log("values", values);
             
             setChartData((prevChartData) => ({
                 ...prevChartData,

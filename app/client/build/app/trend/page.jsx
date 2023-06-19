@@ -114,11 +114,6 @@ const Trend = () => {
     }
 }, [userId]);
 
-
-  useEffect(() => {
-    console.log("OG", logDataArray);
-  }, [logDataArray]);
-
     return (
         <div> 
         <Sidebar/>      

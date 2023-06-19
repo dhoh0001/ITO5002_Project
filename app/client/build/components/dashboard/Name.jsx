@@ -61,10 +61,6 @@ const Name = (props) => {
         }
     }, [user, props.userId]); 
 
-    // useEffect(() => {
-    //   console.log("farmName", farmName);
-    // }, [farmName, props.userId]);
-
     const deleteFarm = (event) => {
       if (user?.accessToken) {
         event.preventDefault();

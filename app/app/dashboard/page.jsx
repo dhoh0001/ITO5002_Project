@@ -76,10 +76,6 @@ const Farm = () => {
       }
     }, [user]); 
 
-    // useEffect(() => {
-    //   console.log("farmId", farmId)
-    // }, [farmId]);
-
       // Get Request to get Log Object 
       useEffect(() => {
           if (user && user.accessToken) { // Check if user and accessToken exist
@@ -99,7 +95,6 @@ const Farm = () => {
               .get(getUrl, { ...params, ...config })
               .then((response) => {
                 // Handle successful response and update state if necessary
-                // console.log("WHY", response);
                 response.data
                 setLogId(response.data.map((x) => x.logId) || []);
               })
