@@ -115,7 +115,6 @@ const Name = (props) => {
                         <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black w-1/2" />
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 pt-4">
                           <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
-                          <button className="red_btn mx-2 mb-2" type="delete" onClick={deleteFarm}>Delete</button>
                         </div>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 pt-2">
                           <button className="black_btn mx-2 mb-2" type="close" onClick={() => setShowNameModal(false)}>Close</button>
