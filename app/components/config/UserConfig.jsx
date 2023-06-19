@@ -82,20 +82,7 @@ const UserConfigCom = (props) => {
         }
     
         axios.put(url, data, config)  
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.userId}`+' key='+`${data.userId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.userId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.userId}` + '</td>';
-                newrow += '<td>'+`${data.firstName}`+'</td>';
-                newrow += '<td>'+`${data.lastName}`+'</td>';
-                newrow += '<td>'+`${data.email}`+'</td>';
-                newrow += '<td>'+`${data.uid}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById("userTable").innerHTML += newrow
-            });  
+
             
     }
 
@@ -109,7 +96,6 @@ const UserConfigCom = (props) => {
                 document.getElementById("firstName").value = userObject.firstName;
                 document.getElementById("lastName").value = userObject.lastName;
                 document.getElementById("email").value = userObject.email;
-                document.getElementById("uid").value = userObject.uid;
             }, 0);
         }
     };
@@ -141,20 +127,20 @@ const UserConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.userId}`+' key='+`${data.userId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.userId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.userId}` + '</td>';
-                newrow += '<td>'+`${data.firstName}`+'</td>';
-                newrow += '<td>'+`${data.lastName}`+'</td>';
-                newrow += '<td>'+`${data.email}`+'</td>';
-                newrow += '<td>'+`${data.uid}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById(`${data.userId}`).innerHTML = newrow
-            });  
+            // .then(() => {
+            //     let newrow = '';
+            //     newrow += '<tr id='+`${data.userId}`+' key='+`${data.userId}`+'>';
+            //     newrow += '<td>';
+            //     newrow += '<input type="checkbox" id='+`${data.userId}`+' className="appearance-none checked:bg-green-700"/>';
+            //     newrow += '</td>';
+            //     newrow += '<td>' + `${data.userId}` + '</td>';
+            //     newrow += '<td>'+`${data.firstName}`+'</td>';
+            //     newrow += '<td>'+`${data.lastName}`+'</td>';
+            //     newrow += '<td>'+`${data.email}`+'</td>';
+            //     newrow += '<td>'+`${data.uid}`+'</td>';
+            //     newrow += '</tr>';
+            //     document.getElementById(`${data.userId}`).innerHTML = newrow
+            // });  
     }
 
     // DELETE request to delete User
@@ -192,17 +178,11 @@ const UserConfigCom = (props) => {
                 <h2 className="text-center text-lg font-medium secondary-colour-border">Users</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
-                                Create
-                            </button>
                             <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
                                 setShowEditModal(true);
                                 await prefillEditModal(selectedUsers);
                             }}>
                                 Edit
-                            </button>
-                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
-                                Delete
                             </button>
                         </div>
                         <div className="ml-5">
@@ -214,7 +194,6 @@ const UserConfigCom = (props) => {
                                         <th className="text-left">First Name</th>
                                         <th className="text-left">Last Name</th>
                                         <th className="text-left">email</th>
-                                        <th className="text-left">UID</th>
                                     </tr>
                                 </thead>
                                 <tbody id="userTable">
@@ -236,8 +215,7 @@ const UserConfigCom = (props) => {
                                         <td>{user.firstName}</td>
                                         <td>{user.lastName}</td>
                                         <td>{user.email}</td>
-                                        <td>{user.uid}</td>
-                                        <td>{user ? "🟢" : "🔴"}</td>
+                                        {/* <td>{user ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
                                 )}
@@ -248,9 +226,35 @@ const UserConfigCom = (props) => {
                 </div>
             </div>
             ) : (
+                <div>
+                {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                    <p>No users registered</p>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Users</h2>
+                    <div>
+                        <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedUsers);
+                            }}>
+                                Edit
+                            </button>
+                        </div>
+                        <div className="ml-5">
+                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left"></th>
+                                        <th className="text-left">User ID</th>
+                                        <th className="text-left">First Name</th>
+                                        <th className="text-left">Last Name</th>
+                                        <th className="text-left">email</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+            </div>
             )}
 
             {showCreateModal ? (
@@ -265,8 +269,6 @@ const UserConfigCom = (props) => {
                             <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
                             <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UID</label>
-                            <input id="uid" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -290,8 +292,6 @@ const UserConfigCom = (props) => {
                             <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
                             <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">UID</label>
-                            <input id="uid" name="uid"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

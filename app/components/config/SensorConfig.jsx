@@ -141,20 +141,20 @@ const SensorConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.sensorId}`+' key='+`${data.sensorId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.sensorId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.sensorId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.hardwareId}`+'</td>';
-                newrow += '<td>'+`${data.sensorAction}`+'</td>';
-                newrow += '<td>'+`${data.logId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById(`${data.sensorId}`).innerHTML = newrow
-            });  
+            // .then(() => {
+            //     let newrow = '';
+            //     newrow += '<tr id='+`${data.sensorId}`+' key='+`${data.sensorId}`+'>';
+            //     newrow += '<td>';
+            //     newrow += '<input type="checkbox" id='+`${data.sensorId}`+' className="appearance-none checked:bg-green-700"/>';
+            //     newrow += '</td>';
+            //     newrow += '<td>' + `${data.sensorId}` + '</td>';
+            //     newrow += '<td>'+`${data.name}`+'</td>';
+            //     newrow += '<td>'+`${data.hardwareId}`+'</td>';
+            //     newrow += '<td>'+`${data.sensorAction}`+'</td>';
+            //     newrow += '<td>'+`${data.logId}`+'</td>';
+            //     newrow += '</tr>';
+            //     document.getElementById(`${data.sensorId}`).innerHTML = newrow
+            // });  
     }
 
     // DELETE request to delete Sensor
@@ -215,7 +215,6 @@ const SensorConfigCom = (props) => {
                                         <th className="text-left">Hardware ID</th>
                                         <th className="text-left">sensorAction</th>
                                         <th className="text-left">Log ID</th>
-                                        <th className="text-left">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="sensorTable">
@@ -238,7 +237,7 @@ const SensorConfigCom = (props) => {
                                         <td>{sensor.hardwareId}</td>
                                         <td>{sensor.sensorAction}</td>
                                         <td>{sensor.logId}</td>
-                                        <td>{sensor ? "🟢" : "🔴"}</td>
+                                        {/* <td>{sensor ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
                                 )}
@@ -249,9 +248,43 @@ const SensorConfigCom = (props) => {
                 </div>
             </div>
             ) : (
+                <div>
+                {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                    <p>No sensors registered</p>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Sensors</h2>
+                    <div>
+                        <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
+                                Create
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedSensors);
+                            }}>
+                                Edit
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
+                                Delete
+                            </button>
+                        </div>
+                        <div className="ml-5">
+                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left"></th>
+                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Name</th>
+                                        <th className="text-left">Hardware ID</th>
+                                        <th className="text-left">sensorAction</th>
+                                        <th className="text-left">Log ID</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
+            </div>
             )}
 
             {showCreateModal ? (

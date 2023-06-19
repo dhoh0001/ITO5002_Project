@@ -5,12 +5,12 @@ import Sidebar from "@components/dashboard/Sidebar"
 const UserConfig = () => {
     return (
         <div> 
-            <Sidebar />      
-            <section className="pt-4 w-full lg:h-[calc(100vh-58px)] md:h-fit primary-colour">
-                <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 w-2/3">
-                    <UserConfigCom />
+            <Sidebar/>      
+            <div className="p-4 sm:ml-64">
+                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                <UserConfigCom />
                 </div>
-            </section>
+            </div>
         </div>
     )
 }

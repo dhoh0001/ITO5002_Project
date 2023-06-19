@@ -2,8 +2,11 @@
 
 import { initFirebase } from '@firebase/firebaseApp';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { useRouter } from 'next/navigation';
 
 const Signin = () => {
+    const router = useRouter();
+    
     const formSubmit = (event) => {
         event.preventDefault();
         var data = new FormData(event.target);
@@ -14,6 +17,8 @@ const Signin = () => {
             .then((userCredential) => {
                 //Signed in 
                 const user = userCredential.user;
+                router.push('/dashboard');
+
                 // ...
             })
             .catch((error) => {

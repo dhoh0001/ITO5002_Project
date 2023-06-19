@@ -130,18 +130,18 @@ const FarmConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.farmId}`+' key='+`${data.farmId}`+'>';
-                newrow += '<td>';
-                newrow+= '<input type="checkbox" id=' +`${data.farmId}`+ ' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.farmId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.userId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById(`${data.farmId}`).innerHTML = newrow
-            });
+            // .then(() => {
+            //     let newrow = '';
+            //     newrow += '<tr id='+`${data.farmId}`+' key='+`${data.farmId}`+'>';
+            //     newrow += '<td>';
+            //     newrow+= '<input type="checkbox" id=' +`${data.farmId}`+ ' className="appearance-none checked:bg-green-700"/>';
+            //     newrow += '</td>';
+            //     newrow += '<td>' + `${data.farmId}` + '</td>';
+            //     newrow += '<td>'+`${data.name}`+'</td>';
+            //     newrow += '<td>'+`${data.userId}`+'</td>';
+            //     newrow += '</tr>';
+            //     document.getElementById(`${data.farmId}`).innerHTML = newrow
+            // });
     }
 
     // DELETE request to delete Farm
@@ -220,7 +220,7 @@ const FarmConfigCom = (props) => {
                                         <td>{farm.farmId}</td>
                                         <td>{farm.name}</td>
                                         <td>{farm.userId}</td>
-                                        <td>{farm ? "🟢" : "🔴"}</td>
+                                        {/* <td>{farm ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
                                 )}
@@ -231,9 +231,40 @@ const FarmConfigCom = (props) => {
                 </div>
             </div>
             ) : (
+                <div>
+                {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                    <p>No farms registered</p>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Farms</h2>
+                    <div>
+                        <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
+                                Create
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedFarms);
+                            }}>
+                                Edit
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
+                                Delete
+                            </button>
+                        </div>
+                        <div className="ml-5">
+                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left"></th>
+                                        <th className="text-left">Farm ID</th>
+                                        <th className="text-left">Name</th>
+                                        <th className="text-left">User ID</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+            </div>
             )}
 
             {showCreateModal ? (

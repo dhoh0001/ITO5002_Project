@@ -3,9 +3,11 @@
 import { initFirebase } from '@firebase/firebaseApp';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import axios from "axios";
+import { useRouter } from 'next/navigation';
 
 const Signup = () => {
     const app = initFirebase();
+    const router = useRouter();
     
     const formSubmit = (event) => {
         event.preventDefault();
@@ -41,12 +43,12 @@ const Signup = () => {
                 }
 
                 axios.put(url2, data,config);
-                axios.post(url,data,config);
+                // axios.post(url,data,config);
+                router.push('/dashboard');
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                // ..
         });
     }
 

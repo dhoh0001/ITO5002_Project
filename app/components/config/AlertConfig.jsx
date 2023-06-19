@@ -29,10 +29,9 @@ const AlertConfigCom = (props) => {
     // Get Request to get Alert Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
-          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/alert/byuid`;
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/alert/byuid`
           const params = {
             params: {
-              userId: props.userId,
               uid: user.uid,
             },
           };
@@ -55,7 +54,7 @@ const AlertConfigCom = (props) => {
               setLoading(false);
             });
         }
-    }, [user, props.uid]);
+    }, [user]);
 
     // PUT Request to create Alert
     const formCreateSubmit = (event) => {
@@ -83,21 +82,22 @@ const AlertConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.alertId}`+' key='+`${data.alertId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.alertId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.alertId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.alertLevel}`+'</td>';
-                newrow += '<td>'+`${data.timeframe}`+'</td>';
-                newrow += '<td>'+`${data.farmId}`+'</td>';
-                newrow += '<td>'+`${data.alertId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById("alertTable").innerHTML += newrow
-            });  
+            // This overwrites the current table div and causes a bug.
+            // .then(() => {
+            //     let newrow = '';
+            //     newrow += '<tr id='+`${data.alertId}`+' key='+`${data.alertId}`+'>';
+            //     newrow += '<td>';
+            //     newrow += '<input type="checkbox" id='+`${data.alertId}`+' className="appearance-none checked:bg-green-700"/>';
+            //     newrow += '</td>';
+            //     newrow += '<td>' + `${data.alertId}` + '</td>';
+            //     newrow += '<td>'+`${data.name}`+'</td>';
+            //     newrow += '<td>'+`${data.alertLevel}`+'</td>';
+            //     newrow += '<td>'+`${data.timeframe}`+'</td>';
+            //     newrow += '<td>'+`${data.farmId}`+'</td>';
+            //     newrow += '<td>'+`${data.alertId}`+'</td>';
+            //     newrow += '</tr>';
+            //     document.getElementById("alertTable").innerHTML += newrow
+            // });  
     }
 
     const prefillEditModal = (selectedAlert) => {
@@ -107,7 +107,7 @@ const AlertConfigCom = (props) => {
         if (alertObject) {
             setTimeout(() => {
                 document.getElementById("alertId").value = alertObject.alertId;
-                document.getElementById("alertName").value = alertObject.alertName;
+                document.getElementById("alertName").value = alertObject.name;
                 document.getElementById("alertLevel").value = alertObject.alertLevel;
                 document.getElementById("timeframe").value = alertObject.timeframe;
                 document.getElementById("farmId").value = alertObject.farmId;
@@ -253,9 +253,43 @@ const AlertConfigCom = (props) => {
                 </div>
             </div>
             ) : (
+                <div>
+                {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                    <p>No alerts registered</p>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Alerts</h2>
+                    <div>
+                        <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowAlertModal(true)}>
+                                Create
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedAlerts);
+                            }}>
+                                Edit
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
+                                Delete
+                            </button>
+                        </div>
+                        <div className="ml-5">
+                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left"></th>
+                                        <th className="text-left">Alert ID</th>
+                                        <th className="text-left">Name</th>
+                                        <th className="text-left">Alert Level</th>
+                                        <th className="text-left">Timeframe</th>
+                                        <th className="text-left">Farm ID</th>
+                                        <th className="text-left">Alert ID</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+            </div>
             )}
 
             {showCreateModal ? (

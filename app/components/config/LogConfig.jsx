@@ -140,20 +140,20 @@ const LogConfigCom = (props) => {
         }
 
         axios.post(url, data, config) 
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.logId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.sensorId}`+'</td>';
-                newrow += '<td>'+`${data.farmId}`+'</td>';
-                newrow += '<td>'+`${data.farmId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById(`${data.logId}`).innerHTML = newrow
-            });  
+            // .then(() => {
+            //     let newrow = '';
+            //     newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
+            //     newrow += '<td>';
+            //     newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
+            //     newrow += '</td>';
+            //     newrow += '<td>' + `${data.logId}` + '</td>';
+            //     newrow += '<td>'+`${data.name}`+'</td>';
+            //     newrow += '<td>'+`${data.sensorId}`+'</td>';
+            //     newrow += '<td>'+`${data.farmId}`+'</td>';
+            //     newrow += '<td>'+`${data.farmId}`+'</td>';
+            //     newrow += '</tr>';
+            //     document.getElementById(`${data.logId}`).innerHTML = newrow
+            // });  
     }
 
     // DELETE request to delete Log
@@ -237,7 +237,7 @@ const LogConfigCom = (props) => {
                                         <td>{log.sensorId}</td>
                                         <td>{log.farmId}</td>
                                         <td>{log.logSetting}</td>
-                                        <td>{log ? "🟢" : "🔴"}</td>
+                                        {/* <td>{log ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
                                 )}
@@ -248,9 +248,43 @@ const LogConfigCom = (props) => {
                 </div>
             </div>
             ) : (
+                <div>
+                {/* Main Panel */}
                 <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
-                    <p>No logs registered</p>
+                <h2 className="text-center text-lg font-medium secondary-colour-border">Logs</h2>
+                    <div>
+                        <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowCreateModal(true)}>
+                                Create
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={async () => {
+                                setShowEditModal(true);
+                                await prefillEditModal(selectedLogs);
+                            }}>
+                                Edit
+                            </button>
+                            <button type="button" className="px-4 py-2 text-sm font-medium dash_btn" onClick={() => setShowDeleteModal(true)}>
+                                Delete
+                            </button>
+                        </div>
+                        <div className="ml-5">
+                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left"></th>
+                                        <th className="text-left">Log ID</th>
+                                        <th className="text-left">Name</th>
+                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">Farm ID</th>
+                                        <th className="text-left">Log Setting</th>
+                                        <th className="text-left">Status</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+            </div>
             )}
 
             {showCreateModal ? (
