@@ -49,6 +49,15 @@ const Signup = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                const errorDiv = document.getElementById("errorMessage");
+
+                if (errorCode === 'auth/weak-password') {
+                    errorDiv.innerHTML = 'Please use a more complex password.';
+                } else if (errorCode === 'auth/email-already-in-use') {
+                    errorDiv.innerHTML = 'That email is already being used for an account, please sign in instead.';
+                } else {
+                    errorDiv.innerHTML = 'Internal Error, please try again in a few minutes.';
+                }
         });
     }
 
@@ -91,7 +100,7 @@ const Signup = () => {
                         <input id="password" name="password" type="password" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
-
+                    <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                     <div>
                         <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
                     </div>
