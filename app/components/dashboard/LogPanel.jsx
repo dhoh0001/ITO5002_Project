@@ -76,7 +76,8 @@ const LightPanel = (props) => {
           }
         }
     
-        axios.put(url, data, config); 
+        axios.put(url, data, config)
+        window.location.reload()
     }
 
     const prefillEditModal = (selectedLog) => {
@@ -102,14 +103,14 @@ const LightPanel = (props) => {
         const logId = selectedLogs[0];
 
 
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${farmId}&logSetting=${formObject.logSetting}`
 
         const data = { 
             userId: props.userId,
             logId: `${logId}`,
             name: `${formObject.logName}`,
             sensorId: `${formObject.sensorId}`,
-            farmId: `${formObject.farmId}`,
+            farmId: farmId,
             logSetting: `${formObject.logSetting}`
         };
 
@@ -119,7 +120,8 @@ const LightPanel = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config);
+        window.location.reload()  
     }
 
 
@@ -143,6 +145,7 @@ const LightPanel = (props) => {
           };
   
           axios.delete(url, config);
+          window.location.reload()
         }
     }
 

@@ -114,6 +114,7 @@ const Farm = () => {
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <Name userId={userId} farmId={farmId}/>
+                      <UserPanel userId={userId} /> 
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <LogPanel userId={userId} farmId={farmId}/>
@@ -122,7 +123,6 @@ const Farm = () => {
 
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <AlertPanel userId={userId} farmId={farmId} logId={logId}/>
-                      <UserPanel userId={userId} />    
                     </div>
     
                 </div>

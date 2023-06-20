@@ -82,22 +82,7 @@ const AlertConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-            // This overwrites the current table div and causes a bug.
-            // .then(() => {
-            //     let newrow = '';
-            //     newrow += '<tr id='+`${data.alertId}`+' key='+`${data.alertId}`+'>';
-            //     newrow += '<td>';
-            //     newrow += '<input type="checkbox" id='+`${data.alertId}`+' className="appearance-none checked:bg-green-700"/>';
-            //     newrow += '</td>';
-            //     newrow += '<td>' + `${data.alertId}` + '</td>';
-            //     newrow += '<td>'+`${data.name}`+'</td>';
-            //     newrow += '<td>'+`${data.alertLevel}`+'</td>';
-            //     newrow += '<td>'+`${data.timeframe}`+'</td>';
-            //     newrow += '<td>'+`${data.farmId}`+'</td>';
-            //     newrow += '<td>'+`${data.alertId}`+'</td>';
-            //     newrow += '</tr>';
-            //     document.getElementById("alertTable").innerHTML += newrow
-            // });  
+        window.location.reload() 
     }
 
     const prefillEditModal = (selectedAlert) => {
@@ -144,21 +129,7 @@ const AlertConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.alertId}`+' key='+`${data.alertId}`+'>';
-                newrow += '<td>';
-                newrow+= '<input type="checkbox" id=' +`${data.alertId}`+ ' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.alertId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.alertLevel}`+'</td>';
-                newrow += '<td>'+`${data.timeframe}`+'</td>';
-                newrow += '<td>'+`${data.farmId}`+'</td>';
-                newrow += '<td>'+`${data.alertId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById(`${data.alertId}`).innerHTML = newrow
-            });
+        window.location.reload()
     }
 
     // DELETE request to delete Alert
@@ -181,9 +152,7 @@ const AlertConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-            .then(() => {
-                document.getElementById(`${config.data.alertId}`).innerHTML ='' 
-            });
+          window.location.reload()
         }
     }
 

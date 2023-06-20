@@ -82,6 +82,7 @@ const SensorPanel = (props) => {
         };
     
         axios.put(url, data, config)
+        window.location.reload()
       }
 
 
@@ -127,7 +128,8 @@ const SensorPanel = (props) => {
             }
         }
 
-        axios.post(url, data, config) 
+        axios.post(url, data, config)
+        window.location.reload() 
     }
 
     // DELETE request to delete Log
@@ -150,6 +152,7 @@ const SensorPanel = (props) => {
           };
   
           axios.delete(url, config);
+          window.location.reload()
         }
     }
 

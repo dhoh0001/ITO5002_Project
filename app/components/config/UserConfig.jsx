@@ -81,9 +81,8 @@ const UserConfigCom = (props) => {
           }
         }
     
-        axios.put(url, data, config)  
-
-            
+        axios.put(url, data, config)
+        window.location.reload()      
     }
 
     const prefillEditModal = (selectedUser) => {
@@ -127,20 +126,7 @@ const UserConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            // .then(() => {
-            //     let newrow = '';
-            //     newrow += '<tr id='+`${data.userId}`+' key='+`${data.userId}`+'>';
-            //     newrow += '<td>';
-            //     newrow += '<input type="checkbox" id='+`${data.userId}`+' className="appearance-none checked:bg-green-700"/>';
-            //     newrow += '</td>';
-            //     newrow += '<td>' + `${data.userId}` + '</td>';
-            //     newrow += '<td>'+`${data.firstName}`+'</td>';
-            //     newrow += '<td>'+`${data.lastName}`+'</td>';
-            //     newrow += '<td>'+`${data.email}`+'</td>';
-            //     newrow += '<td>'+`${data.uid}`+'</td>';
-            //     newrow += '</tr>';
-            //     document.getElementById(`${data.userId}`).innerHTML = newrow
-            // });  
+        window.location.reload() 
     }
 
     // DELETE request to delete User

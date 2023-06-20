@@ -79,18 +79,7 @@ const FarmConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.farmId}`+' key='+`${data.farmId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.farmId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.farmId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.userId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById("farmTable").innerHTML += newrow
-            });
+        window.location.reload()
     }
 
     const prefillEditModal = (selectedFarm) => {
@@ -130,18 +119,7 @@ const FarmConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            // .then(() => {
-            //     let newrow = '';
-            //     newrow += '<tr id='+`${data.farmId}`+' key='+`${data.farmId}`+'>';
-            //     newrow += '<td>';
-            //     newrow+= '<input type="checkbox" id=' +`${data.farmId}`+ ' className="appearance-none checked:bg-green-700"/>';
-            //     newrow += '</td>';
-            //     newrow += '<td>' + `${data.farmId}` + '</td>';
-            //     newrow += '<td>'+`${data.name}`+'</td>';
-            //     newrow += '<td>'+`${data.userId}`+'</td>';
-            //     newrow += '</tr>';
-            //     document.getElementById(`${data.farmId}`).innerHTML = newrow
-            // });
+        window.location.reload()
     }
 
     // DELETE request to delete Farm
@@ -164,9 +142,7 @@ const FarmConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-            .then(() => {
-                document.getElementById(`${config.data.farmId}`).innerHTML ='' 
-            });
+          window.location.reload()
         }
     }
 

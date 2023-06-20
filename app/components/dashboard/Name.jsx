@@ -30,7 +30,8 @@ const Name = (props) => {
         }
         };
     
-        axios.post(url, data, config);  
+        axios.post(url, data, config);
+        window.location.reload()  
     }
 
     // Get Request to get Farm Name 
@@ -80,6 +81,7 @@ const Name = (props) => {
         };
 
         axios.delete(url, config);
+        window.location.reload()
       }
   }
     

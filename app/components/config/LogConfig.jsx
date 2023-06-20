@@ -81,20 +81,7 @@ const LogConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-        .then(() => {
-            let newrow = '';
-            newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
-            newrow += '<td>';
-            newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
-            newrow += '</td>';
-            newrow += '<td>' + '</td>';
-            newrow += '<td>'+`${data.name}`+'</td>';
-            newrow += '<td>'+`${data.sensorId}`+'</td>';
-            newrow += '<td>'+`${data.farmId}`+'</td>';
-            newrow += '<td>'+`${data.logSetting}`+'</td>';
-            newrow += '</tr>';
-            document.getElementById("logTable").innerHTML += newrow
-        });  
+        window.location.reload()
     }
 
     const prefillEditModal = (selectedLog) => {
@@ -138,21 +125,8 @@ const LogConfigCom = (props) => {
             }
         }
 
-        axios.post(url, data, config) 
-            // .then(() => {
-            //     let newrow = '';
-            //     newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
-            //     newrow += '<td>';
-            //     newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
-            //     newrow += '</td>';
-            //     newrow += '<td>' + `${data.logId}` + '</td>';
-            //     newrow += '<td>'+`${data.name}`+'</td>';
-            //     newrow += '<td>'+`${data.sensorId}`+'</td>';
-            //     newrow += '<td>'+`${data.farmId}`+'</td>';
-            //     newrow += '<td>'+`${data.farmId}`+'</td>';
-            //     newrow += '</tr>';
-            //     document.getElementById(`${data.logId}`).innerHTML = newrow
-            // });  
+        axios.post(url, data, config)
+        window.location.reload() 
     }
 
     // DELETE request to delete Log
@@ -175,9 +149,7 @@ const LogConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-            .then(() => {
-                document.getElementById(`${config.data.logId}`).innerHTML ='' 
-            });
+          window.location.reload()
         }
     }
 

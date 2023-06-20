@@ -82,7 +82,8 @@ const LightPanel = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config);
+        window.location.reload()  
     }
 
     return (

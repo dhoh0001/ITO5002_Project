@@ -83,20 +83,7 @@ const SensorConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.sensorId}`+' key='+`${data.sensorId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.sensorId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.sensorId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.hardwareId}`+'</td>';
-                newrow += '<td>'+`${data.sensorAction}`+'</td>';
-                newrow += '<td>'+`${data.logId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById("sensorTable").innerHTML += newrow
-            });  
+        window.location.reload()
     }
 
     const prefillEditModal = (selectedSensor) => {
@@ -141,20 +128,7 @@ const SensorConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-            // .then(() => {
-            //     let newrow = '';
-            //     newrow += '<tr id='+`${data.sensorId}`+' key='+`${data.sensorId}`+'>';
-            //     newrow += '<td>';
-            //     newrow += '<input type="checkbox" id='+`${data.sensorId}`+' className="appearance-none checked:bg-green-700"/>';
-            //     newrow += '</td>';
-            //     newrow += '<td>' + `${data.sensorId}` + '</td>';
-            //     newrow += '<td>'+`${data.name}`+'</td>';
-            //     newrow += '<td>'+`${data.hardwareId}`+'</td>';
-            //     newrow += '<td>'+`${data.sensorAction}`+'</td>';
-            //     newrow += '<td>'+`${data.logId}`+'</td>';
-            //     newrow += '</tr>';
-            //     document.getElementById(`${data.sensorId}`).innerHTML = newrow
-            // });  
+        window.location.reload()
     }
 
     // DELETE request to delete Sensor
@@ -177,9 +151,7 @@ const SensorConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-            .then(() => {
-                document.getElementById(`${config.data.sensorId}`).innerHTML ='' 
-            });
+          window.location.reload()
         }
     }
 
