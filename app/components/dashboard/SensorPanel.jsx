@@ -190,7 +190,7 @@ const SensorPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">Sensor ID</th>
+                                        <th className="text-left">ID</th>
                                         <th className="text-left">Name</th>
                                         <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>

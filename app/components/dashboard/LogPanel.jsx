@@ -183,7 +183,7 @@ const LightPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">Log Id</th>
+                                        <th className="text-left">ID</th>
                                         <th className="text-left">Log Name</th>
                                         <th className="text-left">Sensor ID</th>
                                         <th className="text-left">Farm ID</th>

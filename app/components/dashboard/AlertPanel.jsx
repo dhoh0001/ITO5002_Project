@@ -189,7 +189,7 @@ const LightPanel = (props) => {
                                 <thead>
                                     <tr>
                                         <th className="text-left"></th>
-                                        <th className="text-left">Alert ID</th>
+                                        <th className="text-left">ID</th>
                                         <th className="text-left">Alert Name</th>
                                         <th className="text-left">Alert Level</th>
                                         <th className="text-left">Alert Timeframe</th>
