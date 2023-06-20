@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LogPanel from "@components/dashboard/LogPanel"
 import SensorPanel from "@components/dashboard/SensorPanel"
+import StatusPanel from "@components/dashboard/Status"
 import AlertPanel from "@components/dashboard/AlertPanel"
 import UserPanel from "@components/dashboard/UserPanel"
 import FarmPanel from "@components/dashboard/FarmPanel"
@@ -113,6 +114,7 @@ const Farm = () => {
             <Sidebar userId={userId}/>      
             <div className="p-4 sm:ml-64">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                    <StatusPanel userId={userId} farmId={farmId}/>    
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <Name userId={userId} farmId={farmId}/>
                       <UserPanel userId={userId} /> 

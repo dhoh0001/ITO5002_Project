@@ -39,7 +39,7 @@ module.exports = ( function() {
     });
     
     dataRoutes.get('/dataforuser', function(req,res){
-        let sql = `select ld.log_id, max(ld.timestamp), ld.value, a.name, a.alert_level from logdata ld inner join alert a on a.log_id = ld.log_id inner join farm f on a.farm_id = f.farm_id inner join user u on f.user_id = u.user_id where u.uid = ? group by ld.log_id;`;
+        let sql = `select a.log_id, max(ld.timestamp), ld.value, a.name, a.alert_level from logdata ld right join alert a on a.log_id = ld.log_id inner join farm f on a.farm_id = f.farm_id inner join user u on f.user_id = u.user_id where u.uid = ? group by ld.log_id;`;
         data_db.db.all(sql, [req.query.uid], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error retrieving from db: " + err);
