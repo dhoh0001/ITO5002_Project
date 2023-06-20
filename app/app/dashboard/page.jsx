@@ -6,6 +6,7 @@ import LogPanel from "@components/dashboard/LogPanel"
 import SensorPanel from "@components/dashboard/SensorPanel"
 import AlertPanel from "@components/dashboard/AlertPanel"
 import UserPanel from "@components/dashboard/UserPanel"
+import FarmPanel from "@components/dashboard/FarmPanel"
 import Sensor from "@components/dashboard/Sensor"
 import Name from "@components/dashboard/Name"
 import Sidebar from "@components/dashboard/Sidebar"
@@ -120,11 +121,10 @@ const Farm = () => {
                       <LogPanel userId={userId} farmId={farmId}/>
                       <SensorPanel userId={userId} />    
                     </div>
-
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <AlertPanel userId={userId} farmId={farmId} logId={logId}/>
+                      <FarmPanel userId={userId} farmId={farmId}/>
                     </div>
-    
                 </div>
             </div>
         </div>
