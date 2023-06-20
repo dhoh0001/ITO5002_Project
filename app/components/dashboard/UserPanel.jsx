@@ -14,18 +14,6 @@ const LightPanel = (props) => {
     const { user } = useAuthContext();
     const { userId, farmId } = props;
 
-    const handleuserSelection = (userId) => {
-        setSelectedusers((prevSelectedusers) => {
-          if (prevSelectedusers.includes(userId)) {
-            // If the user ID is already in the array, remove it
-            return prevSelectedusers.filter((id) => id !== userId);
-          } else {
-            // If the user ID is not in the array, add it
-            return [...prevSelectedusers, userId];
-          }
-        });
-    };
-
     // Get Request to get user Object 
     useEffect(() => {
         if (user && user.accessToken) { // Check if user and accessToken exist
@@ -56,9 +44,9 @@ const LightPanel = (props) => {
         }
     }, [user, props.uid]);
 
-    const prefillEditModal = (selecteduser) => {
+    const prefillEditModal = () => {
         const userArray = Object.values(userData);
-        const userObject = userArray.find((user) => selecteduser.includes(user.userId));
+        const userObject = userArray.find((user) => props.userId);
       
         if (userObject) {
           setTimeout(() => {
@@ -97,30 +85,6 @@ const LightPanel = (props) => {
         axios.post(url, data, config);  
     }
 
-
-    // DELETE request to delete user
-    // const deleteuser = (event) => {
-    //     if (user?.accessToken) {
-    //       event.preventDefault();
-    //       setShowDeleteModal(false);
-    //       const userId = selectedusers[0];
-  
-    //       const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/user?userId=${userId}`
-          
-    //       const config = {
-    //         headers: {
-    //           authorization: `Bearer ${user.accessToken}`,
-    //         },
-    //         data: {
-    //           userId: props.userId,
-    //           userId: `${userId}`,
-    //         },
-    //       };
-  
-    //       axios.delete(url, config);
-    //     }
-    // }
-
     return (
         <>
             {userData && userData.length > 0 ? (
@@ -148,7 +112,8 @@ const LightPanel = (props) => {
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
+                                        {/* <th className="text-left"></th> */}
+                                        <th className="text-left">ID</th>
                                         <th className="text-left">First Name</th>
                                         <th className="text-left">Last Name</th>
                                         <th className="text-left">Email</th>
@@ -166,9 +131,10 @@ const LightPanel = (props) => {
                                 ) : (
                                     userData.map((user) => (    
                                     <tr key={user.userId}>
-                                        <td>
+                                        {/* <td>
                                             <input type="checkbox" id={user.userId} className="appearance-none checked:bg-green-700" onChange={() => handleuserSelection(user.userId)}/>
-                                        </td>
+                                        </td> */}
+                                        <td>{user.userId}</td>
                                         <td>{user.firstName}</td>
                                         <td>{user.lastName}</td>
                                         <td>{user.email}</td>

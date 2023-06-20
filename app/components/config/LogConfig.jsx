@@ -57,14 +57,13 @@ const LogConfigCom = (props) => {
         }
     }, [user, props.uid]);
 
-    // PUT Request to create Log
     const formCreateSubmit = (event) => {
         event.preventDefault();
         setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&logId=${formObject.logId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${formObject.farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
     
         const data = { 
             userId: props.userId,
@@ -72,7 +71,7 @@ const LogConfigCom = (props) => {
             name: `${formObject.logName}`,
             sensorId: `${formObject.sensorId}`,
             farmId: `${formObject.farmId}`,
-            logSetting: `${formObject.logSetting}`,
+            logSetting: `${formObject.logSetting}`
         };
     
         const config = {
@@ -82,20 +81,20 @@ const LogConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-            .then(() => {
-                let newrow = '';
-                newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
-                newrow += '<td>';
-                newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
-                newrow += '</td>';
-                newrow += '<td>' + `${data.logId}` + '</td>';
-                newrow += '<td>'+`${data.name}`+'</td>';
-                newrow += '<td>'+`${data.sensorId}`+'</td>';
-                newrow += '<td>'+`${data.farmId}`+'</td>';
-                newrow += '<td>'+`${data.farmId}`+'</td>';
-                newrow += '</tr>';
-                document.getElementById("logTable").innerHTML += newrow
-            });  
+        .then(() => {
+            let newrow = '';
+            newrow += '<tr id='+`${data.logId}`+' key='+`${data.logId}`+'>';
+            newrow += '<td>';
+            newrow += '<input type="checkbox" id='+`${data.logId}`+' className="appearance-none checked:bg-green-700"/>';
+            newrow += '</td>';
+            newrow += '<td>' + '</td>';
+            newrow += '<td>'+`${data.name}`+'</td>';
+            newrow += '<td>'+`${data.sensorId}`+'</td>';
+            newrow += '<td>'+`${data.farmId}`+'</td>';
+            newrow += '<td>'+`${data.logSetting}`+'</td>';
+            newrow += '</tr>';
+            document.getElementById("logTable").innerHTML += newrow
+        });  
     }
 
     const prefillEditModal = (selectedLog) => {
@@ -291,8 +290,8 @@ const LogConfigCom = (props) => {
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="PUT" onSubmit={formCreateSubmit}>
                         <div className="text-white mx-2">
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
-                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            {/* <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
+                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" /> */}
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Name</label>
                             <input id="logName" name="logName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>

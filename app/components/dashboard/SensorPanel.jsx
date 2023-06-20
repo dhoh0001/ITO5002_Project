@@ -70,7 +70,7 @@ const SensorPanel = (props) => {
             userId: props.userId,
             name: `${formObject.sensorName}`,
             hardwareId: `${formObject.hardwareId}`,
-            sensorId: `${formObject.sensorId}`,
+            sensorId: formObject.sensorId,
             sensorAction: `${formObject.sensorAction}`,
             logId: `${formObject.logId}`
         };
@@ -109,15 +109,16 @@ const SensorPanel = (props) => {
         let formObject = Object.fromEntries(formData.entries())
         const sensorId = selectedSensors[0];
 
+
         const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor`
 
         const data = { 
             userId: props.userId,
+            sensorId: sensorId,
             name: `${formObject.sensorName}`,
-            hardwareId: `${formObject.hardwareId}`,
-            sensorId: `${formObject.sensorId}`,
+            hardwareId: `${formObject.sensorHardwareId}`,
             sensorAction: `${formObject.sensorAction}`,
-            logId: `${formObject.logId}`
+            logId: `${formObject.logId}`,
         };
 
         const config = {
@@ -126,7 +127,7 @@ const SensorPanel = (props) => {
             }
         }
 
-        axios.post(url, data, config);  
+        axios.post(url, data, config) 
     }
 
     // DELETE request to delete Log
@@ -136,7 +137,7 @@ const SensorPanel = (props) => {
           setShowDeleteModal(false);
           const sensorId = selectedSensors[0];
   
-          const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor`
+          const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&sensorId=${sensorId}`
           
           const config = {
             headers: {
@@ -144,7 +145,7 @@ const SensorPanel = (props) => {
             },
             data: {
               userId: props.userId,
-              sensorId: `${sensorId}`,
+              sensorId: sensorId,
             },
           };
   
@@ -294,13 +295,13 @@ const SensorPanel = (props) => {
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Name</label>
                             <input id="sensorName" name="sensorName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Hardware ID</label>
-                            <input id="sensorHardwareId" name="sensorId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="sensorHardwareId" name="sensorHardwareId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Action</label>
                             <input id="sensorAction" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Id</label>
-                            <input id="sensorId" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="sensorId" name="sensorId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="logId" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <input id="logId" name="logId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
