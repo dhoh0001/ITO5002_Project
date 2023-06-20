@@ -52,9 +52,9 @@ const Signup = () => {
                 const errorDiv = document.getElementById("errorMessage");
 
                 if (errorCode === 'auth/weak-password') {
-                    errorDiv.innerHTML = 'Please use a more complex password.';
+                    errorDiv.innerHTML = 'Error: Please use a more complex password.';
                 } else if (errorCode === 'auth/email-already-in-use') {
-                    errorDiv.innerHTML = 'That email is already being used for an account, please sign in instead.';
+                    errorDiv.innerHTML = 'Error: That email is already being used for an account, please sign in instead.';
                 } else {
                     errorDiv.innerHTML = 'Internal Error, please try again in a few minutes.';
                 }

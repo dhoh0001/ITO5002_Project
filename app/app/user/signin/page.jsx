@@ -25,9 +25,9 @@ const Signin = () => {
                 const errorDiv = document.getElementById("errorMessage");
 
                 if (errorCode === 'auth/user-not-found') {
-                    errorDiv.innerHTML = 'Unable to find an account with that email, please try again.';
+                    errorDiv.innerHTML = 'Error: Unable to find an account with that email, please try again.';
                 } else if (errorCode === 'auth/wrong-password') {
-                    errorDiv.innerHTML = 'Your password is incorrect, please try again';
+                    errorDiv.innerHTML = 'Error: Your password is incorrect, please try again';
                 } else {
                     errorDiv.innerHTML = 'Internal Error, please try again in a few minutes.';
                 }
