@@ -37,8 +37,8 @@ const Signin = () => {
     return (
         <section className="pt-4 w-full lg:h-[calc(100vh-58px)] md:h-screen primary-colour">
             <div className="flex min-h-full flex-col justify-center px-6 lg:px-8 3">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm secondary-colour p-8">
-                    <h2 className="mb-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Sign into Vertiguard</h2>
+                <div className="sm:mx-auto sm:w-full sm:max-w-sm secondary-colour">
+                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Sign into Vertiguard</h2>
                 </div>
 
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm secondary-colour p-6">
