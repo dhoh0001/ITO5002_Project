@@ -68,7 +68,7 @@ const StatusPanel = (props) => {
                             </td>
                             <td>{status.logId}</td>
                             <td>{status.name}</td>
-                            <td>{status.value}</td>
+                            <td>{status.value? status.value : 'No Value'}</td>
                             <td>{status.alertLevel}</td>
                             <td>{status.value >= status.alertLevel? ' 🔴' :' 🟢 '} </td>
                         </tr>
