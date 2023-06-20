@@ -64,15 +64,14 @@ const SensorPanel = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&name=${formObject.sensorName}&hardwareId=${formObject.hardwareId}&sensorId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&name=${formObject.sensorName}&hardwareId=${formObject.hardwareId}&sensorId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
     
         const data = { 
             userId: props.userId,
             name: `${formObject.sensorName}`,
             hardwareId: `${formObject.hardwareId}`,
             sensorId: formObject.sensorId,
-            sensorAction: `${formObject.sensorAction}`,
-            logId: `${formObject.logId}`
+            sensorAction: `${formObject.sensorAction}`
         };
     
         const config = {
@@ -99,7 +98,6 @@ const SensorPanel = (props) => {
             document.getElementById("sensorHardwareId").value = sensorObject.hardwareId;
             document.getElementById("sensorAction").value = sensorObject.sensorAction;
             document.getElementById("sensorId").value = sensorObject.sensorId;
-            document.getElementById("logId").value = sensorObject.logId;
           }, 0);
         }
       };
@@ -121,7 +119,6 @@ const SensorPanel = (props) => {
             name: `${formObject.sensorName}`,
             hardwareId: `${formObject.sensorHardwareId}`,
             sensorAction: `${formObject.sensorAction}`,
-            logId: `${formObject.logId}`,
         };
 
         const config = {
@@ -194,7 +191,6 @@ const SensorPanel = (props) => {
                                         <th className="text-left">Name</th>
                                         <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>
-                                        <th className="text-left">Log ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -216,7 +212,6 @@ const SensorPanel = (props) => {
                                         <td>{sensor.name}</td>
                                         <td>{sensor.hardwareId}</td>
                                         <td>{sensor.sensorAction}</td>
-                                        <td>{sensor.logId}</td>
                                     </tr>
                                     ))
                                 )}
@@ -256,7 +251,6 @@ const SensorPanel = (props) => {
                                         <th className="text-left">Name</th>
                                         <th className="text-left">Hardware ID</th>
                                         <th className="text-left">Sensor Action</th>
-                                        <th className="text-left">Log ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -283,8 +277,6 @@ const SensorPanel = (props) => {
                             <input id="sensorAction" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Id</label>
                             <input id="sensorId" name="sensorId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="logId" name="logId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -310,8 +302,6 @@ const SensorPanel = (props) => {
                             <input id="sensorAction" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Id</label>
                             <input id="sensorId" name="sensorId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="logId" name="logId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

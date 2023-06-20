@@ -86,13 +86,9 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        if(!Number.isInteger(parseInt(req.query.logId))) {
-            res.status(500).send("The ID must be an integer");
-            return;
-        }
-        let sql = `insert into sensor(name, hardware_id, sensor_action, log_id) values (?, ?, ?, ?)`;
+        let sql = `insert into sensor(name, hardware_id, sensor_action ) values (?, ?, ?)`;
 
-        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction, req.query.logId], (err, rows) => {
+        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
