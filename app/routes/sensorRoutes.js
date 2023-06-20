@@ -54,7 +54,7 @@ module.exports = ( function() {
 
     sensorRoutes.get('/byuid', function(req,res){
             let sensors = [];
-            let sql = `select s.* from sensor s inner join log l on s.sensor_id = l.sensor_id inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
+            let sql = `select s.* from sensor s inner join farm f on s.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
             sensor_db.db.all(sql, [req.query.uid], (err, rows) => {
                 if(err) {
                     res.status(404).send("[]");
@@ -86,9 +86,9 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        let sql = `insert into sensor(name, hardware_id, sensor_action ) values (?, ?, ?)`;
+        let sql = `insert into sensor(name, hardware_id, sensor_action, farm_id) values (?, ?, ?, ?)`;
 
-        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction], (err, rows) => {
+        sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction, req.query.farmId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {
@@ -114,13 +114,9 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        if(!Number.isInteger(parseInt(req.body.logId))) {
-            res.status(500).send("The sensor ID must be an integer");
-            return;
-        }
-        let sql = `update sensor set name=?, hardware_id=?, sensor_action=?, log_id = ? where sensor_id = ?`;
+        let sql = `update sensor set name=?, hardware_id=?, sensor_action=? where sensor_id = ?`;
 
-        sensor_db.db.run(sql, [req.body.name, req.body.hardwareId, req.body.sensorAction, req.body.logId, req.body.sensorId], (err, rows) => {
+        sensor_db.db.run(sql, [req.body.name, req.body.hardwareId, req.body.sensorAction, req.body.sensorId], (err, rows) => {
             if(err) {
                 res.status(500).send("err: error updating db: " + err)
             } else {

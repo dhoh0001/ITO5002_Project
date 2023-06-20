@@ -119,7 +119,7 @@ const Farm = () => {
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <LogPanel userId={userId} farmId={farmId}/>
-                      <SensorPanel userId={userId} />    
+                      <SensorPanel userId={userId} farmId={farmId}/>    
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
                       <AlertPanel userId={userId} farmId={farmId} logId={logId}/>

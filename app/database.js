@@ -74,7 +74,7 @@ function createTables(newdb) {
             name varchar(100),
             hardware_id varchar(100),
             sensor_action varchar(100),
-            log_id integer
+            farm_id integer
         );
         create table logdata (
             log_id int,

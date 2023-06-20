@@ -12,7 +12,7 @@ const SensorPanel = (props) => {
     const [selectedSensors, setSelectedSensors] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useAuthContext();
-    const { userId } = props;
+    const { userId, farmId } = props;
 
     const handleSensorSelection = (sensorId) => {
         setSelectedSensors((prevSelectedSensors) => {
@@ -64,13 +64,14 @@ const SensorPanel = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&name=${formObject.sensorName}&hardwareId=${formObject.hardwareId}&sensorId=${formObject.sensorId}&sensorAction=${formObject.sensorAction}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?userId=${props.userId}&name=${formObject.sensorName}&hardwareId=${formObject.hardwareId}&farmId=${farmId}&sensorAction=${formObject.sensorAction}`
     
         const data = { 
             userId: props.userId,
             name: `${formObject.sensorName}`,
             hardwareId: `${formObject.hardwareId}`,
             sensorId: formObject.sensorId,
+            farmId: `${farmId}`,
             sensorAction: `${formObject.sensorAction}`
         };
     
