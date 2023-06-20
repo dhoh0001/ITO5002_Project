@@ -313,6 +313,7 @@ const SensorConfigCom = (props) => {
             ) : null}
 
             {showEditModal ? (
+                (selectedSensors.length > 0) ?
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
                     <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
@@ -335,9 +336,17 @@ const SensorConfigCom = (props) => {
                         </div>
                     </form>
                 </div>
+                : 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl">
+                    <h1 className="text-white pb-4">No sensors selected.</h1>
+                    <div>
+                        <button className="black_btn mb-2" onClick={() => setShowEditModal(false)}>Close</button>
+                    </div>                    
+                </div>
             ) : null}
 
             {showDeleteModal ? (
+                (selectedSensors.length > 0) ?
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
                     <div>
                         <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Are you sure you want to delete this sensor?</label>
@@ -348,6 +357,13 @@ const SensorConfigCom = (props) => {
                            <button className="black_btn mx-2 mb-2" type="delete" onClick={() => setShowDeleteModal(false)}>Close</button>
                         </div>
                     </div>
+                </div>
+                : 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl">
+                    <h1 className="text-white pb-4">No sensors selected.</h1>
+                    <div>
+                        <button className="black_btn mb-2" onClick={() => setShowEditModal(false)}>Close</button>
+                    </div>                    
                 </div>
             ) : null}
         </>
