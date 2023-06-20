@@ -81,7 +81,9 @@ const LogConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-        window.location.reload()
+        .then(() => {
+            window.location.reload();
+          });
     }
 
     const prefillEditModal = (selectedLog) => {
@@ -126,7 +128,9 @@ const LogConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-        window.location.reload() 
+        .then(() => {
+            window.location.reload();
+          }); 
     }
 
     // DELETE request to delete Log
@@ -149,7 +153,9 @@ const LogConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-          window.location.reload()
+          .then(() => {
+            window.location.reload();
+          });
         }
     }
 

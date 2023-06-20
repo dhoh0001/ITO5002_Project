@@ -82,7 +82,9 @@ const UserConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-        window.location.reload()      
+        .then(() => {
+            window.location.reload();
+          });      
     }
 
     const prefillEditModal = (selectedUser) => {
@@ -126,7 +128,9 @@ const UserConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-        window.location.reload() 
+        .then(() => {
+            window.location.reload();
+          }); 
     }
 
     // DELETE request to delete User
@@ -149,9 +153,9 @@ const UserConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-            .then(() => {
-                document.getElementById(`${config.data.userId}`).innerHTML ='' 
-            });
+          .then(() => {
+            window.location.reload();
+          });
         }
     }
 

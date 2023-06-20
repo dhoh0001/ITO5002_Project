@@ -77,7 +77,9 @@ const LightPanel = (props) => {
         }
     
         axios.put(url, data, config)
-        window.location.reload()
+        .then(() => {
+            window.location.reload();
+          }); 
     }
 
     const prefillEditModal = (selectedLog) => {
@@ -120,8 +122,10 @@ const LightPanel = (props) => {
             }
         }
 
-        axios.post(url, data, config);
-        window.location.reload()  
+        axios.post(url, data, config)
+        .then(() => {
+            window.location.reload();
+          });  
     }
 
 
@@ -144,8 +148,10 @@ const LightPanel = (props) => {
             },
           };
   
-          axios.delete(url, config);
-          window.location.reload()
+          axios.delete(url, config)
+          .then(() => {
+            window.location.reload();
+          });
         }
     }
 

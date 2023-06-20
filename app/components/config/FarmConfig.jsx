@@ -79,7 +79,11 @@ const FarmConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-        window.location.reload()
+        .then(() => {
+            window.location.reload();
+          });
+            window.location.reload();
+          });
     }
 
     const prefillEditModal = (selectedFarm) => {
@@ -119,7 +123,9 @@ const FarmConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-        window.location.reload()
+        .then(() => {
+            window.location.reload();
+          });
     }
 
     // DELETE request to delete Farm
@@ -140,9 +146,13 @@ const FarmConfigCom = (props) => {
               farmId: `${farmId}`,
             },
           };
-  
+  .then(() => {
+            window.location.reload();
+          });
           axios.delete(url, config)
-          window.location.reload()
+          .then(() => {
+            window.location.reload();
+          });
         }
     }
 

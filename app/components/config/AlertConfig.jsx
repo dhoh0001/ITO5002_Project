@@ -82,7 +82,9 @@ const AlertConfigCom = (props) => {
         }
     
         axios.put(url, data, config)
-        window.location.reload() 
+        .then(() => {
+            window.location.reload();
+          }); 
     }
 
     const prefillEditModal = (selectedAlert) => {
@@ -129,7 +131,9 @@ const AlertConfigCom = (props) => {
         }
 
         axios.post(url, data, config)
-        window.location.reload()
+        .then(() => {
+            window.location.reload();
+          });
     }
 
     // DELETE request to delete Alert
@@ -152,7 +156,9 @@ const AlertConfigCom = (props) => {
           };
   
           axios.delete(url, config)
-          window.location.reload()
+          .then(() => {
+            window.location.reload();
+          });
         }
     }
 
