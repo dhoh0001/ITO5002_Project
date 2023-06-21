@@ -12,7 +12,6 @@ const Name = (props) => {
     // Post Request to update Farm Name
     const formSubmit = (event) => {
         event.preventDefault();
-        setShowNameModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
 
@@ -32,7 +31,12 @@ const Name = (props) => {
     
         axios.post(url, data, config)
         .then(() => {
+          setShowNameModal(false);
           window.location.reload();
+        })
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
         });  
     }
 
@@ -117,6 +121,7 @@ const Name = (props) => {
                     <form className="" action="#" method="POST" onSubmit={formSubmit}>
                         <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Edit Farm Name</label>
                         <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black w-1/2" required/>
+                        <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 pt-4">
                           <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                           <button className="black_btn mx-2 mb-2" type="close" onClick={() => setShowNameModal(false)}>Close</button>

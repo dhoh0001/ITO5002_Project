@@ -60,7 +60,6 @@ const UserConfigCom = (props) => {
     // PUT Request to create User
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
@@ -83,8 +82,13 @@ const UserConfigCom = (props) => {
     
         axios.put(url, data, config)
         .then(() => {
+            setShowCreateModal(false);
             window.location.reload();
-          });      
+          })      
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     const prefillEditModal = (selectedUser) => {
@@ -104,7 +108,6 @@ const UserConfigCom = (props) => {
     // POST Request to edit User
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const userId = selectedUsers[0];
@@ -129,8 +132,13 @@ const UserConfigCom = (props) => {
 
         axios.post(url, data, config)
         .then(() => {
+            setShowEditModal(false);
             window.location.reload();
-          }); 
+          }) 
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     // DELETE request to delete User
@@ -259,6 +267,7 @@ const UserConfigCom = (props) => {
                             <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
                             <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -282,6 +291,7 @@ const UserConfigCom = (props) => {
                             <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
                             <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

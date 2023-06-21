@@ -59,7 +59,6 @@ const AlertConfigCom = (props) => {
     // PUT Request to create Alert
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowAlertModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
@@ -83,8 +82,13 @@ const AlertConfigCom = (props) => {
     
         axios.put(url, data, config)
         .then(() => {
+            setShowAlertModal(false);
             window.location.reload();
-          }); 
+          }) 
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     const prefillEditModal = (selectedAlert) => {
@@ -106,7 +110,6 @@ const AlertConfigCom = (props) => {
     // POST Request to edit Alert
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const alertId = selectedAlerts[0];
@@ -132,8 +135,13 @@ const AlertConfigCom = (props) => {
 
         axios.post(url, data, config)
         .then(() => {
+            setShowEditModal(false);
             window.location.reload();
-          });
+          })
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     // DELETE request to delete Alert
@@ -283,6 +291,7 @@ const AlertConfigCom = (props) => {
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
                             <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -311,6 +320,7 @@ const AlertConfigCom = (props) => {
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
                             <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
