@@ -22,7 +22,7 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.hardwareId= row.hardware_id;
                         obj.sensorAction = row.sensor_action;
-                        obj.logId = row.log_id;
+                        obj.farmId = row.farm_id;
                         res.send(JSON.stringify(obj));
                     } else {
                         res.status(404).send("id not found");
@@ -42,7 +42,7 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.hardwareId= row.hardware_id;
                         obj.sensorAction = row.sensor_action;
-                        obj.logId = row.log_id;
+                        obj.logId = row.farm_id;
                         sensors.push(obj);
                     });
                     res.send(JSON.stringify(sensors));
@@ -70,7 +70,7 @@ module.exports = ( function() {
                         obj.name = row.name;
                         obj.hardwareId= row.hardware_id;
                         obj.sensorAction = row.sensor_action;
-                        obj.logId = row.log_id;
+                        obj.farmId = row.farm_id;
                         sensors.push(obj);
                     });
                     res.send(JSON.stringify(sensors));
