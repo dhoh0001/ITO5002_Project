@@ -60,7 +60,6 @@ const LightPanel = (props) => {
     // POST Request to edit user
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const userId = selectedusers[0];
@@ -85,7 +84,11 @@ const LightPanel = (props) => {
         axios.post(url, data, config)
         .then(() => {
             window.location.reload();
-          }); 
+          }) 
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     return (
@@ -221,6 +224,7 @@ const LightPanel = (props) => {
                             <input id="lastName" name="lastName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Email</label>
                             <input id="email" name="email"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

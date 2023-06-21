@@ -60,7 +60,6 @@ const SensorPanel = (props) => {
     // PUT Request to create Log
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
@@ -83,8 +82,13 @@ const SensorPanel = (props) => {
     
         axios.put(url, data, config)
         .then(() => {
+            setShowCreateModal(false);
             window.location.reload();
-          });
+          })
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
       }
 
 
@@ -106,7 +110,6 @@ const SensorPanel = (props) => {
     // POST Request to edit Sensor
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const sensorId = selectedSensors[0];
@@ -130,8 +133,13 @@ const SensorPanel = (props) => {
 
         axios.post(url, data, config)
         .then(() => {
+            setShowEditModal(false);
             window.location.reload();
-          });
+          })
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     // DELETE request to delete Log
@@ -278,6 +286,7 @@ const SensorPanel = (props) => {
                             <input id="sensorAction" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Id</label>
                             <input id="sensorId" name="sensorId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -303,6 +312,7 @@ const SensorPanel = (props) => {
                             <input id="sensorAction" name="sensorAction" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Id</label>
                             <input id="sensorId" name="sensorId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>

@@ -59,7 +59,6 @@ const LightPanel = (props) => {
     // PUT Request to create Farm
     const formCreateSubmit = (event) => {
         event.preventDefault();
-        setShowCreateModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
@@ -78,8 +77,13 @@ const LightPanel = (props) => {
     
         axios.put(url, data, config)
         .then(() => {
+            setShowCreateModal(false);
             window.location.reload();
-          }); 
+          }) 
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
     const prefillEditModal = (selectedFarm) => {
@@ -98,7 +102,6 @@ const LightPanel = (props) => {
     // POST Request to edit Farm
     const formEditSubmit = (event) => {
         event.preventDefault();
-        setShowEditModal(false);
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries())
         const farmId = selectedFarms[0];
@@ -121,8 +124,13 @@ const LightPanel = (props) => {
 
         axios.post(url, data, config)
         .then(() => {
+            setShowEditModal(false);
             window.location.reload();
-          });  
+          })  
+        .catch((error) => {
+            const errorDiv = document.getElementById("errorMessage");
+            errorDiv.innerHTML = "Error: " + error.response.data;
+        });  
     }
 
 
@@ -265,6 +273,7 @@ const LightPanel = (props) => {
                             <input id="farmName" name="farmName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -287,6 +296,7 @@ const LightPanel = (props) => {
                             <input id="farmName" name="farmName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
