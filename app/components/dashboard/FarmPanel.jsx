@@ -271,7 +271,7 @@ const LightPanel = (props) => {
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" /> */}
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Name</label>
                             <input id="farmName" name="farmName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">User ID</label>
                             <input id="userId" name="userId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
