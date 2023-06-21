@@ -122,11 +122,11 @@ module.exports = ( function() {
             return;
         }
         let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.name.match(regex)) {
+        if(!req.body.name.match(regex)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
-        if(!req.query.logSetting.match(regex)) {
+        if(!req.body.logSetting.match(regex)) {
             res.status(500).send("The log setting has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
