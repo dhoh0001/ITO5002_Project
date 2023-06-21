@@ -309,10 +309,10 @@ const LightPanel = (props) => {
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
-                            <label className="block text-sm font-bold mx-2 text-white pt-4" >Alert Name</label>
-                            <input id="alertName" name="alertName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Id</label>
                             <input id="alertId" name="alertId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black pointer-events-none bg-slate-400" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4" >Alert Name</label>
+                            <input id="alertName" name="alertName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Level</label>
                             <input id="alertLevel" name="alertLevel" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Timeframe</label>
