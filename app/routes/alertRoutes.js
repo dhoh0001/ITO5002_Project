@@ -58,7 +58,7 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        let regex = new RegExp("^([a-zA-Z0-9@.-_ ]*)$");
         if(!regex.test(req.query.uid)) {
             res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
@@ -89,7 +89,7 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        let regex = new RegExp("^([a-zA-Z0-9@.-_ ]*)$");
         if(!regex.test(req.query.name)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
@@ -127,7 +127,7 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        let regex = new RegExp("^([a-zA-Z0-9@.-_ ]*)$");
         if(!regex.test(req.body.name)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
