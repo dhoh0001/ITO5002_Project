@@ -67,7 +67,7 @@ function createTables(newdb) {
             name varchar(100),
             sensor_id int,
             farm_id integer,
-            log_settings text
+            log_setting text
         );
         create table sensor (
             sensor_id integer primary key,
