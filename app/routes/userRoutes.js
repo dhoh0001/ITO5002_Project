@@ -53,8 +53,8 @@ module.exports = ( function() {
     });
     
     userRoutes.get('/byuid', function(req,res){
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.uid.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.uid)) {
             res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -83,8 +83,8 @@ module.exports = ( function() {
                 res.status(500).send("The length of the firstname is too long");
                 return;
             }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.firstName.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.firstName)) {
             res.status(500).send("The first name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -92,7 +92,7 @@ module.exports = ( function() {
                 res.status(500).send("The length of the lastname is too long");
                 return;
             }
-        if(!req.query.lastName.match(regex)) {
+        if(!regex.test(req.query.lastName)) {
             res.status(500).send("The last name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -100,7 +100,7 @@ module.exports = ( function() {
                 res.status(500).send("The length of the email is too long");
                 return;
             }
-        if(!req.query.email.match(regex)) {
+        if(!regex.test(req.query.email)) {
             res.status(500).send("The email has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -108,7 +108,7 @@ module.exports = ( function() {
                 res.status(500).send("The length of the uid is too long");
                 return;
             }
-        if(!req.query.uid.match(regex)) {
+        if(!regex.test(req.query.uid)) {
             res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -133,8 +133,8 @@ module.exports = ( function() {
             res.status(500).send("The length of the firstname is too long");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.body.firstName.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_])$");
+        if(!regex.test(req.body.firstName)) {
             res.status(500).send("The first name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -142,7 +142,7 @@ module.exports = ( function() {
             res.status(500).send("The length of the lastname is too long");
             return;
         }
-        if(!req.body.lastName.match(regex)) {
+        if(!regex.test(req.body.lastName)) {
             res.status(500).send("The last name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -150,7 +150,7 @@ module.exports = ( function() {
             res.status(500).send("The length of the email is too long");
             return;
         }
-        if(!req.body.email.match(regex)) {
+        if(!regex.test(req.body.email)) {
             res.status(500).send("The email has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -158,7 +158,7 @@ module.exports = ( function() {
             res.status(500).send("The length of the uid is too long");
             return;
         }
-        if(!req.body.uid.match(regex)) {
+        if(!regex.test(req.body.uid)) {
             res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }

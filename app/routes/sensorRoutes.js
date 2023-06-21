@@ -53,8 +53,8 @@ module.exports = ( function() {
 
 
     sensorRoutes.get('/byuid', function(req,res){
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.uid.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.uid)) {
             res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -87,8 +87,8 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.name.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.name)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -96,7 +96,7 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        if(!req.query.sensorAction.match(regex)) {
+        if(!regex.test(req.query.sensorAction)) {
             res.status(500).send("The sensor action has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -124,8 +124,8 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.body.name.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.body.name)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -133,7 +133,7 @@ module.exports = ( function() {
             res.status(500).send("The sensor action is too long");
             return;
         }
-        if(!req.body.sensorAction.match(regex)) {
+        if(!regex.test(req.body.sensorAction)) {
             res.status(500).send("The sensor action has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }

@@ -39,8 +39,8 @@ module.exports = ( function() {
     });
     
     dataRoutes.get('/dataforuser', function(req,res){
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.uid.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.uid)) {
             res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
