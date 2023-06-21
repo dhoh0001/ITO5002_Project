@@ -50,6 +50,11 @@ module.exports = ( function() {
 
 
     farmRoutes.get('/byuid', function(req,res){
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             let farms = [];
             let sql = `select f.* from farm f inner join user u on u.user_id = f.user_id where u.uid = ?;`;
             farm_db.db.all(sql, [req.query.uid], (err, rows) => {
@@ -71,6 +76,11 @@ module.exports = ( function() {
     farmRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.name.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(!Number.isInteger(parseInt(req.query.userId))) {
@@ -97,6 +107,11 @@ module.exports = ( function() {
         }
         if(req.body.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.name.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(!Number.isInteger(parseInt(req.body.userId))) {

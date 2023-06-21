@@ -53,6 +53,11 @@ module.exports = ( function() {
     });
     
     userRoutes.get('/byuid', function(req,res){
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             let users = [];
             let sql = `select * from user where uid = ?`;
             user_db.db.all(sql, [req.query.uid], (err, rows) => {
@@ -78,18 +83,38 @@ module.exports = ( function() {
                 res.status(500).send("The length of the firstname is too long");
                 return;
             }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.firstName.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             if(req.query.lastName.length > 100) {
                 res.status(500).send("The length of the lastname is too long");
                 return;
             }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.lastName.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             if(req.query.email.length > 100) {
                 res.status(500).send("The length of the email is too long");
                 return;
             }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.email.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             if(req.query.uid.length > 100) {
                 res.status(500).send("The length of the uid is too long");
                 return;
             }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
         let sql = `insert into user(first_name, last_name, email, uid) values (?, ?, ?, ?)`;
 
         user_db.db.run(sql, [req.query.firstName, req.query.lastName, req.query.email, req.query.uid], (err, rows) => {
@@ -111,16 +136,36 @@ module.exports = ( function() {
             res.status(500).send("The length of the firstname is too long");
             return;
         }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.firstName.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
         if(req.body.lastName.length > 100) {
             res.status(500).send("The length of the lastname is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.lastName.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(req.body.email.length > 100) {
             res.status(500).send("The length of the email is too long");
             return;
         }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.email.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
         if(req.body.uid.length > 100) {
             res.status(500).send("The length of the uid is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         let sql = `update user set first_name=?, last_name=?, email=?, uid=? where user_id= ?`;

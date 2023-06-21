@@ -54,6 +54,15 @@ module.exports = ( function() {
     });
 
     alertRoutes.get('/byuid', function(req,res){
+        if(req.query.uid.length > 100) {
+            res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             let alerts = [];
             let sql = `select a.* from alert a inner join farm f on a.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
             alert_db.db.all(sql, [req.query.uid], (err, rows) => {
@@ -78,6 +87,11 @@ module.exports = ( function() {
     alertRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.name.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(isNaN(Number.parseFloat(req.query.alertLevel))) {
@@ -111,6 +125,11 @@ module.exports = ( function() {
     alertRoutes.post('/', function(req,res){
         if(req.body.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.name.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(isNaN(Number.parseFloat(req.body.alertLevel))) {

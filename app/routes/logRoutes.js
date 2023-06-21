@@ -52,6 +52,11 @@ module.exports = ( function() {
     });
     
     logRoutes.get('/byuid', function(req,res){
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
             let sql = `select l.* from log l inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
             log_db.db.get(sql, [req.query.uid], (err, row) => {
                 if(err) {
@@ -75,6 +80,11 @@ module.exports = ( function() {
     logRoutes.put('/', function(req,res){
         if(req.query.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.name.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(!Number.isInteger(parseInt(req.query.sensorId))) {
@@ -105,6 +115,16 @@ module.exports = ( function() {
         }
         if(req.body.name.length > 100) {
             res.status(500).send("The length of the name is too long");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.name.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.logSetting.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(!Number.isInteger(parseInt(req.body.sensorId))) {
