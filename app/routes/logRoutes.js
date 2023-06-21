@@ -52,9 +52,9 @@ module.exports = ( function() {
     });
     
     logRoutes.get('/byuid', function(req,res){
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.uid.match(regex)) {
-            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.uid)) {
+            res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
             let sql = `select l.* from log l inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
@@ -82,8 +82,8 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.name.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.query.name)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
@@ -93,6 +93,10 @@ module.exports = ( function() {
         }
         if(!Number.isInteger(parseInt(req.query.farmId))) {
             res.status(500).send("The farm ID must be an integer");
+            return;
+        }
+        if(!regex.test(req.query.logSetting)) {
+            res.status(500).send("The log setting has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
 
@@ -117,14 +121,13 @@ module.exports = ( function() {
             res.status(500).send("The length of the name is too long");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.name.match(regex)) {
+        let regex = new RegExp("^([a-zA-Z0-9@.-_]*)$");
+        if(!regex.test(req.body.name)) {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
-        if(!req.query.logSetting.match(regex)) {
-            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+        if(!regex.test(req.body.logSetting)) {
+            res.status(500).send("The log setting has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(!Number.isInteger(parseInt(req.body.sensorId))) {
