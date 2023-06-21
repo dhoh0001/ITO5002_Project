@@ -100,6 +100,11 @@ module.exports = ( function() {
             res.status(500).send("The sensor action has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
+        let regex1 = new RegExp("^([a-zA-Z0-9@.:-_ ]*)$");
+        if(!regex1.test(req.query.hardwareId)) {
+            res.status(500).send("The hardware id has illegal characters, only letters, numbers and the characters @ : . - _ are allowed");
+            return;
+        }
         let sql = `insert into sensor(name, hardware_id, sensor_action, farm_id) values (?, ?, ?, ?)`;
 
         sensor_db.db.run(sql, [req.query.name, req.query.hardwareId, req.query.sensorAction, req.query.farmId], (err, rows) => {
