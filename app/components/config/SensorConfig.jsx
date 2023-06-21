@@ -174,7 +174,7 @@ const SensorConfigCom = (props) => {
             {sensorData && sensorData.length > 0 ? (
             <div>
                 {/* Main Panel */}
-                <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
+                <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border overflow-hidden">
                 <h2 className="text-center text-lg font-medium secondary-colour-border">Sensors</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
