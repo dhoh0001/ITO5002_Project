@@ -93,6 +93,7 @@ const SensorConfigCom = (props) => {
     const prefillEditModal = (selectedSensor) => {
         const sensorArray = Object.values(sensorData);
         const sensorObject = sensorArray.find((sensor) => selectedSensor.includes(sensor.sensorId));
+        console.log("sensorObject", sensorObject);
 
         if (sensorObject) {
             setTimeout(() => {
