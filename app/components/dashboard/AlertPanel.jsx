@@ -284,8 +284,6 @@ const LightPanel = (props) => {
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4" >Alert Name</label>
                             <input id="alertName" name="alertName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Id</label>
-                            <input id="alertId" name="alertId" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Level</label>
                             <input id="alertLevel" name="alertLevel" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert Timeframe</label>
