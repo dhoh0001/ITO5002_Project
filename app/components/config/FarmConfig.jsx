@@ -301,10 +301,16 @@ const FarmConfigCom = (props) => {
             {showDeleteModal ? (
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
                     <div>
-                        <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Are you sure you want to delete this farm?</label>
-                        <div className="pt-4">
-                           <button className="red_btn mx-2 mb-2" type="submit" onClick={deleteFarm}>Delete</button>
-                        </div>
+                        {(selectedFarms.length > 0) ? ( 
+                        <>
+                            <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Are you sure you want to delete this farm?</label>
+                            <div className="pt-4">
+                               <button className="red_btn mx-2 mb-2" type="submit" onClick={deleteFarm}>Delete</button>
+                            </div>
+                        </>
+                        ) : (
+                            <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">No farm selected.</label>
+                        )}
                         <div>
                            <button className="black_btn mx-2 mb-2" onClick={() => setShowDeleteModal(false)}>Close</button>
                         </div>
