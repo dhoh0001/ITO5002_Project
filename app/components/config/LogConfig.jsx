@@ -236,7 +236,6 @@ const LogConfigCom = (props) => {
                                         <th className="overflow-x-hidden text-left">Sensor ID</th>
                                         <th className="overflow-x-hidden text-left">Farm ID</th>
                                         <th className="overflow-x-hidden text-left">Log Setting</th>
-                                        <th className="overflow-x-hidden text-left">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="logTable">
@@ -259,7 +258,6 @@ const LogConfigCom = (props) => {
                                         <td className="overflow-x-hidden">{log.sensorId}</td>
                                         <td className="overflow-x-hidden">{log.farmId}</td>
                                         <td className="overflow-x-hidden">{log.logSetting}</td>
-                                        {/* <td>{log ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
                                 )}
@@ -299,7 +297,6 @@ const LogConfigCom = (props) => {
                                         <th className="overflow-x-hidden text-left">Sensor ID</th>
                                         <th className="overflow-x-hidden text-left">Farm ID</th>
                                         <th className="overflow-x-hidden text-left">Log Setting</th>
-                                        <th className="overflow-x-hidden text-left">Status</th>
                                     </tr>
                                 </thead>
                             </table>
