@@ -63,9 +63,7 @@ const StatusPanel = (props) => {
                     {
                     statusData.map((status) => (    
                         <tr key={status.statusId}>
-                            <td className="overflow-x-hidden">
-                                <input type="checkbox" id={status.statusId} className="appearance-none checked:bg-green-700" onChange={() => handleStatusSelection(status.statusId)}/>
-                            </td>
+                            <td></td>
                             <td className="overflow-x-hidden">{status.logId}</td>
                             <td className="overflow-x-hidden">{status.name}</td>
                             <td className="overflow-x-hidden">{status.value? status.value : 'No Value'}</td>
