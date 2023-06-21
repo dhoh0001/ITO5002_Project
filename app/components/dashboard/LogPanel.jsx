@@ -175,7 +175,7 @@ const LightPanel = (props) => {
             {logData && logData.length > 0 ? (
             <div>
                 {/* Main Panel */}
-                <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border">
+                <div className="mt-4 ml-6 p-4 h-fit border-4 secondary-colour-border overflow-hidden">
                 <h2 className="text-center text-lg font-medium secondary-colour-border">Logs</h2>
                     <div>
                         <div className="inline-flex rounded-md shadow-sm mb-2" role="group">
@@ -193,8 +193,8 @@ const LightPanel = (props) => {
                                 Delete
                             </button>
                         </div>
-                        <div className="ml-5">
-                            <table className="table-fixed border-separate border-spacing-2 border-4 border-black w-full overflow-hidden">
+                        <div className="ml-5 overflow-hidden">
+                            <table className="table-fixed border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
                                         <th className="overflow-x-hidden text-left"></th>

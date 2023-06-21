@@ -114,7 +114,7 @@ const LightPanel = (props) => {
                                 Delete
                             </button> */}
                         </div>
-                        <div className="ml-5">
+                        <div className="ml-5 overflow-hidden">
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
