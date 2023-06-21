@@ -26,7 +26,7 @@ const SensorPanel = (props) => {
         });
     };
 
-    // Get Request to get Sensor Name 
+    // Get Request to get Sensors
     useEffect(() => {  
         if (user && user.accessToken) { // Check if user and accessToken exist
           const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor/byuid`;
