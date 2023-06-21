@@ -39,6 +39,11 @@ module.exports = ( function() {
     });
     
     dataRoutes.get('/dataforuser', function(req,res){
+        let regex = new RegExp("[a-zA-Z0-9@.-_]");
+        if(!req.query.uid.match(regex)) {
+            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
         let sql = `select a.log_id, max(ld.timestamp), ld.value, a.name, a.alert_level from logdata ld right join alert a on a.log_id = ld.log_id inner join farm f on a.farm_id = f.farm_id inner join user u on f.user_id = u.user_id where u.uid = ? group by ld.log_id;`;
         data_db.db.all(sql, [req.query.uid], (err, rows) => {
             if(err) {
