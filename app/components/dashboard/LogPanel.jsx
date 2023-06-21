@@ -298,6 +298,7 @@ const LightPanel = (props) => {
                                 ))
                             : null}
                             </select>
+                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
