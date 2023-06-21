@@ -121,6 +121,7 @@ const UserConfigCom = (props) => {
             lastName: `${formObject.lastName}`,
             email: `${formObject.email}`,
             uid: `${user.uid}`,
+            // Test
         };
 
         const config = {
