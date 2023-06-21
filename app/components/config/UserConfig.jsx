@@ -116,12 +116,11 @@ const UserConfigCom = (props) => {
         const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/user`
 
         const data = { 
-            userId: props.userId,
             userId: `${formObject.userId}`,
             firstName: `${formObject.firstName}`,
             lastName: `${formObject.lastName}`,
             email: `${formObject.email}`,
-            uid: `${formObject.uid}`,
+            uid: `${user.uid}`,
         };
 
         const config = {
