@@ -121,7 +121,7 @@ const Sensor = (props) => {
             </div>
 
             {showSensorModal ? (
-                <div className="absolute z-50 m-auto left-0 right-0 secondary-colour w-3/12 h-fit p-4"> 
+                <div className="absolute z-50 m-auto left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4"> 
                     <div>
                     <form className="" action="#" method="POST" onSubmit={formSubmit}>
                         <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Name <span className="text-red-500" onClick={() => setShowSensorModal(false)}>X</span></label>

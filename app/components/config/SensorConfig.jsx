@@ -187,12 +187,12 @@ const SensorConfigCom = (props) => {
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
-                                        <th className="text-left">Sensor ID</th>
-                                        <th className="text-left">Name</th>
-                                        <th className="text-left">Hardware ID</th>
-                                        <th className="text-left">sensorAction</th>
-                                        <th className="text-left">Log ID</th>
+                                        <th className="overflow-x-hidden text-left"></th>
+                                        <th className="overflow-x-hidden text-left">Sensor ID</th>
+                                        <th className="overflow-x-hidden text-left">Name</th>
+                                        <th className="overflow-x-hidden text-left">Hardware ID</th>
+                                        <th className="overflow-x-hidden text-left">sensorAction</th>
+                                        <th className="overflow-x-hidden text-left">Log ID</th>
                                     </tr>
                                 </thead>
                                 <tbody id="sensorTable">
@@ -207,14 +207,14 @@ const SensorConfigCom = (props) => {
                                 ) : (
                                     sensorData.map((sensor) => (
                                     <tr id={sensor.sensorId} key={sensor.sensorId}>
-                                        <td>
+                                        <td className="overflow-x-hidden">
                                         <input type="checkbox" id={sensor.sensorId} className="appearance-none checked:bg-green-700" onChange={() => handleSensorSelection(sensor.sensorId)}/>
                                         </td>
-                                        <td>{sensor.sensorId}</td>
-                                        <td>{sensor.name}</td>
-                                        <td>{sensor.hardwareId}</td>
-                                        <td>{sensor.sensorAction}</td>
-                                        <td>{sensor.logId}</td>
+                                        <td className="overflow-x-hidden">{sensor.sensorId}</td>
+                                        <td className="overflow-x-hidden">{sensor.name}</td>
+                                        <td className="overflow-x-hidden">{sensor.hardwareId}</td>
+                                        <td className="overflow-x-hidden">{sensor.sensorAction}</td>
+                                        <td className="overflow-x-hidden">{sensor.logId}</td>
                                         {/* <td>{sensor ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
@@ -246,15 +246,15 @@ const SensorConfigCom = (props) => {
                             </button>
                         </div>
                         <div className="ml-5">
-                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                            <table className="overflow-x-hidden table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
-                                        <th className="text-left">Sensor ID</th>
-                                        <th className="text-left">Name</th>
-                                        <th className="text-left">Hardware ID</th>
-                                        <th className="text-left">sensorAction</th>
-                                        <th className="text-left">Log ID</th>
+                                        <th className="overflow-x-hidden text-left"></th>
+                                        <th className="overflow-x-hidden text-left">Sensor ID</th>
+                                        <th className="overflow-x-hidden text-left">Name</th>
+                                        <th className="overflow-x-hidden text-left">Hardware ID</th>
+                                        <th className="overflow-x-hidden text-left">sensorAction</th>
+                                        <th className="overflow-x-hidden text-left">Log ID</th>
                                     </tr>
                                 </thead>
 
@@ -266,7 +266,7 @@ const SensorConfigCom = (props) => {
             )}
 
             {showCreateModal ? (
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="PUT" onSubmit={formCreateSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
@@ -292,7 +292,7 @@ const SensorConfigCom = (props) => {
 
             {showEditModal ? (
                 (selectedSensors.length > 0) ?
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>

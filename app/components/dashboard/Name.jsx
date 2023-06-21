@@ -113,17 +113,15 @@ const Name = (props) => {
             </div>
 
             {showNameModal ? (
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour md:w-fit lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
-                    <div>
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="POST" onSubmit={formSubmit}>
                         <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Edit Farm Name</label>
-                        <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black w-1/2" />
+                        <input id="farmName" name="farmName" className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black w-1/2" required/>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 pt-4">
                           <button className="black_btn mx-2 mb-2" type="submit">Submit</button>
                           <button className="black_btn mx-2 mb-2" type="close" onClick={() => setShowNameModal(false)}>Close</button>
                         </div>
                     </form>
-                    </div>
                 </div>
             ) : null}
         </>

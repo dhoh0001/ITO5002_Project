@@ -47,30 +47,30 @@ const StatusPanel = (props) => {
 
     return (
         <>
-        <div className="mt-4 ml-6 p-4 h-fit">
+        <div className="mt-4 ml-6 h-fit">
             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                 <thead>
                     <tr>
                     <th className="text-left"></th>
-                        <th className="text-left">Log ID</th>
-                        <th className="text-left">Alert Name</th>
-                        <th className="text-left">Value</th>
-                        <th className="text-left">Alert Upper Level</th>
-                        <th className="text-left">Alert Status</th>
+                        <th className="overflow-x-hidden text-left">Log ID</th>
+                        <th className="overflow-x-hidden text-left">Alert Name</th>
+                        <th className="overflow-x-hidden text-left">Value</th>
+                        <th className="overflow-x-hidden text-left">Alert Upper Level</th>
+                        <th className="overflow-x-hidden text-left">Alert Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                     statusData.map((status) => (    
                         <tr key={status.statusId}>
-                            <td>
+                            <td className="overflow-x-hidden">
                                 <input type="checkbox" id={status.statusId} className="appearance-none checked:bg-green-700" onChange={() => handleStatusSelection(status.statusId)}/>
                             </td>
-                            <td>{status.logId}</td>
-                            <td>{status.name}</td>
-                            <td>{status.value? status.value : 'No Value'}</td>
-                            <td>{status.alertLevel}</td>
-                            <td>{status.value >= status.alertLevel? ' 🔴' :' 🟢 '} </td>
+                            <td className="overflow-x-hidden">{status.logId}</td>
+                            <td className="overflow-x-hidden">{status.name}</td>
+                            <td className="overflow-x-hidden">{status.value? status.value : 'No Value'}</td>
+                            <td className="overflow-x-hidden">{status.alertLevel}</td>
+                            <td className="overflow-x-hidden">{status.value >= status.alertLevel? ' 🔴' :' 🟢 '} </td>
                         </tr>
                     ))
                     }

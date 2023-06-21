@@ -188,13 +188,13 @@ const AlertConfigCom = (props) => {
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
-                                        <th className="text-left">Alert ID</th>
-                                        <th className="text-left">Name</th>
-                                        <th className="text-left">Alert Level</th>
-                                        <th className="text-left">Timeframe</th>
-                                        <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Alert ID</th>
+                                        <th className="overflow-x-hidden text-left"></th>
+                                        <th className="overflow-x-hidden text-left">Alert ID</th>
+                                        <th className="overflow-x-hidden text-left">Name</th>
+                                        <th className="overflow-x-hidden text-left">Alert Level</th>
+                                        <th className="overflow-x-hidden text-left">Timeframe</th>
+                                        <th className="overflow-x-hidden text-left">Farm ID</th>
+                                        <th className="overflow-x-hidden text-left">Alert ID</th>
                                     </tr>
                                 </thead>
                                 <tbody id="alertTable">
@@ -212,12 +212,12 @@ const AlertConfigCom = (props) => {
                                         <td>
                                         <input type="checkbox" id={alert.alertId} className="appearance-none checked:bg-green-700" onChange={() => handleAlertSelection(alert.alertId)}/>
                                         </td>
-                                        <td>{alert.alertId}</td>
-                                        <td>{alert.name}</td>
-                                        <td>{alert.alertLevel}</td>
-                                        <td>{alert.timeframe}</td>
-                                        <td>{alert.farmId}</td>
-                                        <td>{alert.alertId}</td>
+                                        <td className="overflow-x-hidden">{alert.alertId}</td>
+                                        <td className="overflow-x-hidden">{alert.name}</td>
+                                        <td className="overflow-x-hidden">{alert.alertLevel}</td>
+                                        <td className="overflow-x-hidden">{alert.timeframe}</td>
+                                        <td className="overflow-x-hidden">{alert.farmId}</td>
+                                        <td className="overflow-x-hidden">{alert.alertId}</td>
                                     </tr>
                                     ))
                                 )}
@@ -251,13 +251,13 @@ const AlertConfigCom = (props) => {
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
-                                        <th className="text-left">Alert ID</th>
-                                        <th className="text-left">Name</th>
-                                        <th className="text-left">Alert Level</th>
-                                        <th className="text-left">Timeframe</th>
-                                        <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Alert ID</th>
+                                        <th className="overflow-x-hidden text-left"></th>
+                                        <th className="overflow-x-hidden text-left">Alert ID</th>
+                                        <th className="overflow-x-hidden text-left">Name</th>
+                                        <th className="overflow-x-hidden text-left">Alert Level</th>
+                                        <th className="overflow-x-hidden text-left">Timeframe</th>
+                                        <th className="overflow-x-hidden text-left">Farm ID</th>
+                                        <th className="overflow-x-hidden text-left">Alert ID</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -268,7 +268,7 @@ const AlertConfigCom = (props) => {
             )}
 
             {showCreateModal ? (
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="PUT" onSubmit={formCreateSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert ID</label>
@@ -296,7 +296,7 @@ const AlertConfigCom = (props) => {
 
             {showEditModal ? (
                 (selectedAlerts.length > 0) ?
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Alert ID</label>

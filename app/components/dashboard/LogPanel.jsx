@@ -179,15 +179,15 @@ const LightPanel = (props) => {
                             </button>
                         </div>
                         <div className="ml-5">
-                            <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
+                            <table className="table-fixed border-separate border-spacing-2 border-4 border-black w-full overflow-hidden">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
-                                        <th className="text-left">ID</th>
-                                        <th className="text-left">Log Name</th>
-                                        <th className="text-left">Sensor ID</th>
-                                        <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Log Setting</th>
+                                        <th className="overflow-x-hidden text-left"></th>
+                                        <th className="overflow-x-hidden text-left">ID</th>
+                                        <th className="overflow-x-hidden text-left">Log Name</th>
+                                        <th className="overflow-x-hidden text-left">Sensor ID</th>
+                                        <th className="overflow-x-hidden text-left">Farm ID</th>
+                                        <th className="overflow-x-hidden text-left">Log Setting</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -202,14 +202,14 @@ const LightPanel = (props) => {
                                 ) : (
                                     logData.map((log) => (    
                                     <tr key={log.logId}>
-                                        <td>
+                                        <td className="overflow-hidden">
                                             <input type="checkbox" id={log.logId} className="appearance-none checked:bg-green-700" onChange={() => handleLogSelection(log.logId)}/>
                                         </td>
-                                        <td>{log.logId}</td>
-                                        <td>{log.name}</td>
-                                        <td>{log.sensorId}</td>
-                                        <td>{log.farmId}</td>
-                                        <td>{log.logSetting}</td>
+                                        <td className="overflow-x-hidden">{log.logId}</td>
+                                        <td className="overflow-x-hidden">{log.name}</td>
+                                        <td className="overflow-x-hidden">{log.sensorId}</td>
+                                        <td className="overflow-x-hidden">{log.farmId}</td>
+                                        <td className="overflow-x-hidden">{log.logSetting}</td>
                                     </tr>
                                     ))
                                 )}
@@ -244,11 +244,11 @@ const LightPanel = (props) => {
                             <table className="table-auto border-separate border-spacing-2 border-4 border-black w-full">
                                 <thead>
                                     <tr>
-                                        <th className="text-left"></th>
-                                        <th className="text-left">Log Name</th>
-                                        <th className="text-left">Sensor ID</th>
-                                        <th className="text-left">Farm ID</th>
-                                        <th className="text-left">Log Setting</th>
+                                        <th className="overflow-x-hidden text-left"></th>
+                                        <th className="overflow-x-hidden text-left">Log Name</th>
+                                        <th className="overflow-x-hidden text-left">Sensor ID</th>
+                                        <th className="overflow-x-hidden text-left">Farm ID</th>
+                                        <th className="overflow-x-hidden text-left">Log Setting</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -264,7 +264,7 @@ const LightPanel = (props) => {
             )}
 
             {showCreateModal ? (
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="PUT" onSubmit={formCreateSubmit}>
                         <div className="text-white mx-2">
                             {/* <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
@@ -288,7 +288,7 @@ const LightPanel = (props) => {
 
             {showEditModal ? (
                 (selectedLogs.length > 0) ?
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form id="editForm" className="" action="#" method="POST" onSubmit={formEditSubmit}>
                         <div className="text-white mx-2">
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
@@ -309,7 +309,7 @@ const LightPanel = (props) => {
                     </form>
                 </div>
                 : 
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl">
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour h-fit p-4 drop-shadow-2xl">
                     <h1 className="text-white pb-4">No logs selected.</h1>
                     <div>
                         <button className="black_btn mb-2" onClick={() => setShowEditModal(false)}>Close</button>
@@ -319,7 +319,7 @@ const LightPanel = (props) => {
 
             {showDeleteModal ? (
                 (selectedLogs.length > 0) ?
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl"> 
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <div>
                         <label className="block text-sm font-bold mx-2 text-white pt-4 pb-4">Are you sure you want to delete this log?</label>
                         <div className="pt-4">
