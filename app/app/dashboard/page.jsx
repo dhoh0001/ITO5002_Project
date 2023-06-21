@@ -18,6 +18,7 @@ const Farm = () => {
     const { user } = useAuthContext();
     const [userId, setUserId] = useState('');
     const [loading, setLoading] = useState(true);
+    const [sensorIds, setSensorIds] = useState([]);
     const [farmId, setFarmId] = useState('');
     const [logId, setLogId] = useState([]);
 
@@ -108,6 +109,36 @@ const Farm = () => {
               });
           }
       }, [user]);
+
+      // Get Request to get Sensors
+      useEffect(() => {  
+          if (user && user.accessToken) { // Check if user and accessToken exist
+            const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor/byuid`;
+            const params = {
+              params: {
+                  // Gotta fix this
+                  uid: user.uid,
+              },
+            };
+            const config = {
+              headers: {
+                authorization: `Bearer ${user.accessToken}`,
+              },
+            }
+      axios
+        .get(getUrl, { ...params, ...config })
+          .then((response) => {
+            // Handle successful response and update state if necessary
+            setSensorIds(response.data);
+          })
+          .catch((error) => {
+            console.error("Error retrieving data:", error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+        }
+      }, [user]); 
   
     return ( 
         <div> 
@@ -120,7 +151,7 @@ const Farm = () => {
                       <UserPanel userId={userId} /> 
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">
-                      <LogPanel userId={userId} farmId={farmId}/>
+                      <LogPanel userId={userId} farmId={farmId} sensorIds={sensorIds}/>
                       <SensorPanel userId={userId} farmId={farmId}/>    
                     </div>
                     <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1">

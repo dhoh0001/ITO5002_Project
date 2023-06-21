@@ -12,7 +12,8 @@ const LightPanel = (props) => {
     const [selectedLogs, setSelectedLogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useAuthContext();
-    const { userId, farmId } = props;
+    const { userId, farmId, sensorIds } = props;
+    const [sensorArray, setSensorArray] = useState([]);
 
     const handleLogSelection = (logId) => {
         setSelectedLogs((prevSelectedLogs) => {
@@ -25,6 +26,11 @@ const LightPanel = (props) => {
           }
         });
     };
+
+    useEffect(() => {
+        const updatedSensorArray = sensorIds.map((x) => ({ name: x.name, sensorId: x.sensorId }));
+        setSensorArray(updatedSensorArray);
+    }, [sensorIds]);
 
     // Get Request to get Log Object 
     useEffect(() => {
@@ -61,6 +67,7 @@ const LightPanel = (props) => {
         event.preventDefault();
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
+        console.log(formObject);
     
         const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/log?userId=${props.userId}&name=${formObject.logName}&sensorId=${formObject.sensorId}&farmId=${farmId}&logSetting=${formObject.logSetting}&uid=${user.uid}`
     
@@ -275,15 +282,22 @@ const LightPanel = (props) => {
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour sm:w-8/12 md:w-6/12 lg:w-4/12 h-fit p-4 drop-shadow-2xl"> 
                     <form className="" action="#" method="PUT" onSubmit={formCreateSubmit}>
                         <div className="text-white mx-2">
-                            {/* <label className="block text-sm font-bold mx-2 text-white pt-4">Log ID</label>
-                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" /> */}
+
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Name</label>
                             <input id="logName" name="logName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Setting</label>
                             <input id="logSetting" name="logSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor</label>
+                            <select id="sensorId" name="sensorId" className="mx-2 justify-center appearance-none border rounded px-8 text-black text-left">
+                            <option defaultValue></option>
+                            {sensorArray && sensorArray.length > 0
+                                ? sensorArray.map((sensor) => (
+                                    <option key={sensor.sensorId} value={sensor.sensorId}>
+                                    {sensor.name}
+                                    </option>
+                                ))
+                            : null}
+                            </select>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
@@ -319,7 +333,7 @@ const LightPanel = (props) => {
                     </form>
                 </div>
                 : 
-                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour h-fit p-4 drop-shadow-2xl">
+                <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 sm:w-8/12 md:w-6/12 lg:w-4/12 secondary-colour h-fit p-4 drop-shadow-2xl">
                     <h1 className="text-white pb-4">No logs selected.</h1>
                     <div>
                         <button className="black_btn mb-2" onClick={() => setShowEditModal(false)}>Close</button>

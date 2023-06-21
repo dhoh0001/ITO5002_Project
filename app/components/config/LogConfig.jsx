@@ -13,6 +13,8 @@ const LogConfigCom = (props) => {
     const [loading, setLoading] = useState(true);
     const { user } = useAuthContext();
     const { userId } = props;
+    const [sensorsIds, setSensorIds] = useState([]);
+    const [sensorArray, setSensorArray] = useState([]);
 
     const handleLogSelection = (logId) => {
         setSelectedLogs((prevSelectedLogs) => {
@@ -25,6 +27,41 @@ const LogConfigCom = (props) => {
           }
         });
     };
+
+    // Get Request to get Sensors
+      useEffect(() => {  
+        if (user && user.accessToken) { // Check if user and accessToken exist
+          const getUrl = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor/byuid`;
+          const params = {
+            params: {
+                // Gotta fix this
+                uid: user.uid,
+            },
+          };
+          const config = {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
+          }
+    axios
+      .get(getUrl, { ...params, ...config })
+        .then((response) => {
+          // Handle successful response and update state if necessary
+          setSensorIds(response.data);
+        })
+        .catch((error) => {
+          console.error("Error retrieving data:", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      }
+    }, [user]); 
+
+    useEffect(() => {
+        const updatedSensorArray = sensorsIds.map((x) => ({ name: x.name, sensorId: x.sensorId }));
+        setSensorArray(updatedSensorArray);
+    }, [sensorsIds]);
 
     // Get Request to get Log Object 
     useEffect(() => {
@@ -280,13 +317,23 @@ const LogConfigCom = (props) => {
                             <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" /> */}
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Name</label>
                             <input id="logName" name="logName"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
-                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            {/* <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor ID</label>
+                            <input id="sensorId" name="sensorId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" /> */}
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Farm ID</label>
                             <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Log Setting</label>
                             <input id="logSetting" name="logSetting"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor</label>
+                            <select id="sensorId" name="sensorId" className="mx-2 justify-center appearance-none border rounded px-8 text-black text-left">
+                            <option defaultValue></option>
+                            {sensorArray && sensorArray.length > 0
+                                ? sensorArray.map((sensor) => (
+                                    <option key={sensor.sensorId} value={sensor.sensorId}>
+                                    {sensor.name}
+                                    </option>
+                                ))
+                            : null}
+                            </select>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
                             </div>
