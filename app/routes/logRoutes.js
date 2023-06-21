@@ -54,7 +54,7 @@ module.exports = ( function() {
     logRoutes.get('/byuid', function(req,res){
         let regex = new RegExp("[a-zA-Z0-9@.-_]");
         if(!req.query.uid.match(regex)) {
-            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
             let sql = `select l.* from log l inner join farm f on l.farm_id = f.farm_id inner join user u on u.user_id = f.user_id where u.uid = ?;`;
@@ -95,6 +95,10 @@ module.exports = ( function() {
             res.status(500).send("The farm ID must be an integer");
             return;
         }
+        if(!req.query.logSetting.match(regex)) {
+            res.status(500).send("The log setting has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            return;
+        }
 
         let sql = `insert into log(name, sensor_id, farm_id, log_setting) values (?, ?, ?, ?)`;
 
@@ -122,9 +126,8 @@ module.exports = ( function() {
             res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
-        let regex = new RegExp("[a-zA-Z0-9@.-_]");
         if(!req.query.logSetting.match(regex)) {
-            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            res.status(500).send("The log setting has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
         if(!Number.isInteger(parseInt(req.body.sensorId))) {

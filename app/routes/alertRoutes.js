@@ -60,7 +60,7 @@ module.exports = ( function() {
         }
         let regex = new RegExp("[a-zA-Z0-9@.-_]");
         if(!req.query.uid.match(regex)) {
-            res.status(500).send("The name has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
+            res.status(500).send("The uid has illegal characters, only letters, numbers and the characters @ . - _ are allowed");
             return;
         }
             let alerts = [];
