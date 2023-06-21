@@ -63,23 +63,21 @@ const SensorConfigCom = (props) => {
         let formData = new FormData(event.target);
         let formObject = Object.fromEntries(formData.entries());
     
-        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&sensorAction=${formObject.sensorAction}&logId=${formObject.logId}&uid=${formObject.uid}`
+        const url = `http://ec2-13-239-65-84.ap-southeast-2.compute.amazonaws.com/sensor?name=${formObject.name}&hardwareId=${formObject.hardwareId}&farmId=${formObject.farmId}&sensorAction=${formObject.sensorAction}`
     
         const data = { 
-            userId: props.userId,
-            sensorId: `${formObject.sensorId}`,
+            farmId: formObject.farmId,
             name: `${formObject.name}`,
             hardwareId: `${formObject.hardwareId}`,
-            sensorAction: `${formObject.sensorAction}`,
-            logId: `${formObject.logId}`,
-
+            sensorId: formObject.sensorId,
+            sensorAction: `${formObject.sensorAction}`
         };
     
         const config = {
           headers:{
-                authorization: `Bearer ${user.accessToken}`,
+            authorization: `Bearer ${user.accessToken}`,
           }
-        }
+        };
     
         axios.put(url, data, config)
         .then(() => {
@@ -102,7 +100,7 @@ const SensorConfigCom = (props) => {
                 document.getElementById("name").value = sensorObject.name;
                 document.getElementById("hardwareId").value = sensorObject.hardwareId;
                 document.getElementById("sensorAction").value = sensorObject.sensorAction;
-                document.getElementById("logId").value = sensorObject.logId;
+                document.getElementById("farmId").value = sensorObject.farmId;
             }, 0);
         }
     };
@@ -123,7 +121,7 @@ const SensorConfigCom = (props) => {
             name: `${formObject.name}`,
             hardwareId: `${formObject.hardwareId}`,
             sensorAction: `${formObject.sensorAction}`,
-            logId: `${formObject.logId}`,
+            farmId: `${formObject.farmId}`,
         };
 
         const config = {
@@ -200,7 +198,6 @@ const SensorConfigCom = (props) => {
                                         <th className="overflow-x-hidden text-left">Name</th>
                                         <th className="overflow-x-hidden text-left">Hardware ID</th>
                                         <th className="overflow-x-hidden text-left">sensorAction</th>
-                                        <th className="overflow-x-hidden text-left">Log ID</th>
                                     </tr>
                                 </thead>
                                 <tbody id="sensorTable">
@@ -222,7 +219,6 @@ const SensorConfigCom = (props) => {
                                         <td className="overflow-x-hidden">{sensor.name}</td>
                                         <td className="overflow-x-hidden">{sensor.hardwareId}</td>
                                         <td className="overflow-x-hidden">{sensor.sensorAction}</td>
-                                        <td className="overflow-x-hidden">{sensor.logId}</td>
                                         {/* <td>{sensor ? "🟢" : "🔴"}</td> */}
                                     </tr>
                                     ))
@@ -262,7 +258,7 @@ const SensorConfigCom = (props) => {
                                         <th className="overflow-x-hidden text-left">Name</th>
                                         <th className="overflow-x-hidden text-left">Hardware ID</th>
                                         <th className="overflow-x-hidden text-left">sensorAction</th>
-                                        <th className="overflow-x-hidden text-left">Log ID</th>
+                                        <th className="overflow-x-hidden text-left">Farm ID</th>
                                     </tr>
                                 </thead>
 
@@ -283,8 +279,8 @@ const SensorConfigCom = (props) => {
                             <input id="hardwareId" name="hardwareId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Action</label>
                             <input id="sensorAction" name="sensorAction"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Id</label>
+                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
@@ -310,8 +306,8 @@ const SensorConfigCom = (props) => {
                             <input id="hardwareId" name="hardwareId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <label className="block text-sm font-bold mx-2 text-white pt-4">Sensor Action</label>
                             <input id="sensorAction" name="sensorAction"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
-                            <label className="block text-sm font-bold mx-2 text-white pt-4">Log Id</label>
-                            <input id="logId" name="logId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
+                            <label className="block text-sm font-bold mx-2 text-white pt-4">Farm Id</label>
+                            <input id="farmId" name="farmId"  className="shadow mx-2 justify-center appearance-none border rounded py-2 px-1 text-black" />
                             <div id="errorMessage" className='block text-sm font-medium leading-6 text-white'></div>
                             <div className="pt-4">
                                 <button className="red_btn mx-2 mb-2" type="submit">Submit</button>
@@ -348,7 +344,7 @@ const SensorConfigCom = (props) => {
                 <div className="absolute z-50 m-auto top-0 bottom-0 left-0 right-0 secondary-colour w-3/12 h-fit p-4 drop-shadow-2xl">
                     <h1 className="text-white pb-4">No sensors selected.</h1>
                     <div>
-                        <button className="black_btn mb-2" onClick={() => setShowEditModal(false)}>Close</button>
+                        <button className="black_btn mb-2" onClick={() => setShowDeleteModal(false)}>Close</button>
                     </div>                    
                 </div>
             ) : null}
